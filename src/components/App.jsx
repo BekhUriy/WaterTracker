@@ -6,11 +6,20 @@ import PrivateRoute from '../guards/PrivateRoute';
 import PublicRoute from '../guards/PublicRoute';
 import SignUpPage from '../pages/Signup/Signup';
 import SignInPage from '../pages/Singin/Singin';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileSelector } from '../redux/auth/selectors';
+import { refreshThunk } from '../redux/auth/thunk';
+import {  useEffect } from 'react';
 
 // const test = import.meta.env.VITE_API_TEST;
 function App() {
   // console.log(test);
-  // const dispatch = useDispatch();
+ const profile = useSelector(profileSelector)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		!profile && dispatch(refreshThunk())
+	}, [dispatch, profile])
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
