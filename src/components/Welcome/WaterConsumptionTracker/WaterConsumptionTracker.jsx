@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import {
   Button,
   CalendarIcon,
@@ -13,7 +14,13 @@ import {
 } from './WaterConsumptionTracker.styled';
 
 const WaterConsumptionTracker = () => {
+  const navigate =useNavigate()
+ 
+  const handlerClick = () => {
+    navigate('/signup')
+  }
   return (
+
     <>
       <Container>
         <Tittle>Water consumption tracker</Tittle>
@@ -33,7 +40,7 @@ const WaterConsumptionTracker = () => {
             <ItemText>Personal rate setting</ItemText>
           </Item>
         </List>
-        <Button type="button">Try tracker</Button>
+        <Button type="button" onClick={handlerClick}>Try tracker</Button>
       </Container>
     </>
   );
