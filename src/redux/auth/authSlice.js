@@ -5,6 +5,7 @@ const initialState = {
   token: '',
   profile: null,
   isLogin: false,
+  message: '',
 };
 
 const authSlice = createSlice({
@@ -19,29 +20,31 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUpThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.profile = payload.user;
-      })
-      .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.profile = payload.user;
+        .addCase(signUpThunk.fulfilled,  (state, { payload }) => {
+	      state.message = payload.message
+        })
+			  .addCase(loginThunk.fulfilled, (state, { payload }) => {
+	     state.token = payload.token
+          state.message = payload.message
+          state.isLogin = true;
+          
+       })
+			.addCase(refreshThunk.fulfilled, (state, { payload }) => {
+	     state.token = payload.token
+        state.message = payload.
         state.isLogin = true;
       })
+			.addCase(refreshThunk.rejected, (state) => {
+				state.token = ''
+				state.message= null
+        state.isLogin = false;
+        
+			})
       .addCase(logoutThunk.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLogin = false;
       })
-      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.profile = payload.user;
-      })
-      .addCase(refreshThunk.rejected, (state) => {
-        state.token = '';
-        state.profile = null;
-        state.isLogin = false;
-      });
   },
 });
 
