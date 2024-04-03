@@ -1,3 +1,4 @@
+
 import { Formik} from 'formik';
 import * as Yup from 'yup';
 import {NavForm, Label, ErrMessage, Btn, Title, AuthForm, Input, OpenEye, CloseEye, EyesBtn, TitleForm} from './LoginForm.styled';
@@ -27,13 +28,13 @@ export const LoginForm = ({handleSubmit}) => {
     <Formik
       initialValues={{
         email: '',
-        password: '',
+          password: '',
+        
       }}
       validationSchema={formSchema}  
  
     onSubmit={(values, actions) => {
       handleSubmit(values)
-      console.log(values);
       actions.resetForm();        
       }} 
       >
