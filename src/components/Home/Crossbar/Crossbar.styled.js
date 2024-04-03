@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const DarkOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); // Darken background color
+  z-index: 1; // Ensure it overlays other content
+`;
+
 export const CrossbarBox = styled.div`
   width: 280px;
   display: flex;
@@ -83,7 +93,7 @@ export const CrossbarSpanStart = styled.span`
   }
 `;
 
-export const CrossbarSpanSEnd = styled.span`
+export const CrossbarSpanEnd = styled.span`
   color: #407bff;
   text-align: center;
   font-size: 12px;
