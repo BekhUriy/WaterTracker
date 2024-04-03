@@ -1,11 +1,17 @@
 import axios from 'axios';
 
 export const authApi = axios.create({
-  baseURL: 'https://https://watertrackerbackend-uo3w.onrender.com/api/',
+  baseURL: 'https://watertrackerbackend-uo3w.onrender.com/api/',
 });
 
 export const signUpApi = async (body) => {
+  // Код для signUpApi
+};
+
 export const loginApi = async (body) => {
+  // Код для loginApi
+};
+
 export const refreshApi = async (token) => {
   try {
     const { data } = await authApi.post(
@@ -23,6 +29,7 @@ export const refreshApi = async (token) => {
     throw error;
   }
 };
+
 export const logoutApi = async (token) => {
   try {
     const { data } = await authApi.post(
