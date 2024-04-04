@@ -1,7 +1,7 @@
 //import React from "react";
 import { SettingSvg } from "./settingSvg/settingSvg";
 import { LogOutSvg } from "./logoutSvg/logoutSvg";
-import { LiStyled, UlStyled, UserLogoModalStyled } from "./userLogoModal-styled";
+import { LiStyled, UlStyled, UserLogoModalStyled } from "./userLogoModal.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { modalToggle, selectIsModalOpen } from "../../../../redux/setingModalSlicer";
 
