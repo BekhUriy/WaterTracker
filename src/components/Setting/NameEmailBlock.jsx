@@ -5,7 +5,8 @@ export const NameEmailBlock = ({ user, validate}) => {
   const [name, setName] = useState(user.name || '');
   const [email, setEmail] = useState(user.email || '');
 
-const handleEmailChange = (value) => {
+  const handleEmailChange = (value) =>
+  {
   setEmail(value);
   validate()
   };
