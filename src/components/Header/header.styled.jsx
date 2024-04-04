@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
     display: flex;
@@ -7,9 +7,7 @@ export const HeaderStyled = styled.header`
     justify-content: space-between;
     margin: 0 auto;
 
-    ${props =>
-    props.media &&
-    css`
+  
    
       @media (min-width: 768px) {
         min-width: 768px;
@@ -18,7 +16,6 @@ export const HeaderStyled = styled.header`
       @media (min-width: 1440px) {
         width: 1128px;
       }
-    `}
     
 `
 
