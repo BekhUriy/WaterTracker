@@ -5,11 +5,11 @@ export const WrapperMonth = styled.div`
     background-color: var(--background-tracker);
 
     @media screen and (min-width: 768px) {
-        width: 656px;
+        min-width: 656px;
     }
 
-    @media screen and (min-width: 1158px) {
-        width: 544px;
+    @media screen and (min-width: 1440px) {
+        min-width: 544px;
     }
 `;
 

@@ -3,6 +3,7 @@ import DailyNorma from '../../components/Home/DailyNorma/DailyNorma.jsx';
 import MonthStatsTable from '../../components/Home/MonthStatsTable/MonthStatsTable.jsx';
 import {
   BubblesContainer,
+  DailyNormaBackground,
   DailyNormaContainer,
   HomeContainer,
   HomeSection,
@@ -16,13 +17,14 @@ const HomePage = () => {
         <HomeContainer>
           <DailyNormaContainer>
             <DailyNorma />
+            <DailyNormaBackground/>
             {/* DailyNorma */}
-            <Crossbar></Crossbar>
+            <Crossbar/>
             {/* //WaterRatioPanel */}
           </DailyNormaContainer>
           <StatisticsContainer>
             {/* //TodayWaterList  */}
-            <MonthStatsTable/>
+            <MonthStatsTable />
             {/* //MonthStatsTable */}
           </StatisticsContainer>
         </HomeContainer>

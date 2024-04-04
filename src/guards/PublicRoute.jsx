@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
-import { isAuthSelector } from '../redux/auth/selectors';
+import { isAuthSelector, isLoggedInSelector } from '../redux/auth/selectors';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Component } from 'react';
 
 const PublicRoute = ({ component: Component, redirectTo = '/' } ) => {
-  const isAuth = useSelector(isAuthSelector);
+  const isAuth = useSelector(isLoggedInSelector);
+  console.log('isAuth', isAuth)
   // const { state: prevLocation } = useLocation();
   return isAuth ? <Navigate to={redirectTo}/> : Component  ;
 };
