@@ -4,7 +4,7 @@ import HomePage from '../pages/Home/Home';
 import WelcomePage from '../pages/Welcome/Welcome';
 import PrivateRoute from '../guards/PrivateRoute';
 import PublicRoute from '../guards/PublicRoute';
-// import SignUpPage from '../pages/Signup/Signup';
+//  import SignUpPage from '../pages/Signup/Signup';
 import SignInPage from '../pages/Singin/Singin';
 import { useDispatch, useSelector } from 'react-redux';
 import { IsRefreshingSelector, profileSelector } from '../redux/auth/selectors';
