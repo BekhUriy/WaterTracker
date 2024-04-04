@@ -5,7 +5,7 @@ import { ModalContext } from "./DailyNormaModal/ModalProvider/ModalProvider"
 import DailyNormaModal from "./DailyNormaModal/DailyNormaModal";
 
 
-export const DailyNorma = () => {
+const DailyNorma = () => {
     const toggleModal = useContext(ModalContext);
 
     
@@ -24,3 +24,5 @@ export const DailyNorma = () => {
         </MyDailyNormaContainer>
     )
 }
+
+export default DailyNorma;
