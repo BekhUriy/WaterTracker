@@ -32,7 +32,7 @@ function App() {
         <Route
           index
           element={
-            <PublicRoute component={<WelcomePage />} />
+            <PublicRoute component={<WelcomePage />} redirectTo={'/home'}/>
           }
         />
         <Route
