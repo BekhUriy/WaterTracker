@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { loginApi, refreshApi, signUpApi, logoutApi } from '../../API/ApiAuth';
+import { loginApi, refreshApi, signUpApi, logoutApi, updateProfileApi } from '../../API/ApiAuth';
 
 
 export const signUpThunk = createAsyncThunk('auth/signUp', async (body, { rejectWithValue }) => {
@@ -40,6 +40,19 @@ export const logoutThunk = createAsyncThunk(
       const token = getState().auth.token;
       await logoutApi(token);
       return null;
+    } catch (error) {
+      return rejectWithValue(error.response.data.error);
+    }
+  }
+);
+
+export const updateProfileThunk = createAsyncThunk(
+  'auth/updateProfile',
+  async (updates, { rejectWithValue, getState }) => {
+    try {
+      const token = getState().auth.token;
+      const updatedProfile = await updateProfileApi(token, updates);
+      return updatedProfile;
     } catch (error) {
       return rejectWithValue(error.response.data.error);
     }

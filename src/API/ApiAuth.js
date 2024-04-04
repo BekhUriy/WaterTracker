@@ -47,3 +47,16 @@ export const logoutApi = async (token) => {
     throw error;
   }
 };
+
+export const updateProfileApi = async (token, updates) => {
+  const { data } = await authApi.put(
+    'auth/profile',
+    updates,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return data;
+};
