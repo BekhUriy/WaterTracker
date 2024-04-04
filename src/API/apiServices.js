@@ -1,16 +1,21 @@
-import axios from "axios";
+import axios from 'axios';
 
-import {baseURL} from "../constants/urls.js";
+import { baseURL } from '../constants/urls.js';
+import { store } from '../store.js';
 
-const token = localStorage.getItem('token')
-
-const apiServices = axios.create({baseURL})
+const apiServices = axios.create({ baseURL });
 
 apiServices.interceptors.request.use(request => {
-    if (token) {
-        request.headers.Authorization = `Bearer ${token}`
+  const token = store.getState().auth.token;
+  request.headers.Authorization = `Bearer ${token}`;
+  store.subscribe(() => {
+    const newToken = store.getState().auth.token;
+    if (token !== newToken) {
+      request.headers.Authorization = `Bearer ${newToken}`;
     }
-    return request
-})
+  });
 
-export {apiServices}
+  return request;
+});
+
+export { apiServices };
