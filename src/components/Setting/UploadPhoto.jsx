@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Upload,
   UploadPhotoWrapper,
@@ -7,7 +7,7 @@ import {
   Label,
 } from './SettingModal.styled';
 
-import { ArrowUpSvg } from 'components/ArrowUpSvg';
+import { ArrowUpSvg } from './arrowUpSvg';
 import { useDispatch } from 'react-redux';
 import { updateProfileThunk } from '../../redux/auth/thunk';
 

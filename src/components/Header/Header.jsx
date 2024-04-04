@@ -13,7 +13,7 @@ const Header = () => {
       <div>
         <SiteLogo />
       </div>
-      <Block>{isLogin ? <UserAuth /> : <UserButton />}</Block>
+      <Block>{!isLogin ? <UserAuth /> : <UserButton />}</Block>
     </HeaderStyled>
   );
 };
