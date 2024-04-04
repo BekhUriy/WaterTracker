@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 import DesktopBottle1x from '../../images/imgSing/desktopBottle1x.png';
 import DesktopBottle2x from '../../images/imgSing/desktopBottle2x .png';
 import TabletBottle1x from '../../images/imgSing/tabletBottle1x.png';

@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './redux/auth/authSlice';
 import  modalWindowSlicer from './redux/modalWindowSlicer';
-import settingModalSlicer from './redux/setingModalSlicer'
+import settingModalSlicer from './redux/setingModalSlicer';
+import {monthReducer} from './redux/month/slice'
 import {
 	persistStore,
 	persistReducer,
@@ -33,6 +34,7 @@ export const store = configureStore({
 		auth: persistedReducer,
 		modalWindow: modalWindowSlicer,
         settingModal: settingModalSlicer,
+		month: monthReducer,
 	},
 	 middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -40,7 +42,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-//    devTools: process.env.NODE_ENV === 'development',
+//   devTools: process.env.NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);

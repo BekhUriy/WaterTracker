@@ -1,5 +1,9 @@
+import Crossbar from '../../components/Home/Crossbar/Crossbar.jsx';
+import DailyNorma from '../../components/Home/DailyNorma/DailyNorma.jsx';
+import MonthStatsTable from '../../components/Home/MonthStatsTable/MonthStatsTable.jsx';
 import {
-    DailyNormaContainer,
+  BubblesContainer,
+  DailyNormaContainer,
   HomeContainer,
   HomeSection,
   StatisticsContainer,
@@ -7,16 +11,23 @@ import {
 
 const HomePage = () => {
   return (
-    <HomeSection>
-      <HomeContainer>
-        <DailyNormaContainer>
-          //DailyNorma //WaterRatioPanel
-        </DailyNormaContainer>
-        <StatisticsContainer>
-          //TodayWaterList //MonthStatsTable
-        </StatisticsContainer>
-      </HomeContainer>
-    </HomeSection>
+    <BubblesContainer>
+      <HomeSection>
+        <HomeContainer>
+          <DailyNormaContainer>
+            <DailyNorma />
+            {/* DailyNorma */}
+            <Crossbar></Crossbar>
+            {/* //WaterRatioPanel */}
+          </DailyNormaContainer>
+          <StatisticsContainer>
+            {/* //TodayWaterList  */}
+            <MonthStatsTable/>
+            {/* //MonthStatsTable */}
+          </StatisticsContainer>
+        </HomeContainer>
+      </HomeSection>
+    </BubblesContainer>
   );
 };
 

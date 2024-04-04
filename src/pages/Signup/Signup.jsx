@@ -4,21 +4,23 @@ import { signUpThunk} from "../../redux/auth/thunk";
 import { Container, Bottle, FormWraper, Wraper } from './Signup.styled';
 
 
+
 const SignUpPage = () => {
     const dispatch = useDispatch();
-    const handleSubmit = ({ email, password }) => {
-        console.log(email); 
-        dispatch(signUpThunk({ email, password }))
+    const handleSubmit = (values) => {
+        dispatch(signUpThunk(values))
     }
+  
     return (
      <Container>
             <Wraper>
             <Bottle />  
                 <FormWraper><RegisterForm handleSubmit={handleSubmit} /></FormWraper>
-            </Wraper>    
+            </Wraper>  
         </Container> 
                 
    
   )
 }
+
 export default SignUpPage;

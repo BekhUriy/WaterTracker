@@ -4,6 +4,8 @@ import { loginThunk} from "../../redux/auth/thunk";
 import { Container,Wraper,Bottle } from "../Signup/Signup.styled";
 import { FormWraper } from "./Singin.styled";
 
+
+
 const SignInPage = () => {
     const dispatch = useDispatch()
     
@@ -21,4 +23,4 @@ const SignInPage = () => {
         
     )
 }
-export default SignInPage;
+export default SignInPage

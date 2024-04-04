@@ -5,6 +5,7 @@ export const HeaderStyled = styled.header`
     align-items: center;
     width: 320px;
     justify-content: space-between;
+    margin: 0 auto;
 
     ${props =>
     props.media &&
