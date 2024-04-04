@@ -3,7 +3,7 @@ import { loginThunk, logoutThunk, refreshThunk, signUpThunk } from './thunk';
 
 const initialState = {
   token: '',
-  profile: null,
+  user: null,
   isLogin: false,
   message: '',
 };
@@ -14,7 +14,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.token = '';
-      state.profile = null;
+      state.user = null;
       state.isLogin = false;
     },
   },
