@@ -7,21 +7,26 @@ import PublicRoute from '../guards/PublicRoute';
 // import SignUpPage from '../pages/Signup/Signup';
 import SignInPage from '../pages/Singin/Singin';
 import { useDispatch, useSelector } from 'react-redux';
-import { profileSelector } from '../redux/auth/selectors';
+import { IsRefreshingSelector, profileSelector } from '../redux/auth/selectors';
 import { refreshThunk } from '../redux/auth/thunk';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 
 // const test = import.meta.env.VITE_API_TEST;
 function App() {
   // console.log(test);
- const profile = useSelector(profileSelector)
-  const dispatch = useDispatch()
-  console.log(profile);
 
-	useEffect(() => {
-		!profile && dispatch(refreshThunk())
-	}, [dispatch, profile])
-  return (
+  const profile = useSelector(profileSelector);
+  const isRefreshing = useSelector(IsRefreshingSelector);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    !profile && dispatch(refreshThunk());
+  }, [dispatch, profile]);
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route
@@ -31,8 +36,8 @@ function App() {
           }
         />
         <Route
-          path="/home"
-          element={<PrivateRoute component={<HomePage />} />}
+          path="home"
+          element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
           // element={<PublicRoute redirectTo={'/'} component={<HomePage />} />}
 
         />
