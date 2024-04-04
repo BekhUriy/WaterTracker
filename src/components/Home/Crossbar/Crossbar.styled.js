@@ -6,8 +6,8 @@ export const DarkOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8); // Darken background color
-  z-index: 1; // Ensure it overlays other content
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
 `;
 
 export const CrossbarBox = styled.div`

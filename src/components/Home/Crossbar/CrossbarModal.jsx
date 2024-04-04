@@ -22,7 +22,7 @@ import {
   RecordingTimeTitle,
 } from './CrossbarModal.styled';
 
-const CrossbarModal = ({ isOpen, onClose }) => {
+const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   const [waterAmount, setWaterAmount] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
 
@@ -37,6 +37,8 @@ const CrossbarModal = ({ isOpen, onClose }) => {
   };
 
   const handleSaveButtonClick = () => {
+    onClose();
+    onSave(waterAmount);
     setCurrentTime(getCurrentTime());
   };
 
