@@ -20,31 +20,31 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(signUpThunk.fulfilled,  (state, { payload }) => {
-	      state.message = payload.message
-        })
-			  .addCase(loginThunk.fulfilled, (state, { payload }) => {
-	     state.token = payload.token
-          state.message = payload.message
-          state.isLogin = true;
-          
-       })
-			.addCase(refreshThunk.fulfilled, (state, { payload }) => {
-	     state.token = payload.token
-        state.message = payload.
+      .addCase(signUpThunk.fulfilled, (state, { payload }) => {
+        state.message = payload.message;
+      })
+      .addCase(loginThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.message = payload.message;
+        state.isLogin = true;
+
+      })
+      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.message = payload;
         state.isLogin = true;
       })
-			.addCase(refreshThunk.rejected, (state) => {
-				state.token = ''
-				state.message= null
+      .addCase(refreshThunk.rejected, (state) => {
+        state.token = '';
+        state.message = null;
         state.isLogin = false;
-        
-			})
+
+      })
       .addCase(logoutThunk.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLogin = false;
-      })
+      });
   },
 });
 
