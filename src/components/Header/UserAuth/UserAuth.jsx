@@ -1,11 +1,14 @@
 
+import { Link } from 'react-router-dom';
 import { UserLogoSvg } from '../userLogoSvg/userLogoSvg';
-import { SignInStyled } from './UserAuth-style';
+import { SignInStyled } from './UserAuth.styled';
 
 export const UserAuth = () => {
   return (
-    <SignInStyled type="button" media>
+    <Link to="/login">
+    <SignInStyled type="button">
       Sign In <UserLogoSvg />
     </SignInStyled>
+    </Link>
   );
 };

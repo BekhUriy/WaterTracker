@@ -4,7 +4,7 @@ import HomePage from '../pages/Home/Home';
 import WelcomePage from '../pages/Welcome/Welcome';
 import PrivateRoute from '../guards/PrivateRoute';
 import PublicRoute from '../guards/PublicRoute';
-import SignUpPage from '../pages/Signup/Signup';
+// import SignUpPage from '../pages/Signup/Signup';
 import SignInPage from '../pages/Singin/Singin';
 import { useDispatch, useSelector } from 'react-redux';
 import { IsRefreshingSelector, profileSelector } from '../redux/auth/selectors';
@@ -32,22 +32,23 @@ function App() {
         <Route
           index
           element={
-            <PublicRoute redirectTo="/home" component={<WelcomePage />} />
+            <PublicRoute component={<WelcomePage />} />
           }
         />
         <Route
           path="home"
           element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
           // element={<PublicRoute redirectTo={'/'} component={<HomePage />} />}
+
         />
-        <Route
+        {/* <Route
           path="signup"
           element={
             <PublicRoute component={<SignUpPage />} redirectTo="/home" />
           }
-        />
+        /> */}
         <Route
-          path="login"
+          path="/login"
           element={
             <PublicRoute component={<SignInPage />} redirectTo="/home" />
           }

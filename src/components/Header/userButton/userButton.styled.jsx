@@ -47,7 +47,9 @@ export const PhotoBlock = styled.div`
 export const UserName = styled.div`
     text-overflow: clip;
     text-wrap: nowrap;
+    white-space: nowrap;
     max-width: 66px;
+    overflow: hidden;
 `
 
 export const Holder = styled.div`

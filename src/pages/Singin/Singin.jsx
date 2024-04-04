@@ -16,7 +16,7 @@ const SignInPage = () => {
     return (
         <Container>
             <Wraper>
-            <Bottle />  
+            <Bottle/>  
                 <FormWraper> <LoginForm handleSubmit={handleSubmit} /></FormWraper>
             </Wraper>    
         </Container> 
