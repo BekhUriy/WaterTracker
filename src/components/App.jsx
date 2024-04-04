@@ -31,7 +31,9 @@ function App() {
         />
         <Route
           path="home"
-          element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
+          // element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
+          element={<PublicRoute redirectTo={'/'} component={<HomePage />} />}
+
         />
         <Route
           path="signup"
@@ -40,7 +42,7 @@ function App() {
           }
         />
         <Route
-          path="signin"
+          path="login"
           element={
             <PublicRoute component={<SignInPage />} redirectTo="/home" />
           }

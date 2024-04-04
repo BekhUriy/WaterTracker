@@ -1,5 +1,8 @@
+import Crossbar from '../../components/Home/Crossbar/Crossbar.jsx';
+import DailyNorma from '../../components/Home/DailyNorma/DailyNorma.jsx';
+import MonthStatsTable from '../../components/Home/MonthStatsTable/MonthStatsTable.jsx';
 import {
-    DailyNormaContainer,
+  DailyNormaContainer,
   HomeContainer,
   HomeSection,
   StatisticsContainer,
@@ -10,10 +13,15 @@ const HomePage = () => {
     <HomeSection>
       <HomeContainer>
         <DailyNormaContainer>
-          //DailyNorma //WaterRatioPanel
+          <DailyNorma />
+          {/* DailyNorma */}
+          <Crossbar></Crossbar>
+          {/* //WaterRatioPanel */}
         </DailyNormaContainer>
         <StatisticsContainer>
-          //TodayWaterList //MonthStatsTable
+          {/* //TodayWaterList  */}
+          <MonthStatsTable/>
+          {/* //MonthStatsTable */}
         </StatisticsContainer>
       </HomeContainer>
     </HomeSection>
