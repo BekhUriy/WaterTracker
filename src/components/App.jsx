@@ -15,7 +15,8 @@ import {  useEffect } from 'react';
 function App() {
   // console.log(test);
  const profile = useSelector(profileSelector)
-	const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  console.log(profile);
 
 	useEffect(() => {
 		!profile && dispatch(refreshThunk())
