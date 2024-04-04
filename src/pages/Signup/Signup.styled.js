@@ -26,7 +26,7 @@ export const Container = styled.section`
 `;
 
 
-export const Bottle = styled.image`
+export const Bottle = styled.img`
   display: block;
   line-height: 0;
   background-image: -webkit-image-set(
@@ -36,6 +36,7 @@ export const Bottle = styled.image`
   background-repeat: no-repeat;
   min-width: 280px;
   height: 210px;
+  border: transparent;
   background-position: center;
    @media screen and (min-width: 768px) {
     background-image: -webkit-image-set(
