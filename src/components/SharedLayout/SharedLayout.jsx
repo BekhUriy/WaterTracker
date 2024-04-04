@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { LayoutBox } from './SharedLayout.styled';
 import Header from '../Header/Header';
 
+
+
 const SharedLayout = () => {
   return (
     <>

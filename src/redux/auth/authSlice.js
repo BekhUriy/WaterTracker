@@ -3,7 +3,7 @@ import { loginThunk, logoutThunk, refreshThunk, signUpThunk } from './thunk';
 
 const initialState = {
   token: '',
-  profile: null,
+  user: null,
   isLogin: false,
   message: '',
 };
@@ -14,7 +14,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.token = '';
-      state.profile = null;
+      state.user = null;
       state.isLogin = false;
     },
   },
@@ -26,16 +26,20 @@ const authSlice = createSlice({
 			  .addCase(loginThunk.fulfilled, (state, { payload }) => {
 	     state.token = payload.token
           state.message = payload.message
-          state.isLogin = true;
+          state.user = payload.user
+          state.isLogin = true
+
           
        })
 			.addCase(refreshThunk.fulfilled, (state, { payload }) => {
 	     state.token = payload.token
-        state.message = payload.
+        state.message = payload.message
+        state.user = payload.user
         state.isLogin = true;
       })
 			.addCase(refreshThunk.rejected, (state) => {
-				state.token = ''
+        state.token = ''
+        state.user = null
 				state.message= null
         state.isLogin = false;
         
