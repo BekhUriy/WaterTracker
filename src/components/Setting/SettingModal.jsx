@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CloseSvg } from './CloseSvg';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -41,7 +41,8 @@ const formSchema = Yup.object().shape({
 
 
 export const SettingModal = () => {
-  const user = useSelector((state)=>state.auth.user)
+  const user = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch()
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
 
@@ -85,10 +86,10 @@ export const SettingModal = () => {
 
   return (
     <>
-      <WrapperSetting onClick={dispatch(modalClose())} onKeyDown={dispatch(modalClose())}>
+      <WrapperSetting onClick={dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={dispatch(modalClose())} />
+          <CloseSvg onClick={()=>dispatch(modalClose())} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>
