@@ -1,5 +1,5 @@
 //import React from "react";
-import { Holder, PhotoBlock, UserButtonStyle, UserName, UserPhoto } from "./userButton-styled";
+import { Holder, PhotoBlock, UserButtonStyle, UserName, UserPhoto } from "./userButton.styled";
 import { ArrowDownSvg } from "./arrowDownSvg/arrowDownSvg";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsModalOpen, modalToggle } from "../../../redux/modalWindowSlicer";

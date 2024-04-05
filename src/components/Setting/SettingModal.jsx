@@ -3,7 +3,6 @@ import { CloseSvg } from './CloseSvg';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import {
   BlockGender,
   BlockPassword,
@@ -58,8 +57,8 @@ export const SettingModal = () => {
     setState(prevState => !prevState);
   };
 
-  const notify = ()=>{toast("Default Notification!")}
 
+  const notify = ()=>{toast("Default Notification!")}
   const onSave = async (name, email, password) => {
     if (!isValid) {
         notify();
@@ -77,9 +76,11 @@ export const SettingModal = () => {
   };
 
   const validate = () => {
-    formSchema.validate({ email: user.email, name:user.name, password:user.password })
-      .then(() => setIsValid(true) )
-      .catch((error) => setIsValid(false));
+    formSchema.validate({ email: user.email, name: user.name, password: user.password })
+      .then(() => setIsValid(true))
+      .catch((error) =>{
+        console.log(error);
+        setIsValid(false)});
   }
 
   return (

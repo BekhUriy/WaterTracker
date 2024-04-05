@@ -1,5 +1,5 @@
 //import React from "react";
-import { LogoutSvgStyled } from "./logoutSvg-styled";
+import { LogoutSvgStyled } from "./logoutSvg.styled";
 
 export const LogOutSvg = ({color}) => {
     return (

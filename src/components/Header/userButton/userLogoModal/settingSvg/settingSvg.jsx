@@ -1,5 +1,5 @@
 //import React from "react";
-import { SettingSvgStyled } from "./settingSvg-styled";
+import { SettingSvgStyled } from "./settingSvg.styled";
 
 export const SettingSvg = ({color}) => {
     return (
