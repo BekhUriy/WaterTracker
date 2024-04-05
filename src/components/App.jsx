@@ -7,59 +7,51 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import WelcomePage from '../pages/Welcome/Welcome';
 import HomePage from '../pages/Home/Home';
 import SignInPage from '../pages/Singin/Singin';
-import { profileSelector } from '../redux/auth/selectors';
-import { refreshThunk } from '../redux/auth/thunk';
-import { UserLogoModal } from './Header/userButton/userLogoModal/userLogoModal';
-
+import SignUpPage from "../pages/Signup/Signup.jsx";
 
 import PrivateRoute from '../guards/PrivateRoute';
 import PublicRoute from '../guards/PublicRoute';
 
-import SignUpPage from "../pages/Signup/Signup.jsx";
-
-import {currentThunk} from "../redux/auth/thunk.js";
 import {useAuth} from "../hooks/useAuth.js";
+import {currentThunk} from "../redux/auth/thunk.js";
 
 function App() {
-  // console.log(test);
-  const profile = useSelector(profileSelector)
-  const dispatch = useDispatch()
-  console.log(profile);
+    const dispatch = useDispatch()
+    const token = useAuth().authToken
+    const isLogin = useAuth().authIsLogin
 
-	useEffect(() => {
-		!profile && dispatch(refreshThunk())
-	}, [dispatch, profile])
-  return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route
-          index
-          element={
-            <PublicRoute redirectTo="/home" component={<WelcomePage />} />
-          }
-        />
-        <Route
-          path="home"
-          // element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
-          element={<PublicRoute redirectTo={'/'} component={<HomePage />} />}
-
-        />
-        <Route
-          path="signup"
-          element={
-            <PublicRoute component={<SignUpPage />} redirectTo="/home" />
-          }
-        />
-        <Route
-          path="login"
-          element={
-            <PublicRoute component={<SignInPage />} redirectTo="/home" />
-          }
-        />
-        <Route path="*" element={<WelcomePage />} />
-      </Route>
-    </Routes>
-  );
+    useEffect(() => {
+        token && !isLogin && dispatch(currentThunk())
+    }, [dispatch, token, isLogin])
+    return (
+        <Routes>
+            <Route path="/" element={<SharedLayout/>}>
+                <Route
+                    index
+                    element={
+                        <PublicRoute redirectTo="/" component={<WelcomePage/>}/>
+                    }
+                />
+                <Route
+                    path="/home"
+                    element={<PrivateRoute redirectTo={'/'} component={<HomePage/>}/>}
+                />
+                <Route
+                    path="/signup"
+                    element={
+                        <PublicRoute component={<SignUpPage/>} redirectTo="/home"/>
+                    }
+                />
+                <Route
+                    path="/login"
+                    element={
+                        <PublicRoute component={<SignInPage/>} redirectTo="/home"/>
+                    }
+                />
+                <Route path="*" element={<WelcomePage/>}/>
+            </Route>
+        </Routes>
+    );
 }
 
 export default App;
