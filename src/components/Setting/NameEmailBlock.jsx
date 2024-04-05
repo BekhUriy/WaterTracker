@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BlockInput, InputTitle, Inputs, Input } from './SettingModal.styled';
 
 export const NameEmailBlock = ({ user, validate}) => {
