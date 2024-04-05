@@ -89,7 +89,6 @@ export const SettingModal = () => {
 
   return (
     <>
-
       <WrapperSetting onClick={()=>dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
 
         <SettingAndIcon>
