@@ -5,7 +5,7 @@ import {
     refreshApi,
     signUpApi,
     logoutApi,
-    updateProfileApi, currentApi
+    currentApi
 } from '../../API/ApiAuth';
 
 export const signUpThunk = createAsyncThunk(
