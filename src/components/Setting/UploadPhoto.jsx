@@ -9,7 +9,7 @@ import {
 
 import { ArrowUpSvg } from './ArrowUpSvg';
 import { useDispatch } from 'react-redux';
-import { updateProfileThunk } from '../../redux/auth/thunk';
+import { updateApiThunk } from '../../redux/user/thunk';
 
 export const UploadPhoto = () => {
   const [avatarSrc, setAvatarSrc] = useState(null);
@@ -22,7 +22,7 @@ export const UploadPhoto = () => {
       reader.onload = async function (e) {
         setAvatarSrc(e.target.result);
         try {
-          await dispatch(updateProfileThunk({ avatar: e.target.result }));
+          await dispatch(updateApiThunk({ avatar: e.target.result }));
         } catch (error) {
           console.error('Error updating profile:', error);
         }
