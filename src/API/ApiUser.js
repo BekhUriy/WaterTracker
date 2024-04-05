@@ -1,4 +1,4 @@
-import {apiServices } from "../API/apiServices";
+import {apiServices } from "./apiServices";
 
 const token = localStorage.getItem()
 
