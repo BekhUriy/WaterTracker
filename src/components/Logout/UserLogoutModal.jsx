@@ -10,7 +10,7 @@ import {
   TitleTwo,
   WrapperLogout,
 } from './UserLogoutModal.styled';
-import { CloseSvg } from './CloseSvg';
+import { CloseSvg } from './closeSvg';
 import { useDispatch } from 'react-redux';
 import { logoutThunk } from '../../redux/auth/thunk';
 import { modalClose } from '../../redux/logoutModalSlicer';
