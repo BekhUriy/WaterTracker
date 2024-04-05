@@ -41,8 +41,11 @@ const formSchema = Yup.object().shape({
 
 
 export const SettingModal = () => {
+
   const user = useSelector((state) => state.auth.user)
+  console.log(user)
   const dispatch = useDispatch()
+
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
 
@@ -86,7 +89,9 @@ export const SettingModal = () => {
 
   return (
     <>
-      <WrapperSetting onClick={dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
+
+      <WrapperSetting onClick={()=>dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
+
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
           <CloseSvg onClick={()=>dispatch(modalClose())} />

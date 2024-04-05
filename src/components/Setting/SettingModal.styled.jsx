@@ -26,6 +26,7 @@ export const WrapperSetting = styled.form`
   border-radius: 10px;
   background-color: #ffffff;
   box-sizing: border-box;
+ 
 `;
 
 export const SettingAndIcon = styled.div`
