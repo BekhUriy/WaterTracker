@@ -7,7 +7,7 @@ import {
   Label,
 } from './SettingModal.styled';
 
-import { ArrowUpSvg } from 'components/ArrowUpSvg';
+import { ArrowUpSvg } from './ArrowUpSvg';
 import { useDispatch } from 'react-redux';
 import { updateProfileThunk } from '../../redux/auth/thunk';
 

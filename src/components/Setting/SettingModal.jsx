@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { CloseSvg } from '../CloseSvg';
+import { CloseSvg } from './CloseSvg';
+import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import {
   BlockGender,
   BlockPassword,
@@ -22,6 +24,8 @@ import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
+import { updateProfileThunk } from '../../redux/auth/thunk';
+import { modalClose } from '../../redux/setingModalSlicer';
 
 const formSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,20 +33,16 @@ const formSchema = Yup.object().shape({
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
     .required('Email is required'),
   name: Yup.string()
-    .name('Enter a valid name')
-    .required('Name is requared')
-    .min(2),
+    .required('Name is required')
+    .min(2, 'Name must be at least 2 characters'),
   password: Yup.string()
     .required('Password is required')
-    .min(6, 'Enter the correct password')
+    .min(6, 'Password must be at least 6 characters'),
 });
 
-export const SettingModal = ({
-  user,
-  modalClose,
-  handleBackdropClick,
-  handleKeyPress,
-}) => {
+
+export const SettingModal = () => {
+  const user = useSelector((state)=>state.auth.user)
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
 
@@ -58,14 +58,15 @@ export const SettingModal = ({
     setState(prevState => !prevState);
   };
 
- const notify = ()=>{toast("Default Notification!")}
-  const onSave = async (name, email, password) => {
+  const notify = ()=>{toast("Default Notification!")}
 
+  const onSave = async (name, email, password) => {
     if (!isValid) {
-      notify();
-       toast.error("Enter valid data, please!");
-    }
+        notify();
+        toast.error("Enter valid data, please!");
+      }
     try {
+
       await updateProfileThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
@@ -83,10 +84,10 @@ export const SettingModal = ({
 
   return (
     <>
-      <WrapperSetting onClick={handleBackdropClick} onKeyDown={handleKeyPress}>
+      <WrapperSetting onClick={dispatch(modalClose())} onKeyDown={dispatch(modalClose())}>
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={modalClose} />
+          <CloseSvg onClick={dispatch(modalClose())} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>
