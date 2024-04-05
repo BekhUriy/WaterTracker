@@ -8,9 +8,8 @@ export const CloseSvg = ({ color}) => {
       height={20}
       viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -18,3 +17,5 @@ export const CloseSvg = ({ color}) => {
     </svg>
   );
 };
+
+//export default CloseSvg;

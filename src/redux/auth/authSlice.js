@@ -1,5 +1,17 @@
+
 import { createSlice } from '@reduxjs/toolkit';
 import { loginThunk, logoutThunk, refreshThunk, signUpThunk, updateProfileThunk } from './thunk';
+
+const handlePending = (state) => {
+    state.isLoading = true;
+    state.error = null;
+}
+
+const handleRejected = (state, {payload}) => {
+    state.isLoading = true;
+    state.error = payload;
+}
+
 
 const initialState = {
   token: '',

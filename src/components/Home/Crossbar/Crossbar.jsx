@@ -19,8 +19,11 @@ const Crossbar = () => {
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
 
+  const WaterNormaValue = '2.0 L'; // temporarily instead of import 'WaterNormaValue'
+
   useEffect(() => {
-    const percentage = (waterAmount / 2000) * 100;
+    const waterNormaInML = parseFloat(WaterNormaValue) * 1000;
+    const percentage = Math.round((waterAmount / waterNormaInML) * 100);
     setWaterIntakePercentage(percentage);
   }, [waterAmount]);
 
@@ -48,14 +51,17 @@ const Crossbar = () => {
           value={waterIntakePercentage}
           percentage={waterIntakePercentage}
         />
+
         <CrossbarProcentSpan>
           <CrossbarSpanStart>0%</CrossbarSpanStart>
-          <CrossbarSpanMiddle
-            style={{ left: `calc(${waterIntakePercentage}% + 4px)` }}
-            id="WaterMark"
-          >
-            {waterIntakePercentage}%
-          </CrossbarSpanMiddle>
+          {waterIntakePercentage > 1 && waterIntakePercentage < 99 && (
+            <CrossbarSpanMiddle
+              percentage={waterIntakePercentage}
+              id="WaterMark"
+            >
+              {waterIntakePercentage}%
+            </CrossbarSpanMiddle>
+          )}
           <CrossbarSpanEnd>100%</CrossbarSpanEnd>
         </CrossbarProcentSpan>
       </CrossbarBoxRange>
