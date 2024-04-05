@@ -15,6 +15,7 @@ export const WrapperLogout = styled.div`
   border-radius: 10px;
   background-color:#FFFFFF;
   box-sizing:border-box;
+  z-index: 70;
 `;
 
 export const LogoutTitle = styled.div`
