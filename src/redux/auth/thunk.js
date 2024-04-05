@@ -5,7 +5,7 @@ import {
     refreshApi,
     signUpApi,
     logoutApi,
-    updateProfileApi, currentApi
+    currentApi
 } from '../../API/ApiAuth';
 
 export const signUpThunk = createAsyncThunk(
@@ -67,15 +67,3 @@ export const refreshThunk = createAsyncThunk(
 // ---------------------------------------------------------------------------------------
 // not auth // todo
 
-export const updateProfileThunk = createAsyncThunk(
-    'auth/updateProfile',
-    async (updates, {rejectWithValue, getState}) => {
-        try {
-            const token = getState().auth.token;
-            const updatedProfile = await updateProfileApi(token, updates);
-            return updatedProfile;
-        } catch (error) {
-            return rejectWithValue(error.response.data.error);
-        }
-    }
-);
