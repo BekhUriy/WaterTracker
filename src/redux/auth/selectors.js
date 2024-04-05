@@ -1,4 +1,5 @@
 export const selectToken = state => state.auth.token;
+export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const selectUser = state => state.auth.user;
 export const selectMessage = state => state.auth.message;
 export const selectIsLogin = state => state.auth.message;
