@@ -7,8 +7,8 @@ import { Container, Bottle, FormWraper, Wraper } from './Signup.styled';
 
 const SignUpPage = () => {
     const dispatch = useDispatch();
-    const handleSubmit = (values) => {
-        dispatch(signUpThunk(values))
+    const handleSubmit = ({email, password}) => {
+        dispatch(signUpThunk(email, password))
     }
   
     return (
