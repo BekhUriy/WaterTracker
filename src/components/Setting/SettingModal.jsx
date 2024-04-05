@@ -67,7 +67,7 @@ export const SettingModal = () => {
       }
     try {
 
-      await updateProfileThunk({ name, email, password });
+      await updateApiThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
     } catch (error) {
