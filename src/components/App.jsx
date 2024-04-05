@@ -9,7 +9,6 @@ import HomePage from '../pages/Home/Home';
 import SignInPage from '../pages/Singin/Singin';
 import { profileSelector } from '../redux/auth/selectors';
 import { refreshThunk } from '../redux/auth/thunk';
-import {  useEffect } from 'react';
 import { UserLogoModal } from './Header/userButton/userLogoModal/userLogoModal';
 
 
