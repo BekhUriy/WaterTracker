@@ -1,65 +1,69 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { loginApi, refreshApi, signUpApi, logoutApi, updateProfileApi } from '../../API/ApiAuth';
+import {createAsyncThunk} from '@reduxjs/toolkit'
 
+import {
+    loginApi,
+    refreshApi,
+    signUpApi,
+    logoutApi,
+    currentApi
+} from '../../API/ApiAuth';
 
-export const signUpThunk = createAsyncThunk('auth/signup', async (body, { rejectWithValue }) => {
-	try {
-		const data = await signUpApi(body);
-		console.log(data);
-		const logInUser = await loginApi(body);
-		console.log(logInUser);
-		return data
-	} catch (error) {
-		return rejectWithValue(error.response.data.error);
-	}
-				
-})
+export const signUpThunk = createAsyncThunk(
+    'auth/signup',
+    async (body, {rejectWithValue}) => {
+        try {
+            return await signUpApi(body);
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    })
 
-export const loginThunk = createAsyncThunk('auth/login', async (body, { rejectWithValue }) => {
-	try {
-		const data = await loginApi(body)
-		console.log(data);
-		return data
-	} catch (error) {
-		console.log(error.response.data.error);
-		return rejectWithValue(error.response.data.error)
-	}
-})
-
-export const refreshThunk = createAsyncThunk(
-	'auth/current',
-	async (_, { rejectWithValue, getState }) => {
-		try {
-			return await refreshApi(getState().auth.token)
-		} catch (error) {
-			return rejectWithValue(error.response.data.error)
-		}
-	}
-)
-
+export const loginThunk = createAsyncThunk(
+    'auth/login',
+    async (body, {rejectWithValue}) => {
+        try {
+            return await loginApi(body)
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    })
 
 export const logoutThunk = createAsyncThunk(
-  'auth/logout',
-  async (_, { rejectWithValue, getState }) => {
-    try {
-      const token = getState().auth.token;
-      await logoutApi(token);
-      return null;
-    } catch (error) {
-      return rejectWithValue(error.response.data.error);
+    'auth/logout',
+    async (_, {rejectWithValue}) => {
+        try {
+            await logoutApi();
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
     }
-  }
 );
 
-export const updateProfileThunk = createAsyncThunk(
-  'auth/updateProfile',
-  async (updates, { rejectWithValue, getState }) => {
-    try {
-      const token = getState().auth.token;
-      const updatedProfile = await updateProfileApi(token, updates);
-      return updatedProfile;
-    } catch (error) {
-      return rejectWithValue(error.response.data.error);
+export const currentThunk = createAsyncThunk(
+    'auth/current',
+    async (_, {rejectWithValue}) => {
+        try {
+            return await currentApi();
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
     }
-  }
-);
+)
+
+// -------------------------------------------------------------------------------------
+// not understand
+
+export const refreshThunk = createAsyncThunk(
+    'auth/current',
+    async (_, {rejectWithValue}) => {
+        try {
+            return await refreshApi()
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+// ---------------------------------------------------------------------------------------
+// not auth // todo
+

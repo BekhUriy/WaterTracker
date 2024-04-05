@@ -26,7 +26,7 @@ export const Container = styled.section`
 `;
 
 
-export const Bottle = styled.img`
+export const Bottle = styled.div`
   display: block;
   line-height: 0;
   background-image: -webkit-image-set(

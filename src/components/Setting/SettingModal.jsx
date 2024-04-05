@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { CloseSvg } from '../CloseSvg';
-import notify from 'notify';
+import { CloseSvg } from './CloseSvg';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   BlockGender,
   BlockPassword,
@@ -21,6 +23,8 @@ import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
+import { modalClose } from '../../redux/setingModalSlicer';
+import { updateApiThunk } from '../../redux/user/thunk';
 
 const formSchema = Yup.object().shape({
   email: Yup.string()
@@ -28,20 +32,20 @@ const formSchema = Yup.object().shape({
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
     .required('Email is required'),
   name: Yup.string()
-    .name('Enter a valid name')
-    .required('Name is requared')
-    .min(2),
+    .required('Name is required')
+    .min(2, 'Name must be at least 2 characters'),
   password: Yup.string()
     .required('Password is required')
-    .min(6, 'Enter the correct password')
+    .min(6, 'Password must be at least 6 characters'),
 });
 
-export const SettingModal = ({
-  user,
-  modalClose,
-  handleBackdropClick,
-  handleKeyPress,
-}) => {
+
+export const SettingModal = () => {
+
+  const user = useSelector((state) => state.auth.user)
+  console.log(user)
+  const dispatch = useDispatch()
+
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
 
@@ -57,28 +61,40 @@ export const SettingModal = ({
     setState(prevState => !prevState);
   };
 
+
+  const notify = ()=>{toast("Default Notification!")}
   const onSave = async (name, email, password) => {
+    if (!isValid) {
+        notify();
+        toast.error("Enter valid data, please!");
+      }
     try {
-      await updateProfileThunk({ name, email, password });
+
+      await updateApiThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
     } catch (error) {
-      notify.show('An error occurred while saving data.', 'error');
+      notify();
+      toast.error('An error occurred while saving data.');
     }
   };
 
   const validate = () => {
-    formSchema.validate({ email: user.email, name:user.name, password:user.password })
-      .then(() => setIsValid(true) )
-      .catch((error) => setIsValid(false));
+    formSchema.validate({ email: user.email, name: user.name, password: user.password })
+      .then(() => setIsValid(true))
+      .catch((error) =>{
+        console.log(error);
+        setIsValid(false)});
   }
 
   return (
     <>
-      <WrapperSetting onClick={handleBackdropClick} onKeyDown={handleKeyPress}>
+
+      <WrapperSetting onClick={()=>dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
+
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={modalClose} />
+          <CloseSvg onClick={()=>dispatch(modalClose())} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>
@@ -165,6 +181,7 @@ export const SettingModal = ({
         </GeneralBlock>
         <Button>
           <SaveButton disabled={!isValid} type="submit" onClick={() => onSave(user.name, user.email)} >Save</SaveButton>
+          <ToastContainer/>
         </Button>
       </WrapperSetting>
     </>
