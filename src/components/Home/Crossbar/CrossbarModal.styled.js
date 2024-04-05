@@ -12,6 +12,11 @@ export const CrossbarRootDiv = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
   overflow: auto;
   z-index: 999;
+
+  @media screen and (min-width: 768px) {
+    min-width: 704px;
+    padding: 32px 24px;
+  }
 `;
 
 export const CrossbarAddWaterDiv = styled.div`
@@ -21,6 +26,11 @@ export const CrossbarAddWaterDiv = styled.div`
   padding: 24px 12px;
   color: rgb(47, 47, 47);
   align-items: center;
+
+  @media screen and (min-width: 768px) {
+    padding: 0;
+    margin-bottom: 24px;
+  }
 `;
 
 export const CrossbarAddWaterButton = styled.button`
@@ -36,6 +46,10 @@ export const CrossbarChooseValueDiv = styled.div`
   padding-bottom: 24px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
 `;
 
 export const AmountWaterTitle = styled.p`
@@ -131,6 +145,10 @@ export const RecordingTimeInput = styled.input`
   border-radius: 6px;
   border: 1px solid rgb(215, 227, 255);
   background-color: rgb(255, 255, 255);
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const EnterValueTitle = styled.p`
@@ -161,6 +179,13 @@ export const CrossbarChooseValueSaveDiv = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0;
+  }
 `;
 
 export const ChooseValueSaveSpan = styled.span`
@@ -188,6 +213,10 @@ export const ChooseValueSaveButton = styled.button`
   box-shadow: rgba(64, 123, 255, 0.34) 0px 4px 8px;
   transition: background-color 250ms cubic-bezier(0.165, 0.84, 0.44, 1.03) 0s;
   border: none;
+
+  @media screen and (min-width: 768px) {
+    width: 160px;
+  }
 
   &:hover {
     background: rgba(64, 123, 255, 0.8);
