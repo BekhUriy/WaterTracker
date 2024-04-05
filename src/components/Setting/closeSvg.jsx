@@ -1,5 +1,4 @@
-import React from 'react';
-export const closeSvg = () => {
+export const CloseSvg = () => {
   return (
     <svg
       id="logoutIcon"
