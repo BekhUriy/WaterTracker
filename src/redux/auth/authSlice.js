@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, logoutThunk, refreshThunk, signUpThunk, updateProfileThunk } from './thunk';
+import { loginThunk, logoutThunk, refreshThunk, signUpThunk } from './thunk';
 
 const handlePending = (state) => {
     state.isLoading = true;
