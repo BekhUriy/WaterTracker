@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-axios.defaults.baseURL = 'https://';
+axios.defaults.baseURL = 'https://watertrackerbackend-uo3w.onrender.com';
 
 export const fetchWaterPortionsList = async () => {
   try {
-    const responce = await axios.get('/portions');
+    const responce = await axios.get('api/water');
     console.log(responce.data);
     return responce.data;
   } catch (error) {
@@ -15,31 +15,44 @@ export const fetchWaterPortionsList = async () => {
 };
 export const addWaterPortion = async ({portion }) => {
   try {
-    const responce = await axios.post('/portions', portion);
+    const responce = await axios.post('api/water', portion);
     return responce.data;
   } catch (error) {
     console.log(error)
   }
 };
-export const deleteContact = async id => {
+export const deleteWaterPortion = async id => {
   try {
-    const responce = await axios.delete(`/portions/${id}`);
+    const responce = await axios.delete(`api/water/${id}`);
     return responce.data;
   } catch (error) {
     console.log(error)
   }
 };
+
+export const editWaterPortion=async id=>{
+  try {
+    const responce = await axios.patch(`api/water/${id}`);
+    return responce.data;
+  } catch (error) {
+   console.log(error) 
+  }
+}
 export const getWaterPortionsThunk = createAsyncThunk(
-  'portions/fetchAll',
+  'water/fetchAll',
   async () => {
     return await fetchWaterPortionsList();
   }
 );
 export const addPortionThunk = createAsyncThunk(
-  'portions/addPortion',
+  'water/addPortion',
   portion => addWaterPortion({ portion })
 );
 export const deletePortionThunk = createAsyncThunk(
-  'portions/deletePortion',
+  'water/deletePortion',
   id => deletePortionThunk(id)
+);
+export const EditPortionThunk = createAsyncThunk(
+  'water/editPortion',
+  id => editWaterPortion(id)
 );

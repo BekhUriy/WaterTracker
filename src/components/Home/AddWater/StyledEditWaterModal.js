@@ -22,7 +22,7 @@ export const StyledModal = styled.div`
   border-radius: 10px;
   width: 280px;
 height:648px;
-  padding: 32px 24px 32px 24px;
+  padding: 24px 12px 24px 12px;
   gap: 24px;
  
   overflow: auto;
@@ -35,7 +35,27 @@ height:648px;
 export const StyledModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  gap:32px;
+  align-items: flex-start;
 `;
 export const StyledCounter = styled.div`
   display: flex;
 `;
+export const StyledEditWaterBox=styled.div`
+display: flex;
+-webkit-box-pack: justify;
+justify-content: space-between;
+flex-direction:column;
+color: rgb(47, 47, 47);
+align-items: center;
+gap:24px;
+margin-top:24px;
+`
+export const StyledDataBar=styled.div`
+width: 256px;
+height: 52px;
+padding: 8px 24px 8px 24px;
+border-radius: 10px;
+opacity: 0px;
+background-color:#ECF2FF;
+`

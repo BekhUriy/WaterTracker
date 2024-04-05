@@ -1,9 +1,9 @@
 
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {  addPortionThunk, deletePortionThunk, getWaterPortionsThunk } from './addWaterOperations';
+import {  EditPortionThunk, addPortionThunk, deletePortionThunk, getWaterPortionsThunk } from './addWaterOperations';
 
 const InitialState = {
-  portions: [],
+  waterRecords: [],
   isLoading: false,
   error: null,
   };
@@ -14,17 +14,17 @@ const handlePending = state => {
 const handleFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.portions = action.payload;
+  state.waterRecords = action.payload;
 };
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.portions.push(action.payload);
+  state.waterRecords.push(action.payload);
 };
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.portions = state.portions.filter(el => el.id !== action.payload.id);
+  state.waterRecords = state.waterRecords.filter(el => el.id !== action.payload.id);
 };
 const handleRejected = (state, action) => {
   state.isLoading = false;
@@ -32,18 +32,20 @@ const handleRejected = (state, action) => {
 };
 
 export const addWaterSlice = createSlice({
-  name: 'portions',
+  name: 'waterRecords',
   initialState: InitialState,
   extraReducers: builder => {
     builder
       .addCase(getWaterPortionsThunk.fulfilled, handleFulfilled)
       .addCase(addPortionThunk.fulfilled, handleFulfilledAdd)
       .addCase(deletePortionThunk.fulfilled, handleFulfilledDelete)
+      .addCase(EditPortionThunk.fulfilled, handleFulfilledDelete)
       .addMatcher(
         isAnyOf(
           getWaterPortionsThunk.pending,
           addPortionThunk.pending,
-          deletePortionThunk.pending
+          deletePortionThunk.pending,
+          EditPortionThunk.pending
         ),
         handlePending
       )
@@ -51,10 +53,11 @@ export const addWaterSlice = createSlice({
         isAnyOf(
           getWaterPortionsThunk.rejected,
           addPortionThunk.rejected,
-          deletePortionThunk.rejected
+          deletePortionThunk.rejected,
+          EditPortionThunk.rejected
         ),
         handleRejected
       );
   },
 });
-export const WaterRecordsReducer = addWaterSlice.reducer;
+export const waterRecordsReducer = addWaterSlice.reducer;

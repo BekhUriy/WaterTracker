@@ -30,6 +30,8 @@ import { useState } from 'react';
 import{EditWaterModal} from './EditWater'
 import { DeleteModal } from './DeleteModal';
 import CrossbarModal from '../Crossbar/CrossbarModal';
+// import { useSelector } from 'react-redux';
+// import { getWater } from '../../../redux/addWater/addWaterSelector';
 export const AddWaterList = () => {
   //  const dispatch = useDispatch();
   //  const [isLargeScreen, setIsLargeScreen] = useState(false);
@@ -54,15 +56,15 @@ export const AddWaterList = () => {
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
-     //  const {portions, isLoading, isModalOpen, error} = useSelector(getPortions);
+      // const {waterRecords, isLoading, error} = useSelector(getWater);
   // useEffect(()=>{
   // dispatch(getWaterPortionsThunk())
   // })
-  // if (!portions || portions.length === 0 ) return;
-  // const portionsListItem = portions.map((portion)=>{
-  //     return(
-  //         <li key={portion.id}>
-  //             {portion.amount}{portion.time}
+  // if (!water || water.length === 0 ) return;
+  // const WaterRecordsListItems = water.map((waterRecord)=>{
+    //  //     return(
+  //         <li key={water.id}>
+  //             {water.amount}{water.time}
   //         </li>
   //     )
   // })
@@ -106,16 +108,16 @@ export const AddWaterList = () => {
   };
 
   return (
-    <StyledAddWaterMainContainer>
+  
       <div>
       <StyledAddWaterListContainer>
             <StyledListHeader>Today</StyledListHeader>
                <StyledAddWaterListFrame>
             <PortionsList />
                 </StyledAddWaterListFrame>
-            <AddWaterButton onClick={handleOpenAddModal}>
+            <AddWaterButton  >
             <IconButtonFrameTwo>
-           <PlusIconSmall/> 
+           <PlusIconSmall /> 
            </IconButtonFrameTwo>
            <StyledButtonText>Add water</StyledButtonText>
         </AddWaterButton>
@@ -124,7 +126,7 @@ export const AddWaterList = () => {
       <CrossbarModal isOpen={isModalOpen} onClose={closeAddModal} />
       <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal}/>
       </div>
-    </StyledAddWaterMainContainer>
+
    
   );
 };

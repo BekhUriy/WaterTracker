@@ -1,1 +1,1 @@
-export const getPortions = state => state.portions;
+export const getWater = state => state.waterRecords;
