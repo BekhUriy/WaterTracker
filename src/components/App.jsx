@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { profileSelector } from '../redux/auth/selectors';
 import { refreshThunk } from '../redux/auth/thunk';
 import {  useEffect } from 'react';
+import { UserLogoModal } from './Header/userButton/userLogoModal/userLogoModal';
 
 // const test = import.meta.env.VITE_API_TEST;
 function App() {
   // console.log(test);
- const profile = useSelector(profileSelector)
+  const profile = useSelector(profileSelector)
   const dispatch = useDispatch()
   console.log(profile);
 

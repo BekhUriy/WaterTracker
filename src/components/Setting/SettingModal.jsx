@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CloseSvg } from '../CloseSvg';
-import notify from 'notify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   BlockGender,
   BlockPassword,
@@ -57,13 +58,20 @@ export const SettingModal = ({
     setState(prevState => !prevState);
   };
 
+ const notify = ()=>{toast("Default Notification!")}
   const onSave = async (name, email, password) => {
+
+    if (!isValid) {
+      notify();
+       toast.error("Enter valid data, please!");
+    }
     try {
       await updateProfileThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
     } catch (error) {
-      notify.show('An error occurred while saving data.', 'error');
+      notify();
+      toast.error('An error occurred while saving data.');
     }
   };
 
@@ -165,6 +173,7 @@ export const SettingModal = ({
         </GeneralBlock>
         <Button>
           <SaveButton disabled={!isValid} type="submit" onClick={() => onSave(user.name, user.email)} >Save</SaveButton>
+          <ToastContainer/>
         </Button>
       </WrapperSetting>
     </>
