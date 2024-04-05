@@ -7,7 +7,6 @@ import SharedLayout from './SharedLayout/SharedLayout';
 import WelcomePage from '../pages/Welcome/Welcome';
 import HomePage from '../pages/Home/Home';
 import SignInPage from '../pages/Singin/Singin';
-import { useDispatch, useSelector } from 'react-redux';
 import { profileSelector } from '../redux/auth/selectors';
 import { refreshThunk } from '../redux/auth/thunk';
 import {  useEffect } from 'react';
