@@ -23,8 +23,8 @@ import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
-import { updateProfileThunk } from '../../redux/auth/thunk';
 import { modalClose } from '../../redux/setingModalSlicer';
+import { updateApiThunk } from '../../redux/user/thunk';
 
 const formSchema = Yup.object().shape({
   email: Yup.string()
@@ -66,7 +66,7 @@ export const SettingModal = () => {
       }
     try {
 
-      await updateProfileThunk({ name, email, password });
+      await updateApiThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
     } catch (error) {

@@ -16,7 +16,7 @@ export const refreshApi = async () => {
 }
 
 export const logoutApi = async () => {
-    const {data} = await apiServices.post('auth/logout')
+    const {data} = await apiServices.get('auth/logout')
     return data;
 };
 
@@ -24,10 +24,3 @@ export const currentApi = async () => {
     const {data} = await apiServices.get("auth/current")
     return data
 }
-
-// ????????????????????????????????  no understand
-
-export const updateProfileApi = async (_, updates) => {
-    const {data} = await apiServices.put('auth/profile', updates,);
-    return data;
-};
