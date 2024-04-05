@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CloseSvg } from './closeSvg';
+import { CloseSvg } from '../Logout/closeSvg';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
