@@ -1,19 +1,8 @@
-import axios from 'axios';
+import { apiServices } from './apiServices.js';
 import { urls } from '../constants/urls.js';
 
-const token = '';
-
-const config = {
-  baseURL: urls.baseURL,
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
-
-const apiMonthStats = axios.create(config);
-
 export const getMonthStateApi = async (date) => {
-  const { data } = await apiMonthStats(urls.month(date));
+  const { data } = await apiServices.get(urls.month(date));
   return data;
 };
 

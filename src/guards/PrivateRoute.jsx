@@ -1,12 +1,10 @@
-import { useSelector } from 'react-redux';
-import { isAuthSelector } from '../redux/auth/selectors';
-import { Navigate, useLocation } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+import {useAuth} from "../hooks/useAuth.js";
 
-const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
-  const isAuth = useSelector(isAuthSelector);
-  const location = useLocation();
+const PrivateRoute = ({component: Component, redirectTo = '/'}) => {
+    const isAuth = useAuth().authToken;
 
-  return isAuth ? Component : <Navigate to={redirectTo} />;
+    return isAuth ? Component : <Navigate to={redirectTo}/>;
 };
 
 export default PrivateRoute;

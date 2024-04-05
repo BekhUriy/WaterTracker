@@ -6,19 +6,19 @@ export const DarkOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8); // Darken background color
-  z-index: 1; // Ensure it overlays other content
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
 `;
 
 export const CrossbarBox = styled.div`
   width: 280px;
   display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 40px;
-  margin: 0 auto;
 
-  @media screen and (min-width: 767px) {
+  @media screen and (min-width: 768px) {
     width: 704px;
     flex-direction: row;
     gap: 24px;
@@ -31,30 +31,33 @@ export const CrossbarBox = styled.div`
   }
 `;
 
-export const CrossbarBoxRange = styled.div``;
+export const CrossbarBoxRange = styled.div`
+  position: relative;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+`;
 
 export const CrossbarText = styled.p`
   color: #407bff;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 133.333% */
+  line-height: 24px;
   margin-bottom: 8px;
 `;
 
 export const CrossbarInput = styled.input`
-  flex: 1;
-  height: 8px;
-  width: 256px;
+  appearance: none;
+  width: 100%;
   border-radius: 10px;
   background-color: rgb(215, 227, 255);
   background-image: linear-gradient(rgb(158, 187, 255), rgb(158, 187, 255));
   background-repeat: no-repeat;
   background-size: ${({ percentage }) => percentage}% 100%;
-  appearance: none;
-  margin: 0 8px;
+  height: 8px;
 
-  @media screen and (min-width: 767px) {
+  @media screen and (min-width: 768px) {
     width: 315px;
   }
 
@@ -72,13 +75,12 @@ export const CrossbarProcentSpan = styled.span`
 `;
 
 export const CrossbarSpanStart = styled.span`
-  color: #407bff;
-  text-align: center;
+  transform: translateX(-50%);
   font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px; /* 133.333% */
-  position: relative;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: rgb(64, 123, 255);
 
   &::before {
     content: '|';
@@ -94,12 +96,13 @@ export const CrossbarSpanStart = styled.span`
 `;
 
 export const CrossbarSpanEnd = styled.span`
-  color: #407bff;
-  text-align: center;
+  transform: translateX(50%);
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 16px; /* 133.333% */
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: rgb(64, 123, 255);
 
   &::before {
     content: '|';
@@ -115,12 +118,18 @@ export const CrossbarSpanEnd = styled.span`
 `;
 
 export const CrossbarSpanMiddle = styled.span`
-  color: #407bff;
-  text-align: center;
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 4px;
+  gap: 4px;
+  color: #407bff;
+  left: ${({ percentage }) => `calc(${percentage}% + 2px)`};
 
   &::before {
     content: '|';
@@ -149,7 +158,7 @@ export const CrossbarButton = styled.button`
   border: none;
   height: 100%;
 
-  @media screen and (min-width: 767px) {
+  @media screen and (min-width: 768px) {
     padding: 10px 104px;
     gap: 10px;
   }

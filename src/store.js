@@ -15,6 +15,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
  import { rootReducer } from './redux/rootSlice';
+import logoutModalSlicer from './redux/logoutModalSlicer';
 
 
 
@@ -33,7 +34,8 @@ export const store = configureStore({
 		root: rootReducer,
 		auth: persistedReducer,
 		modalWindow: modalWindowSlicer,
-        settingModal: settingModalSlicer,
+		settingModal: settingModalSlicer,
+		logoutModal: logoutModalSlicer,
 		month: monthReducer,
 	},
 	 middleware: getDefaultMiddleware =>

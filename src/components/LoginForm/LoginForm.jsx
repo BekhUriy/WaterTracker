@@ -57,7 +57,7 @@ export const LoginForm = ({handleSubmit}) => {
           </AuthForm>
         )}
       </Formik>
-      <NavForm to='/registration'>SingUp</NavForm>
+      <NavForm to='/signup'>SingUp</NavForm>
       </>
      )
 }

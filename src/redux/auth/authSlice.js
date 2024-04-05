@@ -1,5 +1,17 @@
+
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, logoutThunk, refreshThunk, signUpThunk } from './thunk';
+import { loginThunk, logoutThunk, refreshThunk, signUpThunk, updateProfileThunk } from './thunk';
+
+const handlePending = (state) => {
+    state.isLoading = true;
+    state.error = null;
+}
+
+const handleRejected = (state, {payload}) => {
+    state.isLoading = true;
+    state.error = payload;
+}
+
 
 const initialState = {
   token: '',
@@ -44,8 +56,11 @@ const authSlice = createSlice({
         state.user = { name: null, email: null };
         state.token = null;
         state.isLogin = false;
-      });
-  },
+      })
+      /* .addCase(updateProfileThunk.fulfilled, (state, { payload }) => {
+        state.profile = payload.user;
+      }); */
+  }
 });
 
 export const authReducer = authSlice.reducer;

@@ -1,14 +1,14 @@
-import { UserAuth } from './UserAuth/UserAuth';
-import { UserButton } from './userButton/userButton';
-import { Block, HeaderStyled } from './header-styled';
-import { useSelector } from 'react-redux';
-import { SiteLogo } from './siteLogo/siteLogo';
+import {UserAuth} from './UserAuth/UserAuth';
+import {UserButton} from './userButton/userButton';
+import {Block, HeaderStyled} from './header.styled';
+import {SiteLogo} from './siteLogo/siteLogo';
+import {useAuth} from "../../hooks/useAuth.js";
 
 const Header = () => {
-  const isLogin = useSelector((state) => state.auth.isLogin);
+  const isLogin = useAuth().authToken;
 
   return (
-    <HeaderStyled media>
+    <HeaderStyled>
       <div>
         <SiteLogo />
       </div>
