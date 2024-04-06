@@ -16,9 +16,11 @@ const authSlice = createSlice({
     builder
       // fulfilled
       .addCase(signUpThunk.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.message = payload.message;
         state.token = payload.token;
         state.user = payload.user;
+        state.isLogin = true;
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.isLogin = true;
