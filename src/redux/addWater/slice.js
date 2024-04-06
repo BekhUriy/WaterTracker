@@ -1,12 +1,16 @@
-
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {  EditPortionThunk, addPortionThunk, deletePortionThunk, getWaterPortionsThunk } from './thunk';
+import {
+  EditPortionThunk,
+  addPortionThunk,
+  deletePortionThunk,
+  getWaterPortionsThunk,
+} from './thunk';
 
 const InitialState = {
   waterRecords: [],
   isLoading: false,
   error: null,
-  };
+};
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -29,6 +33,8 @@ const handleFulfilledDelete = (state, action) => {
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+  isLoading: false;
+  error: null;
 };
 
 export const addWaterSlice = createSlice({
@@ -45,18 +51,18 @@ export const addWaterSlice = createSlice({
           getWaterPortionsThunk.pending,
           addPortionThunk.pending,
           deletePortionThunk.pending,
-          EditPortionThunk.pending
+          EditPortionThunk.pending,
         ),
-        handlePending
+        handlePending,
       )
       .addMatcher(
         isAnyOf(
           getWaterPortionsThunk.rejected,
           addPortionThunk.rejected,
           deletePortionThunk.rejected,
-          EditPortionThunk.rejected
+          EditPortionThunk.rejected,
         ),
-        handleRejected
+        handleRejected,
       );
   },
 });
