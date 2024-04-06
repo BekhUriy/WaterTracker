@@ -93,7 +93,7 @@ const waterSlice = createSlice({
           addPortionThunk.pending,
           EditPortionThunk.pending,
           deletePortionThunk.pending,
-          // getDailyNormaThunk.pending,
+          getWaterPortionByIdThunk.pending,
           editDailyNormaThunk.pending,
           monthStatsThunk.pending
         ),
@@ -105,7 +105,7 @@ const waterSlice = createSlice({
           addPortionThunk.rejected,
           EditPortionThunk.rejected,
           deletePortionThunk.rejected,
-          // getDailyNormaThunk.rejected,
+          getWaterPortionByIdThunk.rejected,
           editDailyNormaThunk.rejected,
           monthStatsThunk.rejected
         ),
