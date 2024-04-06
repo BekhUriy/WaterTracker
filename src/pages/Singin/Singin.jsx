@@ -1,8 +1,9 @@
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { useDispatch} from 'react-redux';
 import { loginThunk} from "../../redux/auth/thunk";
-import { Container,Wraper,Bottle } from "../Signup/Signup.styled";
+import { Container, Wraper, Bottle, StyledContainer } from "../Signup/Signup.styled";
 import { FormWraper } from "./Singin.styled";
+import {  toast } from 'react-toastify';
 
 
 
@@ -10,9 +11,18 @@ import { FormWraper } from "./Singin.styled";
 
 const SignInPage = () => {
     const dispatch = useDispatch();
+
+    const notify = () => {
+      toast.info(" Incorrect password or email", {
+       position: "bottom-right",
+        autoClose: 3000,
+        delay: 1000, 
+      });
+    };
     
     const handleSubmit = ({email,password}) => {
-        dispatch(loginThunk({email,password}))
+        dispatch(loginThunk({ email, password }))
+        notify()
         
     }
     return (
@@ -20,7 +30,8 @@ const SignInPage = () => {
             <Wraper>
             <Bottle/>  
                 <FormWraper> <LoginForm handleSubmit={handleSubmit} /></FormWraper>
-            </Wraper>   
+            </Wraper>  
+            <StyledContainer/>
         </Container> 
         
     )

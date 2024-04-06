@@ -69,7 +69,7 @@ const validationSchema = Yup.object().shape({
               <ErrMessage name="password" component="div" $error={errors.password && touched.password} />
             </Label>
             <Label htmlFor="repeatPassword"><Title>Repeat Password</Title>
-              <Input $error={errors.confirmPassword && touched.confirmPassword}
+              <Input $error={errors.repeatPassword && touched.repeatPassword}
                 type={showRepeatPassword ? 'text' : 'password'} name="repeatPassword" placeholder="Repeat password" />
               <span onClick={toggleRepeatPassword}>
                 {showRepeatPassword ? <EyesBtn>{<CloseEye />}</EyesBtn> : <EyesBtn>{<OpenEye />}</EyesBtn>}
