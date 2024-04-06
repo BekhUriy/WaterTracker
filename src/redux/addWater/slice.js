@@ -1,6 +1,6 @@
 
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {  EditPortionThunk, addPortionThunk, deletePortionThunk, getWaterPortionsThunk } from './addWaterOperations';
+import {  EditPortionThunk, addPortionThunk, deletePortionThunk, getWaterPortionsThunk } from './thunk';
 
 const InitialState = {
   waterRecords: [],
