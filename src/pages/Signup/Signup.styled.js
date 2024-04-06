@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ToastContainer } from "react-toastify";
 
 import DesktopBottle1x from '../../images/imgSing/desktopBottle1x.png';
 import DesktopBottle2x from '../../images/imgSing/desktopBottle2x .png';
@@ -9,6 +10,22 @@ import MobileBottle2x from '../../images/imgSing/mobileBottle1x.png';
 import DesktopBackground from '../../images/imgSing/desktopBackground1x.jpg';
 import TabletBackground from '../../images/imgSing/tabletBackground1x.png';
 import MobileBackground from '../../images/imgSing/mobileBackground1x.png';
+
+
+export const StyledContainer = styled(ToastContainer)`
+&&&.Toastify__toast-container {
+    background-color: #407BFF;
+  }
+  .Toastify__toast {
+    color: #407BFF;
+  }
+  .Toastify__toast-body {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .Toastify__progress-bar {
+  }
+`
 
 
 export const Container = styled.section`

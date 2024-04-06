@@ -1,10 +1,11 @@
 const baseURL = 'https://watertrackerbackend-uo3w.onrender.com/api/';
 
 const urls = {
-    month: (date) => `month?date=${date}`,
+  month: (date) => `month?date=${date}`,
+  waterRate: '',
 };
 
 export {
-    baseURL,
-    urls
-}
+  baseURL,
+  urls,
+};
