@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const CloseSvg = () => {
+export const SvgClose = () => {
   const [hovered, setHovered] = useState(false);
   return (
     <svg

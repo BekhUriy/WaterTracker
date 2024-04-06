@@ -39,12 +39,10 @@ const formSchema = Yup.object().shape({
     .min(6, 'Password must be at least 6 characters'),
 });
 
-
 export const SettingModal = () => {
-
-  const user = useSelector((state) => state.auth.user)
-  console.log(user)
-  const dispatch = useDispatch()
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+  const dispatch = useDispatch();
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
@@ -57,19 +55,19 @@ export const SettingModal = () => {
 
   const [isValid, setIsValid] = useState(true);
 
-  const togglePasswordVisibility = setState => {
-    setState(prevState => !prevState);
+  const togglePasswordVisibility = (setState) => {
+    setState((prevState) => !prevState);
   };
 
-
-  const notify = ()=>{toast("Default Notification!")}
+  const notify = () => {
+    toast('Default Notification!');
+  };
   const onSave = async (name, email, password) => {
     if (!isValid) {
-        notify();
-        toast.error("Enter valid data, please!");
-      }
+      notify();
+      toast.error('Enter valid data, please!');
+    }
     try {
-
       await updateApiThunk({ name, email, password });
       console.log('Data saved successfully');
       modalClose();
@@ -80,24 +78,28 @@ export const SettingModal = () => {
   };
 
   const validate = () => {
-    formSchema.validate({ email: user.email, name: user.name, password: user.password })
+    formSchema
+      .validate({ email: user.email, name: user.name, password: user.password })
       .then(() => setIsValid(true))
-      .catch((error) =>{
+      .catch((error) => {
         console.log(error);
-        setIsValid(false)});
-  }
+        setIsValid(false);
+      });
+  };
 
   return (
     <>
-      <WrapperSetting onClick={()=>dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
-
+      <WrapperSetting
+        onClick={() => dispatch(modalClose())}
+        onKeyDown={() => dispatch(modalClose())}
+      >
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={()=>dispatch(modalClose())} />
+          <CloseSvg onClick={() => dispatch(modalClose())} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>
-          <BlockGender >
+          <BlockGender>
             <GenderBlock user={user} onSave={onSave} />
             <NameEmailBlock user={user} validate={validate} />
           </BlockGender>
@@ -114,7 +116,7 @@ export const SettingModal = () => {
                   name="oldPassword"
                   value={showOldPassword ? oldPassword : ''}
                   placeholder="Password"
-                  onChange={e => setOldPassword(e.target.value)}
+                  onChange={(e) => setOldPassword(e.target.value)}
                   style={{ color: '#407bff' }}
                 />
                 {showOldPassword ? (
@@ -136,7 +138,7 @@ export const SettingModal = () => {
                   name="password"
                   value={showNewPassword ? newPassword : ''}
                   placeholder="Password"
-                  onChange={e => setNewPassword(e.target.value)}
+                  onChange={(e) => setNewPassword(e.target.value)}
                   style={{ color: '#407bff' }}
                 />
                 {showNewPassword ? (
@@ -158,7 +160,7 @@ export const SettingModal = () => {
                   name="password"
                   value={showRepeatPassword ? repeatPassword : ''}
                   placeholder="Password"
-                  onChange={e => setRepeatPassword(e.target.value)}
+                  onChange={(e) => setRepeatPassword(e.target.value)}
                   style={{ color: '#407bff' }}
                 />
                 {showRepeatPassword ? (
@@ -179,8 +181,14 @@ export const SettingModal = () => {
           </BlockPassword>
         </GeneralBlock>
         <Button>
-          <SaveButton disabled={!isValid} type="submit" onClick={() => onSave(user.name, user.email)} >Save</SaveButton>
-          <ToastContainer/>
+          <SaveButton
+            disabled={!isValid}
+            type="submit"
+            onClick={() => onSave(user.name, user.email)}
+          >
+            Save
+          </SaveButton>
+          <ToastContainer />
         </Button>
       </WrapperSetting>
     </>
