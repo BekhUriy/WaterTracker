@@ -28,7 +28,8 @@ position: absolute;
 font-size: 15px;
 font-weight: 400;
 line-height: 1.3;
-color:  ${({ $error }) => ($error ? 'rgba(255, 255, 255, 1)' : 'rgba(64, 123, 255, 1)')};
+// color:  ${({ $error }) => ($error ? 'rgba(255, 255, 255, 1)' : 'rgba(64, 123, 255, 1)')};
+color: var(--coral-color);
 `
 
 export const Title = styled.div`
@@ -106,6 +107,7 @@ display: flex;
     }
 `;
 export const Input = styled(Field)`
+padding-left:10px;
 position: relative;
 min-width: 280px;
   font-family: Roboto;
@@ -129,6 +131,7 @@ min-width: 280px;
     color: var(--text-passowrd) ;
     position: absolute;
     left: 10px;
+
   }
   
   ${({ $error }) =>

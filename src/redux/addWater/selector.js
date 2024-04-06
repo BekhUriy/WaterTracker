@@ -1,0 +1,1 @@
+export const getWater = state => state.waterRecords;
