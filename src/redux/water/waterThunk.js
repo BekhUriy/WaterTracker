@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getWaterPortionsList, editWaterPortion, addWaterPortion, deletePortion, editDailyNorma } from '../../API/waterApi.js';
+import { getWaterPortionsList, editWaterPortion, addWaterPortion, deletePortion, editDailyNorma, getWaterPortion } from '../../API/waterApi.js';
 import { getMonthStateApi } from '../../API/ApiMonthStats.js';
 
 export const getWaterPortionsThunk = createAsyncThunk(
@@ -12,7 +12,16 @@ export const getWaterPortionsThunk = createAsyncThunk(
     }
   },
 );
-
+export const getWaterPortionByIdThunk = createAsyncThunk(
+  'water/fetchPortionById',
+  async (id, { rejectWithValue }) => {
+    try {
+      return await getWaterPortion(id);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 export const addPortionThunk = createAsyncThunk(
   'water/addPortion',
   async (data, { rejectWithValue }) => {

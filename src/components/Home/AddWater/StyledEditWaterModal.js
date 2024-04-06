@@ -70,3 +70,16 @@ padding-bottom:1px;
 @media (min-width: 768px){
    gap:16px;
     }`
+ 
+export const DeleteModalStyled = styled.div`
+    min-width: 118px;
+    min-height: 88px;
+    padding: 16px;
+    border-radius: 10px;
+    z-index: 100;
+    box-shadow: 0px 4px 8px 0px #407BFF33;
+    position: absolute;
+    background-color: #fff;
+    top: 48px;
+   
+`

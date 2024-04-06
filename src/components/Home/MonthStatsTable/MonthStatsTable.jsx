@@ -28,8 +28,9 @@ import {
   IconWrapper, Percentage,
 } from './MonthStatsTable.styled.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMonth } from '../../../redux/month/selectors.js';
-import { monthStatsThunk } from '../../../redux/month/thunk.js';
+import { selectWaterMonth } from '../../../redux/water/selectors.js';
+import { monthStatsThunk } from '../../../redux/water/waterThunk.js';
+
 
 const MonthStatsTable = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -90,7 +91,7 @@ const MonthStatsTable = () => {
 
   // redux
   const dispatch = useDispatch();
-  const monthStats = useSelector(selectMonth);
+  const monthStats = useSelector(selectWaterMonth);
 
   useEffect(() => {
     dispatch(monthStatsThunk('2024-04-04'));

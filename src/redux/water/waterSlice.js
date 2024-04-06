@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { getWaterPortionsThunk, EditPortionThunk, addPortionThunk, deletePortionThunk, editDailyNormaThunk, monthStatsThunk } from './waterThunk.js';
+import { getWaterPortionsThunk, EditPortionThunk, addPortionThunk, deletePortionThunk, editDailyNormaThunk, monthStatsThunk, getWaterPortionByIdThunk } from './waterThunk.js';
 
 
 const handlePending = state => {
@@ -12,6 +12,12 @@ const handleFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.waterRecords = action.payload;
+};
+const handleFulfilledGetById = (state, action) => {
+  console.log(action.payload);
+  state.isLoading = false;
+  state.error = null;
+  state.waterRecord = action.payload;
 };
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
@@ -64,7 +70,7 @@ const initialState = {
   waterRate:"",
   isLoading: false,
   error: null,
-
+waterRecord:null,
 };
 
 const waterSlice = createSlice({
@@ -78,7 +84,7 @@ const waterSlice = createSlice({
       .addCase(addPortionThunk.fulfilled, handleFulfilledAdd)
       .addCase(deletePortionThunk.fulfilled, handleFulfilledDelete)
       .addCase(EditPortionThunk.fulfilled, handleFulfilledEdit)
-      // .addCase(getDailyNormaThunk.fulfilled, handleFulfilledGetNorma)
+      .addCase(getWaterPortionByIdThunk.fulfilled, handleFulfilledGetById)
       .addCase(editDailyNormaThunk.fulfilled, handleFulfilledEditDailyNorma)
       .addCase(monthStatsThunk.fulfilled, handleFulfilledMonthGet)
       .addMatcher(
