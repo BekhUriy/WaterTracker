@@ -22,27 +22,16 @@ import {
   RecordingTimeTitle,
 } from './CrossbarModal.styled';
 import { useDispatch } from 'react-redux';
-import { addPortionThunk, getWaterPortionsThunk } from '../../../redux/water/waterThunk.js';
-import { format } from 'date-fns';
-import { useWater } from '../../../hooks/useWater.js';
+import { addPortionThunk } from '../../../redux/water/waterThunk.js';
 
 const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
   const dispatch = useDispatch();
 
-  const curruntDate = new Date();
-  const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
-
-  useEffect(() => {
-    dispatch(getWaterPortionsThunk());
-  }, []);
-  const waterRecords = useWater().waterRecords;
-  console.log(waterRecords);
 
   const decrementWaterAmount = () => {
     if (amountWater >= 50) {
