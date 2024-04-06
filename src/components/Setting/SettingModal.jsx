@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CloseSvg } from '../Logout/closeSvg';
+import { CloseSvg } from './closeSvg';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -89,7 +89,6 @@ export const SettingModal = () => {
 
   return (
     <>
-
       <WrapperSetting onClick={()=>dispatch(modalClose())} onKeyDown={()=>dispatch(modalClose())}>
 
         <SettingAndIcon>

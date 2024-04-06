@@ -1,67 +1,68 @@
-
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, logoutThunk, refreshThunk, signUpThunk, updateProfileThunk } from './thunk';
+import { currentThunk, loginThunk, logoutThunk, signUpThunk } from './thunk';
 
 const handlePending = (state) => {
-    state.isLoading = true;
-    state.error = null;
-}
+  state.isLoading = true;
+  state.error = null;
+};
 
-const handleRejected = (state, {payload}) => {
-    state.isLoading = true;
-    state.error = payload;
-}
-
+const handleRejected = (state, { payload }) => {
+  state.isLoading = true;
+  state.error = payload;
+};
 
 const initialState = {
-  token: '',
-  user: null,
-  isLogin: false,
-  message: '',
+  token: '', // if response ok
+  user: null, // if response ok
+  message: '', // if response ok message olways from beck
+  isLogin: false, // refreshing page
+  isLoading: false, // loader
+  error: null, // error if bad response
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.token = '';
-      state.user = null;
-      state.isLogin = false;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
+      // pending
+      .addCase(signUpThunk.pending, handlePending)
+      .addCase(loginThunk.pending, handlePending)
+      .addCase(logoutThunk.pending, handlePending)
+      .addCase(currentThunk.pending, handlePending)
+      // fulfilled
       .addCase(signUpThunk.fulfilled, (state, { payload }) => {
         state.message = payload.message;
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.isLogin = true;
         state.token = payload.token;
+        state.user = payload.user;
         state.message = payload.message;
-        state.isLogin = true;
-
-      })
-      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.message = payload;
-        state.isLogin = true;
-      })
-      .addCase(refreshThunk.rejected, (state) => {
-        state.token = '';
-        state.message = null;
-        state.isLogin = false;
-
       })
       .addCase(logoutThunk.fulfilled, (state) => {
-        state.user = { name: null, email: null };
-        state.token = null;
+        state.isLoading = false;
+        state.error = null;
         state.isLogin = false;
+        state.token = null;
+        state.user = null;
+        state.message = null;
       })
-      /* .addCase(updateProfileThunk.fulfilled, (state, { payload }) => {
-        state.profile = payload.user;
-      }); */
-  }
+      .addCase(currentThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.isLogin = true;
+        console.log(payload);
+      })
+      // rejected
+      .addCase(signUpThunk.rejected, handleRejected)
+      .addCase(loginThunk.rejected, handleRejected)
+      .addCase(logoutThunk.rejected, handleRejected)
+      .addCase(currentThunk.rejected, handleRejected);
+  },
 });
 
 export const authReducer = authSlice.reducer;
-export const { logout } = authSlice.actions;

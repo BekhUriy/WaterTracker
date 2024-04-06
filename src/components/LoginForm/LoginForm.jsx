@@ -12,7 +12,7 @@ const formSchema = Yup.object().shape({
     .required('Email is required'),
   password: Yup.string()
     .required('Password is required')
-    .min(6, 'Enter the correct password')
+    .min(8, 'Enter the correct password')
  })
 
 export const LoginForm = ({handleSubmit}) => {
