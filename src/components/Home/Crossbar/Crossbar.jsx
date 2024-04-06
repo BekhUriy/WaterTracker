@@ -19,10 +19,10 @@ const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
-  const { waterRate } = useAuth().authUser;
+  const authUser = useAuth().authUser;
 
   useEffect(() => {
-    const percentage = Math.round((waterAmount / waterRate) * 100);
+    const percentage = Math.round((waterAmount / authUser.waterRate) * 100);
     setWaterIntakePercentage(percentage);
   }, [waterAmount]);
 
