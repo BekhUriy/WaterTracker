@@ -11,36 +11,16 @@ import {
   WrapperLogout,
 } from './UserLogoutModal.styled';
 
-import { logoutThunk } from '../../redux/auth/thunk';
-import { modalClose } from '../../redux/logoutModalSlicer';
 import { SvgClose } from './SvgClose';
-import { useDispatch } from 'react-redux';
+import { Handlers } from './Handlers';
 
 export const UserLogoutModal = () => {
-  const dispatch = useDispatch();
-
-  const handleCloseModal = () => {
-    console.log('Closing modal');
-    dispatch(modalClose());
-  };
-
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseModal();
-    }
-  };
-
-  const handleLogout = (token) => {
-    dispatch(logoutThunk(token));
-    handleCloseModal();
-  };
-
+  const {
+    handleCloseModal,
+    handleBackdropClick,
+    handleKeyPress,
+    handleLogout,
+  } = Handlers();
   return (
     <>
       <Backdrop onClick={() => handleBackdropClick()} tabIndex={-1} />
