@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const handlePending = (state) => {
 	state.isLoading = true
-	state.error = ''
+	state.error = null
 }
 export const handleRejected = (state, { payload, error }) => {
 	state.isLoading = false
@@ -16,7 +16,7 @@ const rootSlice = createSlice({
 	name: 'root',
 	initialState: {
 		isLoading: false,
-		error: '',
+		error: null,
 	},
 	extraReducers: (builder) => {
 		builder

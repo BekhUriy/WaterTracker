@@ -12,7 +12,12 @@ export const signUpThunk = createAsyncThunk(
     'auth/signup',
     async (body, {rejectWithValue}) => {
         try {
-            return await signUpApi(body);
+         console.log(body);
+		const data = await signUpApi(body);
+		console.log(data);
+		const result = await loginApi(body)
+        console.log(result);
+		return result
         } catch (error) {
             return rejectWithValue(error.message);
         }
