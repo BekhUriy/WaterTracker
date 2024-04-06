@@ -6,7 +6,6 @@ import { WelcomeContentContainer } from './Main.styled';
 const Main = () => {
   return (
     <WelcomeContentContainer>
-    <AddWaterList/>
       {/* <Container> */}
         <WaterConsumptionTracker />
         <WhyDrinkWater />
