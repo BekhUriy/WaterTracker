@@ -132,7 +132,7 @@ const MonthStatsTable = () => {
       <Days lastDayNumber={lastDayNumber}>
         {
           formattedDays.map((item) => {
-              const procentage = monthStats.length > 0 ?
+              const procentage = monthStats?.length > 0 ?
                 getdayProcent(monthStats, item.fullDate).percentage : 0;
               return (
                 <DayPercentage key={item.day}>
