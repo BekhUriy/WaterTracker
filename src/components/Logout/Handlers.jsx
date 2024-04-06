@@ -1,5 +1,5 @@
 // src/components/Logout/Handlers.jsx
-import { useDispatch } from 'react-redux';
+
 import { modalClose } from '../../redux/logoutModalSlicer';
 import { logoutThunk } from '../../redux/auth/thunk';
 

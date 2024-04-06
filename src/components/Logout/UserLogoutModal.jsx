@@ -1,4 +1,5 @@
 // src/components/Logout/UserLogoutModal.jsx
+import { useDispatch } from 'react-redux';
 import { Backdrop, Buttons, CancelButton, CancelLi, LogoutButton, LogoutLi, LogoutTitle, TitleOne, TitleTwo, WrapperLogout } from './UserLogoutModal.styled';
 import { handleBackdropClick, handleCloseModal, handleKeyPress, handleLogout } from './Handlers';
 import { SvgClose } from './SvgClose';
