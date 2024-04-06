@@ -1,21 +1,13 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-  EditPortionThunk,
-  addPortionThunk,
-  deletePortionThunk,
-  getWaterPortionsThunk,
-} from './thunk';
 
-const InitialState = {
-  waterRecords: [],
-  isLoading: false,
-  error: null,
-};
+import { getWaterPortionsThunk, EditPortionThunk, addPortionThunk } from './waterThunk.js';
+
 const handlePending = state => {
   state.isLoading = true;
 };
 
 const handleFulfilled = (state, action) => {
+  console.log(action.payload);
   state.isLoading = false;
   state.error = null;
   state.waterRecords = action.payload;
@@ -33,24 +25,28 @@ const handleFulfilledDelete = (state, action) => {
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
-  isLoading: false;
-  error: null;
 };
 
-export const addWaterSlice = createSlice({
-  name: 'waterRecords',
-  initialState: InitialState,
+const initialState = {
+  waterRecords: [],
+  waterMonth: [],
+  isLoading: false,
+  error: null,
+};
+
+const waterSlice = createSlice({
+  name: 'waterSlice',
+  initialState,
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(getWaterPortionsThunk.fulfilled, handleFulfilled)
       .addCase(addPortionThunk.fulfilled, handleFulfilledAdd)
-      .addCase(deletePortionThunk.fulfilled, handleFulfilledDelete)
       .addCase(EditPortionThunk.fulfilled, handleFulfilledDelete)
       .addMatcher(
         isAnyOf(
           getWaterPortionsThunk.pending,
           addPortionThunk.pending,
-          deletePortionThunk.pending,
           EditPortionThunk.pending,
         ),
         handlePending,
@@ -59,11 +55,12 @@ export const addWaterSlice = createSlice({
         isAnyOf(
           getWaterPortionsThunk.rejected,
           addPortionThunk.rejected,
-          deletePortionThunk.rejected,
           EditPortionThunk.rejected,
         ),
         handleRejected,
       );
   },
 });
-export const waterRecordsReducer = addWaterSlice.reducer;
+
+
+export const waterReducer = waterSlice.reducer;

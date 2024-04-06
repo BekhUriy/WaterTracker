@@ -13,17 +13,16 @@ import {
 } from './Crossbar.styled';
 import CrossbarButtonIcon from './CrossbarIcons/CrossbarButtonIcon';
 import CrossbarModal from './CrossbarModal';
+import { useAuth } from '../../../hooks/useAuth.js';
 
 const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
-
-  const WaterNormaValue = '2.0 L'; // temporarily instead of import 'WaterNormaValue'
+  const { waterRate } = useAuth().authUser;
 
   useEffect(() => {
-    const waterNormaInML = parseFloat(WaterNormaValue) * 1000;
-    const percentage = Math.round((waterAmount / waterNormaInML) * 100);
+    const percentage = Math.round((waterAmount / waterRate) * 100);
     setWaterIntakePercentage(percentage);
   }, [waterAmount]);
 
