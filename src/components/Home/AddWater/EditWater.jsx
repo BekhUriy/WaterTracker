@@ -1,8 +1,12 @@
 import XMarkOutlineIcon from "../Crossbar/CrossbarIcons/XMarkOutlineIcon";
 import { CrossbarAddWaterButton } from "../Crossbar/CrossbarModal.styled";
-import { Overlay, StyledCounter, StyledDataBar, StyledEditWaterBox, StyledModal, StyledModalHeader } from "./StyledEditWaterModal";
+import { Icon } from "./IconButtons";
+import { GlassIcon } from "./Icons/GlassIcon";
+import {  Overlay, StyledCounter, StyledDataBar, StyledEditWaterBox, StyledModal, StyledModalHeader } from "./StyledEditWaterModal";
+import { IconFramTwo, StyledDataContainer, StyledTime, StyledWater } from "./StyledaddWaterList";
 
 export const EditWaterModal = ({ isOpen, onClose })=>{
+
   if (isOpen===false) return null
     return (
    <Overlay >
@@ -13,9 +17,18 @@ export const EditWaterModal = ({ isOpen, onClose })=>{
          <XMarkOutlineIcon />
         </CrossbarAddWaterButton>
          </StyledModalHeader>
+
          <StyledEditWaterBox>
           <StyledDataBar>
-         
+       <Icon>
+            <IconFramTwo>
+              <GlassIcon />
+            </IconFramTwo>
+          </Icon> 
+          <StyledDataContainer>
+            <StyledWater>200ml</StyledWater>
+            <StyledTime>11:00 AM</StyledTime>
+          </StyledDataContainer>
          </StyledDataBar>
 <p>Correct entered data:</p>
 <p>Amount of water:</p>

@@ -58,4 +58,15 @@ padding: 8px 24px 8px 24px;
 border-radius: 10px;
 opacity: 0px;
 background-color:#ECF2FF;
+display:flex;
+gap:2px;
 `
+export const StyledDataContainer = styled.div`
+display:flex;
+gap:12px;
+align-items:center;
+padding-top:1px;
+padding-bottom:1px;
+@media (min-width: 768px){
+   gap:16px;
+    }`

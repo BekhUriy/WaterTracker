@@ -1,3 +1,4 @@
+import { AddWaterList } from '../../Home/AddWater/addWaterList';
 import WaterConsumptionTracker from '../WaterConsumptionTracker/WaterConsumptionTracker';
 import WhyDrinkWater from '../WhyDrinkWater/WhyDrinkWater';
 import { WelcomeContentContainer } from './Main.styled';
@@ -5,7 +6,7 @@ import { WelcomeContentContainer } from './Main.styled';
 const Main = () => {
   return (
     <WelcomeContentContainer>
-    
+    <AddWaterList/>
       {/* <Container> */}
         <WaterConsumptionTracker />
         <WhyDrinkWater />
