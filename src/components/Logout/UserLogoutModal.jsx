@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Buttons,
   CancelButton,
   CancelLi,
@@ -18,46 +19,48 @@ import { useDispatch } from 'react-redux';
 export const UserLogoutModal = () => {
   const dispatch = useDispatch();
 
+  const handleCloseModal = () => {
+    console.log('Closing modal');
+    dispatch(modalClose());
+  };
+
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
-      dispatch(modalClose());
+      handleCloseModal();
     }
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Escape') {
-      dispatch(modalClose());
+      handleCloseModal();
     }
   };
 
   const handleLogout = (token) => {
     dispatch(logoutThunk(token));
-    dispatch(modalClose());
+    handleCloseModal();
   };
 
-  const handleClose = () => {
-    console.log('Closing modal');
-    dispatch(modalClose());
-  };
   return (
-    <WrapperLogout
-      onClick={() => handleBackdropClick()}
-      onKeyDown={() => handleKeyPress()}
-      /*  tabIndex={-1} */
-    >
-      <LogoutTitle>
-        <TitleOne>Log out</TitleOne>
-        <SvgClose onClick={() => handleClose()} />
-      </LogoutTitle>
-      <TitleTwo>Do you really want to leave</TitleTwo>
-      <Buttons>
-        <CancelLi>
-          <CancelButton onClick={() => handleClose()}>Cancel</CancelButton>
-        </CancelLi>
-        <LogoutLi>
-          <LogoutButton onClick={handleLogout}>Log out</LogoutButton>
-        </LogoutLi>
-      </Buttons>
-    </WrapperLogout>
+    <>
+      <Backdrop onClick={() => handleBackdropClick()} tabIndex={-1} />
+      <WrapperLogout onKeyDown={() => handleKeyPress()}>
+        <LogoutTitle>
+          <TitleOne>Log out</TitleOne>
+          <SvgClose onClick={() => handleCloseModal()} />
+        </LogoutTitle>
+        <TitleTwo>Do you really want to leave</TitleTwo>
+        <Buttons>
+          <CancelLi>
+            <CancelButton onClick={() => handleCloseModal()}>
+              Cancel
+            </CancelButton>
+          </CancelLi>
+          <LogoutLi>
+            <LogoutButton onClick={() => handleLogout()}>Log out</LogoutButton>
+          </LogoutLi>
+        </Buttons>
+      </WrapperLogout>
+    </>
   );
 };

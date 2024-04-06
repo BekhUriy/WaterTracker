@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CloseSvg } from './closeSvg';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -25,6 +25,12 @@ import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
 import { modalClose } from '../../redux/setingModalSlicer';
 import { updateApiThunk } from '../../redux/user/thunk';
+import {
+  handleCloseModal,
+  handleBackdropClick,
+  handleKeyPress,
+} from '../Logout/UserLogoutModal';
+import { Backdrop } from '@mui/material';
 
 const formSchema = Yup.object().shape({
   email: Yup.string()
@@ -42,7 +48,6 @@ const formSchema = Yup.object().shape({
 export const SettingModal = () => {
   const user = useSelector((state) => state.auth.user);
   console.log(user);
-  const dispatch = useDispatch();
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
@@ -89,13 +94,11 @@ export const SettingModal = () => {
 
   return (
     <>
-      <WrapperSetting
-        onClick={() => dispatch(modalClose())}
-        onKeyDown={() => dispatch(modalClose())}
-      >
+      <Backdrop onClick={() => handleBackdropClick()} tabIndex={-1} />
+      <WrapperSetting onKeyDown={() => handleKeyPress()}>
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={() => dispatch(modalClose())} />
+          <CloseSvg onClick={() => handleCloseModal()} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>
