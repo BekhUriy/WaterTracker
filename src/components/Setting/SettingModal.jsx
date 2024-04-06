@@ -1,35 +1,17 @@
+// src/components/Setting/SettingModal.jsx
 import { useState } from 'react';
 import { CloseSvg } from './closeSvg';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  BlockGender,
-  BlockPassword,
-  GeneralBlock,
-  Input,
-  InputTitle,
-  PasswordLabel,
-  SettingAndIcon,
-  SettingTitle,
-  WrapperSetting,
-  Button,
-  SaveButton,
-  InputWrapper,
-  StyledVisibilityOffIcon,
-  StyledVisibilityOutIcon,
-} from './SettingModal.styled';
+import { BlockGender, BlockPassword, GeneralBlock, Input, InputTitle, PasswordLabel, SettingAndIcon, SettingTitle, WrapperSetting, Button, SaveButton, InputWrapper, StyledVisibilityOffIcon, StyledVisibilityOutIcon } from './SettingModal.styled';
 import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
 import { modalClose } from '../../redux/setingModalSlicer';
 import { updateApiThunk } from '../../redux/user/thunk';
-import {
-  handleCloseModal,
-  handleBackdropClick,
-  handleKeyPress,
-} from '../Logout/UserLogoutModal';
+import { handleCloseModal, handleBackdropClick, handleKeyPress } from '../Logout/Handlers';
 import { Backdrop } from '@mui/material';
 
 const formSchema = Yup.object().shape({
@@ -94,11 +76,11 @@ export const SettingModal = () => {
 
   return (
     <>
-      <Backdrop onClick={() => handleBackdropClick()} tabIndex={-1} />
-      <WrapperSetting onKeyDown={() => handleKeyPress()}>
+      <Backdrop onClick={handleBackdropClick} tabIndex={-1} />
+      <WrapperSetting onKeyDown={handleKeyPress}>
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={() => handleCloseModal()} />
+          <CloseSvg onClick={handleCloseModal} />
         </SettingAndIcon>
         <UploadPhoto />
         <GeneralBlock>

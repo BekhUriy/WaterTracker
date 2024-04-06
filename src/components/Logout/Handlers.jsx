@@ -1,35 +1,26 @@
+// src/components/Logout/Handlers.jsx
 import { useDispatch } from 'react-redux';
 import { modalClose } from '../../redux/logoutModalSlicer';
 import { logoutThunk } from '../../redux/auth/thunk';
 
-export const Handlers = () => {
-  const dispatch = useDispatch();
+export const handleBackdropClick = (dispatch) => (e) => {
+  if (e.target === e.currentTarget) {
+    handleCloseModal(dispatch)();
+  }
+};
 
-  const handleCloseModal = () => {
-    console.log('Closing modal');
-    dispatch(modalClose());
-  };
+export const handleCloseModal = (dispatch) => () => {
+  console.log('Closing modal');
+  dispatch(modalClose());
+};
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
-  };
+export const handleKeyPress = (dispatch) => (e) => {
+  if (e.key === 'Escape') {
+    handleCloseModal(dispatch)();
+  }
+};
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseModal();
-    }
-  };
-
-  const handleLogout = (token) => {
-    dispatch(logoutThunk(token));
-    handleCloseModal();
-  };
-  return {
-    handleBackdropClick,
-    handleCloseModal,
-    handleKeyPress,
-    handleLogout,
-  };
+export const handleLogout = (dispatch, token) => () => {
+  dispatch(logoutThunk(token));
+  handleCloseModal(dispatch)();
 };
