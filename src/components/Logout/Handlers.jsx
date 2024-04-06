@@ -26,10 +26,9 @@ export const Handlers = () => {
     dispatch(logoutThunk(token));
     handleCloseModal();
   };
-
   return {
-    handleCloseModal,
     handleBackdropClick,
+    handleCloseModal,
     handleKeyPress,
     handleLogout,
   };

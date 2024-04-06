@@ -11,33 +11,29 @@ import {
   WrapperLogout,
 } from './UserLogoutModal.styled';
 
-import { SvgClose } from './SvgClose';
 import { Handlers } from './Handlers';
+import { SvgClose } from './SvgClose';
 
 export const UserLogoutModal = () => {
-  const {
-    handleCloseModal,
-    handleBackdropClick,
-    handleKeyPress,
-    handleLogout,
-  } = Handlers();
   return (
     <>
-      <Backdrop onClick={() => handleBackdropClick()} tabIndex={-1} />
-      <WrapperLogout onKeyDown={() => handleKeyPress()}>
+      <Backdrop onClick={() => Handlers.handleBackdropClick()} tabIndex={-1} />
+      <WrapperLogout onKeyDown={() => Handlers.handleKeyPress()}>
         <LogoutTitle>
           <TitleOne>Log out</TitleOne>
-          <SvgClose onClick={() => handleCloseModal()} />
+          <SvgClose onClick={() => Handlers.handleCloseModal()} />
         </LogoutTitle>
         <TitleTwo>Do you really want to leave</TitleTwo>
         <Buttons>
           <CancelLi>
-            <CancelButton onClick={() => handleCloseModal()}>
+            <CancelButton onClick={() => Handlers.handleCloseModal()}>
               Cancel
             </CancelButton>
           </CancelLi>
           <LogoutLi>
-            <LogoutButton onClick={() => handleLogout()}>Log out</LogoutButton>
+            <LogoutButton onClick={() => Handlers.handleLogout()}>
+              Log out
+            </LogoutButton>
           </LogoutLi>
         </Buttons>
       </WrapperLogout>
