@@ -42,17 +42,19 @@ import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
 export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
+  const dispatch = useDispatch();
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-  const dispatch = useDispatch();
+
   const curruntDate = new Date();
   const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
+
+  const waterRecords = useWater().waterRecords;
 
   useEffect(() => {
     dispatch(getWaterPortionByIdThunk(id));
   }, []);
-  const waterRecords = useWater().waterRecords;
-  console.log(waterRecords);
+
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
@@ -97,7 +99,9 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
       document.removeEventListener('keydown', handleEscKeyPress);
     };
   }, [isOpen, onClose]);
+
   if (isOpen === false) return null;
+
   return (
     <Overlay>
       <StyledModal>
