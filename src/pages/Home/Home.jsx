@@ -15,11 +15,14 @@ import { useWater } from '../../hooks/useWater.js';
 import { useDispatch } from 'react-redux';
 import { currentThunk } from '../../redux/auth/thunk.js';
 import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
+import { AddWaterList } from '../../components/Home/AddWater/addWaterList.jsx';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+
   const user = useAuth().authUser;
   const isChangeWaterRate = useWater().isChangeWaterRate;
-  const dispatch = useDispatch();
+  const water = useWater().waterRecords;
 
   useEffect(() => {
     dispatch(currentThunk());
@@ -41,6 +44,7 @@ const HomePage = () => {
             {/* //WaterRatioPanel */}
           </DailyNormaContainer>
           <StatisticsContainer>
+            {water && <AddWaterList water={water} />}
             {/* //TodayWaterList  */}
             <MonthStatsTable />
             {/* //MonthStatsTable */}

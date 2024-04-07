@@ -119,6 +119,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
               type="time"
               step={300}
               value={currentTime}
+              readOnly
               onChange={handleChangeTime}
             ></RecordingTimeInput>
           </div>

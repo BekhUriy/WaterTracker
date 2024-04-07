@@ -27,7 +27,7 @@ const handleFulfilledGetById = (state, action) => {
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords.waterRecords.push(action.payload);
+  state.waterRecords.waterRecords.push(action.payload.data);
 };
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;

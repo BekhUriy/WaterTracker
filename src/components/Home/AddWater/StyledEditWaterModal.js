@@ -16,38 +16,30 @@ export const Overlay = styled.div`
 `;
 
 export const StyledModal = styled.div`
-  position: fixed;
-  z-index: 1500;
-  background: #ffffff;
-  border-radius: 10px;
-  width: 280px;
-height:648px;
-  padding: 24px 12px 24px 12px;
-  gap: 24px;
- 
-  overflow: auto;
-  top: 5%;
-  left: 2%
-  transform: translate(-50%, -50%);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+width: 280px;
+height: 648px;
+padding: 24px 12px 24px 12px;
+border-radius: 10px;
+z-index: 100;
+box-shadow: 0px 4px 8px 0px #407BFF33;
+position: absolute;
+background-color: #fff;
+top: 40px;
 `;
 
 export const StyledModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  gap:32px;
   align-items: flex-start;
 `;
-export const StyledCounter = styled.div`
-  display: flex;
-`;
+
 export const StyledEditWaterBox=styled.div`
 display: flex;
 -webkit-box-pack: justify;
-justify-content: space-between;
+
 flex-direction:column;
 color: rgb(47, 47, 47);
-align-items: center;
+
 gap:24px;
 margin-top:24px;
 `
@@ -70,11 +62,30 @@ padding-bottom:1px;
 @media (min-width: 768px){
    gap:16px;
     }`
- 
+ export const CorrectDataText=styled.p`
+font-size: 18px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+margin-bottom:16px;
+`
+export const AmountWaterText=styled.p`
+font-size: 16px;
+font-weight: 400;
+line-height: 20px;
+text-align: left;
+margin-bottom:12px;
+`
+export const StyledCounter = styled.div`
+  display: flex;
+`;
+// DeleteModalStyles
+
 export const DeleteModalStyled = styled.div`
-    min-width: 118px;
-    min-height: 88px;
-    padding: 16px;
+
+    width: 280px;
+    height: 288px;
+    padding: 32px 24px 32px 24px;
     border-radius: 10px;
     z-index: 100;
     box-shadow: 0px 4px 8px 0px #407BFF33;
@@ -82,4 +93,58 @@ export const DeleteModalStyled = styled.div`
     background-color: #fff;
     top: 48px;
    
+`
+export const DeleteModalHeaderText=styled.p`
+font-family: Roboto;
+font-size: 26px;
+font-weight: 500;
+line-height: 32px;
+text-align: left;
+
+`
+export const StyledDeleteModalText = styled.p`
+font-size: 18px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+margin-top:24px;
+`
+export const DeleteButtonsBox=styled.div`
+display:flex;
+flex-direction:column;
+gap:24px;
+margin-top:24px;`
+export const DeleteButtonSubmit=styled.button`
+width: 232px;
+height: 36px;
+padding: 8px 30px 8px 30px;
+border-radius: 10px;
+opacity: 0px;
+background-color:#EF5050;
+box-shadow: 0px 4px 8px 0px #407BFF57;
+border:none;
+`
+export const DeleteButtonCancel=styled.button`
+width: 232px;
+height: 36px;
+padding: 8px 30px 8px 30px;
+border-radius: 10px;
+opacity: 0px;
+background-color:#D7E3FF;
+border:none;
+`
+export const DeleteButtonText=styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 20px;
+text-align: center;
+color:#FFFFFF;
+
+`
+export const CancelButtonText=styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 20px;
+text-align: center;
+color:#407BFF;
 `

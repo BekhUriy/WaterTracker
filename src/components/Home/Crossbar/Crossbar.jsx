@@ -22,7 +22,6 @@ const Crossbar = () => {
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
   const authUser = useAuth().authUser;
   const waterRecords = useWater().waterRecords;
-
   useEffect(() => {
     const percentage = Math.round(
       (waterAmount / authUser?.waterRate) * 100 +
