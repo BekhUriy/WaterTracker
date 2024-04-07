@@ -1,19 +1,52 @@
 // src/components/Logout/UserLogoutModal.jsx
 import { useDispatch } from 'react-redux';
-import { Backdrop, Buttons, CancelButton, CancelLi, LogoutButton, LogoutLi, LogoutTitle, TitleOne, TitleTwo, WrapperLogout } from './UserLogoutModal.styled';
-import { handleBackdropClick, handleCloseModal, handleKeyPress, handleLogout } from './Handlers';
+import {
+  Backdrop,
+  Buttons,
+  CancelButton,
+  CancelLi,
+  LogoutButton,
+  LogoutLi,
+  LogoutTitle,
+  TitleOne,
+  TitleTwo,
+  WrapperLogout,
+} from './UserLogoutModal.styled';
+import {
+  handleBackdropClick,
+  handleCloseModal,
+  handleKeyPress,
+  handleLogout,
+} from './HandlersLogout';
 import { SvgClose } from './SvgClose';
+import { useEffect } from 'react';
 
 export const UserLogoutModal = () => {
   const dispatch = useDispatch();
-  
+  useEffect(() => {
+    const handleKeyDown = handleKeyPress(dispatch);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dispatch]);
+
   return (
     <>
       <Backdrop onClick={handleBackdropClick(dispatch)} tabIndex={-1} />
-      <WrapperLogout onKeyDown={handleKeyPress(dispatch)}>
+      <WrapperLogout>
         <LogoutTitle>
           <TitleOne>Log out</TitleOne>
-          <SvgClose onClick={handleCloseModal(dispatch)} />
+          <button
+            style={{
+              border: 'none',
+              background: '#ffffff',
+            }}
+            onClick={handleCloseModal(dispatch)}
+          >
+            <SvgClose />
+          </button>
         </LogoutTitle>
         <TitleTwo>Do you really want to leave</TitleTwo>
         <Buttons>
