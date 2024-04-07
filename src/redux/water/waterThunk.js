@@ -1,5 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getWaterPortionsList, editWaterPortion, addWaterPortion, deletePortion, editDailyNorma, getWaterPortion } from '../../API/waterApi.js';
+import {
+  getWaterPortionsList,
+  editWaterPortion,
+  addWaterPortion,
+  deletePortion,
+  editDailyNorma,
+  getWaterPortion,
+} from '../../API/waterApi.js';
 import { getMonthStateApi } from '../../API/ApiMonthStats.js';
 
 export const getWaterPortionsThunk = createAsyncThunk(
@@ -10,7 +17,7 @@ export const getWaterPortionsThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 export const getWaterPortionByIdThunk = createAsyncThunk(
   'water/fetchPortionById',
@@ -20,7 +27,7 @@ export const getWaterPortionByIdThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 export const addPortionThunk = createAsyncThunk(
   'water/addPortion',
@@ -30,18 +37,18 @@ export const addPortionThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const EditPortionThunk = createAsyncThunk(
   'water/editPortion',
-  async ({id, data}, { rejectWithValue }) => {
+  async ({ id, data }, { rejectWithValue }) => {
     try {
       return await editWaterPortion(id, data);
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 export const deletePortionThunk = createAsyncThunk(
   'water/deletePortion',
@@ -51,38 +58,38 @@ export const deletePortionThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
-  )
-  /////////////////////DailyNorma
-  // export const getDailyNormaThunk = createAsyncThunk(
-  //   'user/getDailyNorma',
-  //   async (_, { rejectWithValue }) => {
-  //     try {
-  //       return await getDailyNorma();
-  //     } catch (error) {
-  //       return rejectWithValue(error.message);
-  //     }
-  //   },
-  // );
-  
-  export const editDailyNormaThunk = createAsyncThunk(
-    'waterRate/editDailyNorma',
-    async (data, { rejectWithValue }) => {
-      try {
-        return await editDailyNorma(data);
-      } catch (error) {
-        return rejectWithValue(error.message);
-      }
-    },
-  );
-  /////////////Month
-  export const monthStatsThunk = createAsyncThunk(
-    'monthStatsThunk',
-    async (date, thunkAPI) => {
-      try {
-        return await getMonthStateApi(date);
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error);
-      }
-    },
-  );
+  }
+);
+/////////////////////DailyNorma
+// export const getDailyNormaThunk = createAsyncThunk(
+//   'user/getDailyNorma',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       return await getDailyNorma();
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   },
+// );
+
+export const editDailyNormaThunk = createAsyncThunk(
+  'waterRate/editDailyNorma',
+  async (data, { rejectWithValue }) => {
+    try {
+      return await editDailyNorma(data);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const monthStatsThunk = createAsyncThunk(
+  'monthStatsThunk',
+  async (date, thunkAPI) => {
+    try {
+      return await getMonthStateApi(date);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
