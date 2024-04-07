@@ -1406,10 +1406,11 @@ line-height:20px`,IA=_(PA)`
         }
     }
 `,qz=_.div(({type:e})=>({borderRadius:"10px",background:"var(--background)",padding:e==="settings"?"32px 12px":"24px 12px"})),Gz=_(qz)`
-    margin-top: 40px;
+    margin-top: 320px;
     margin-bottom: 40px;
     @media screen and (min-width: 768px) {
         padding: 32px 24px;
+        margin-top: 160px;
     }
 `,Yz=document.querySelector("#modal-root"),Qz=({type:e="default",onClose:t,children:n})=>{w.useEffect(()=>(window.addEventListener("keydown",r),()=>{window.removeEventListener("keydown",r)})),w.useEffect(()=>(document.body.style.overflowY="hidden",()=>{document.body.style.overflowY="auto"}));const r=o=>{(o.code==="Escape"||o.currentTarget===o.target)&&t()};return hc.createPortal(p.jsx(Kz,{onClick:r,children:p.jsx(Gz,{type:e,children:n})}),Yz)},Xz=_.button(({width:e,buttonType:t})=>({width:`${e}px`,color:t==="cancel"?"var(--text-blue)":"var(--background)",backgroundColor:t==="cancel"?"var( --button-pup-up)":t==="delete"?"var(--coral-color)":"var(--text-blue)"})),Zz=_(Xz)`
   cursor: pointer;
