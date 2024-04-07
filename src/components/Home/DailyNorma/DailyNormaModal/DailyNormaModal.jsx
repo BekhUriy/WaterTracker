@@ -36,47 +36,30 @@ const DailyNormaModal = () => {
   const dispatch = useDispatch();
 
   const user = useAuth().authUser;
-
+  
   const onClickModalClose = () => {
     toggleModal();
   };
-
+  
   const [calculatedWaterAmount, setCalculatedWaterAmount] = useState(0);
-
-  const calculateWaterAmount = useCallback((values) => {
+  
+  const calculateWaterAmount = useCallback(values => {
     const weightCoefficient = values.gender === 'female' ? 0.03 : 0.04;
     const timeCoefficient = values.gender === 'female' ? 0.4 : 0.6;
     if (values.weight >= 0 && values.activityTime >= 0) {
       const calculatedAmount =
-        values.weight * weightCoefficient +
-        values.activityTime * timeCoefficient;
+      values.weight * weightCoefficient +
+      values.activityTime * timeCoefficient;
       setCalculatedWaterAmount(calculatedAmount.toFixed(1));
     } else {
       setCalculatedWaterAmount('Error');
     }
   }, []);
-
+  
   const handleChangeInput = (e) => {
     formik.handleChange(e);
   };
-
-  const handleFocus = (e, fieldName) => {
-    if (fieldName !== 'waterAmount') {
-      e.target.value = '';
-    }
-  };
-
-  const handleBlur = (e, fieldName) => {
-    if (e.target.value >= 0) {
-      if (fieldName !== 'wateramount') {
-        formik.setFieldValue('waterAmount', calculatedWaterAmount);
-      }
-    } else {
-      formik.setFieldValue('waterAmount', 0);
-      toast.warning('Negative numbers are not allowed');
-    }
-  };
-
+  
   const handleSubmit = async () => {
     let amountWater = formik.values.waterAmount * 1000;
 
@@ -85,14 +68,12 @@ const DailyNormaModal = () => {
       dispatch(toggleWaterRate());
       toast.success('Daily norma successfully updated');
     } else {
-      toast.warning(
-        'The amount of water must be a positive number and no more than 10 liters'
-      );
+      toast.warning('The amount of water must be a positive number and no more than 10 liters');
     }
     formik.resetForm();
     toggleModal();
   };
-
+  
   const formik = useFormik({
     initialValues: {
       gender: user.gender,
@@ -103,6 +84,23 @@ const DailyNormaModal = () => {
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
   });
+  
+  const handleFocus = (e, fieldName) => {
+    if (fieldName !== 'waterAmount') {
+      e.target.value = '';
+    }
+  };
+  
+  const handleBlur = (e, fieldName) => {
+    if (e.target.value >= 0) {
+      if (fieldName !== 'wateramount') {
+        formik.setFieldValue('waterAmount', calculatedWaterAmount);
+      }
+    } else {
+      formik.setFieldValue('waterAmount', 0);
+      toast.warning('Negative numbers are not allowed');
+    }
+  };
 
   useEffect(() => {
     calculateWaterAmount(formik.values);
@@ -192,6 +190,7 @@ const DailyNormaModal = () => {
               name="activityTime"
               type="number"
               min="0"
+              max="10"
               step="0.1"
               error={formik.touched.activityTime && formik.errors.activityTime}
             />
@@ -213,7 +212,6 @@ const DailyNormaModal = () => {
               value={formik.values.waterAmount}
               onChange={(e) => handleChangeInput(e, 'waterAmount')}
               onFocus={(e) => handleFocus(e, 'waterAmount')}
-              onBlur={(e) => handleBlur(e, 'waterAmount')}
               name="waterAmount"
               type="number"
               min="0"
@@ -227,7 +225,7 @@ const DailyNormaModal = () => {
                 Save
               </SaveButton>
             </WrapperForButton>
-            <ToastContainer />
+            <ToastContainer/>
           </FormStyled>
         </>
       </ModalContainer>
