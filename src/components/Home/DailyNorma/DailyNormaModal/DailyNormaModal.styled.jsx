@@ -174,6 +174,7 @@ export const Required = styled.div`
 export const LiterPerDay = styled.b`
     font-size: 18px;
     line-height: 1.33;
+    width: 64px;
     color: var(--text-blue);
     display: flex;
     align-items: center;
