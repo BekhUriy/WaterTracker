@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   startOfMonth,
   endOfMonth,
@@ -25,58 +25,63 @@ import {
   Days,
   Day,
   DayPercentage,
-  IconWrapper, Percentage,
+  IconWrapper,
+  Percentage,
 } from './MonthStatsTable.styled.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectWaterMonth } from '../../../redux/water/selectors.js';
+import { useDispatch } from 'react-redux';
 import { monthStatsThunk } from '../../../redux/water/waterThunk.js';
-
+import { useWater } from '../../../hooks/useWater.js';
 
 const MonthStatsTable = () => {
+  const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isCurrentMonth, setIsCurrentMonth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [popoverValue, setPopoverValue] = useState(null);
+  const monthStats = useWater().monthStats;
+
+  const open = Boolean(anchorEl);
+
+  const mobile = useMediaQuery('(min-width:768px)');
 
   const startDate = startOfMonth(currentDate);
   const endDate = endOfMonth(currentDate);
   const days = eachDayOfInterval({ start: startDate, end: endDate });
   const lastDayNumber = endDate.getDate();
 
-  const mobile = useMediaQuery('(min-width:768px)');
-
-  const formattedDays = days.map((day) => {
-    const fullDate = format(day, 'yyyy-MM-dd');
-    return {
-      day: getDate(day),
-      isToday: isToday(day),
-      fullDate,
-    };
-  });
+  const formattedDays = useMemo(() => {
+    return days.map((day) => {
+      const fullDate = format(day, 'yyyy-MM-dd');
+      return {
+        day: getDate(day),
+        isToday: isToday(day),
+        fullDate,
+      };
+    });
+  }, [days]);
 
   const handlePrevMonth = () => {
-    setCurrentDate(prevDate => startOfMonth(addMonths(prevDate, -1)));
+    setCurrentDate((prevDate) => startOfMonth(addMonths(prevDate, -1)));
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(prevDate => {
+    setCurrentDate((prevDate) => {
       const nextMonth = addMonths(prevDate, 1);
       return endOfMonth(nextMonth);
     });
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [popoverValue, setPopoverValue] = useState(null);
-
   const handlePopoverOpen = (event) => {
-    setPopoverValue(event.target.value);
+    const value = event.target.value;
+    const dayInfo = getInfoForDay(monthStats, value);
+
+    setPopoverValue(dayInfo);
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
-  const open = Boolean(anchorEl);
-  // ----------------------------------------------------
 
   useEffect(() => {
     const now = new Date();
@@ -86,27 +91,36 @@ const MonthStatsTable = () => {
       isWithinInterval(currentDate, {
         start: startOfCurrentMonth,
         end: endOfCurrentMonth,
-      }));
+      }),
+    );
   }, [currentDate]);
-
-  // redux
-  const dispatch = useDispatch();
-  const monthStats = useSelector(selectWaterMonth);
 
   useEffect(() => {
-    dispatch(monthStatsThunk('2024-04-04'));
-  }, [currentDate]);
+    dispatch(monthStatsThunk(format(currentDate, 'yyyy-MM-dd')));
+  }, [dispatch, currentDate]);
 
-  const getdayProcent = (array, day) => {
-    const [res] = array.filter(el => {
-      return el.date === day;
-    });
-    return {
-      dailyNorma: res.dailyNorma,
-      date: res.date,
-      percentage: res.percentage,
-      totalRecords: res.totalRecords,
-    };
+  const getInfoForDay = (monthStats, currentDate) => {
+    const [res] = monthStats.filter((el) => el.date === currentDate);
+    if (res) {
+      const percentage =
+        Math.ceil(res.percentage / 10) * 10 > 100
+          ? 100
+          : Math.ceil(res.percentage / 10) * 10;
+
+      return {
+        data: currentDate,
+        dailyNorma: res.dailyNorma / 1000,
+        percentage,
+        totalRecords: res.totalRecords,
+      };
+    } else {
+      return {
+        data: currentDate,
+        dailyNorma: 1.5,
+        percentage: 0,
+        totalRecords: 0,
+      };
+    }
   };
 
   return (
@@ -119,7 +133,7 @@ const MonthStatsTable = () => {
               <ArrowBackIosIcon />
             </IconWrapper>
           </ButtonPagination>
-          <span>{format(startDate, 'MMMM yyyy')}</span>
+          <span>{format(currentDate, 'MMMM yyyy')}</span>
           <ButtonPagination onClick={handleNextMonth}
                             disabled={isCurrentMonth}
           >
@@ -130,28 +144,27 @@ const MonthStatsTable = () => {
         </Pagination>
       </HeaderMonth>
       <Days lastDayNumber={lastDayNumber}>
-        {
-          formattedDays.map((item) => {
-              const procentage = monthStats?.length > 0 ?
-                getdayProcent(monthStats, item.fullDate).percentage : 0;
-              return (
-                <DayPercentage key={item.day}>
-                  <Day percentage={'10'}
-                       isToday={item.isToday}                                        // id={'btn-month-state-table'}
-                    // popover
-                       aria-owns={open ? 'mouse-over-popover' : undefined}
-                       aria-haspopup="true"
-                       onMouseEnter={handlePopoverOpen}
-                       onMouseLeave={handlePopoverClose}
-                       value={item.fullDate}
-                    // popover
-                  >{item.day}</Day>
-                  <Percentage>{procentage}%</Percentage>
-                </DayPercentage>
-              );
-            },
-          )
-        }
+        {formattedDays.map((item) => {
+          const dayInfo = getInfoForDay(monthStats, item.fullDate);
+          return (
+            <DayPercentage key={item.day}>
+              <Day
+                percentage={dayInfo.percentage}
+                isToday={item.isToday}
+                // popover
+                aria-owns={open ? 'mouse-over-popover' : undefined}
+                aria-haspopup="true"
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
+                value={item.fullDate}
+                // popover
+              >
+                {item.day}
+              </Day>
+              <Percentage>{dayInfo.percentage}%</Percentage>
+            </DayPercentage>
+          );
+        })}
       </Days>
       <Popover
         id="mouse-over-popover"
@@ -171,7 +184,7 @@ const MonthStatsTable = () => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <DaysGeneralStats fullDate={popoverValue} />
+        <DaysGeneralStats dayInfo={popoverValue} />
       </Popover>
     </WrapperMonth>
   );
