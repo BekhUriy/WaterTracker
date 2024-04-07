@@ -39,9 +39,10 @@ const Container = styled.div(({ type }) => ({
 }));
 
 export const ModalContainer = styled(Container)`
-    margin-top: 40px;
+    margin-top: 320px;
     margin-bottom: 40px;
     @media screen and (min-width: 768px) {
         padding: 32px 24px;
+        margin-top: 160px;
     }
 `;
