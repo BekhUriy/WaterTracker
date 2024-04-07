@@ -31,6 +31,6 @@ export const deletePortion = async (id) => {
 //   return data;
 // };
 export const editDailyNorma = async (body) => {
-  const { data } = await apiServices.patch(`/waterRate`, body);
+  const { data } = await apiServices.patch(`/waterrate`, body);
   return { data };
 }

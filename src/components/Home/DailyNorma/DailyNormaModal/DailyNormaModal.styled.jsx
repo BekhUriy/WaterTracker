@@ -195,9 +195,9 @@ export const WrapperForButton = styled.div`
 export const ErrorMessage = styled.p`
     color: red;
     font-size: 18px;
-    /* animation: blink 1s infinite; */
+    animation: blink 1s infinite;
 
-    /* @keyframes blink {
+    @keyframes blink {
         0% {
             opacity: 1;
         }
@@ -207,5 +207,5 @@ export const ErrorMessage = styled.p`
         100% {
             opacity: 1;
         }
-    } */
+    }
 `
