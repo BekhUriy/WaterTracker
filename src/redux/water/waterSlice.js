@@ -56,7 +56,7 @@ const handleRejected = (state, action) => {
 const handleFulfilledEditDailyNorma = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.dailyNorma = action.payload;
+  state.waterRate = action.payload;
 }
 ///////Month
 const handleFulfilledMonthGet = (state, action) => {

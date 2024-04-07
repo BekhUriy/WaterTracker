@@ -24,43 +24,69 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { ModalContext } from "./ModalProvider/ModalProvider";
 import Modal from "../utils/Modal/Modal";
 import SaveButton from "../utils/SaveButton/SaveButton";
+import { useAuth } from "../../../../hooks/useAuth";
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { editDailyNormaThunk } from "../../../../redux/water/waterThunk";
 
 const DailyNormaModal = () => {
     const toggleModal = useContext(ModalContext);
 
+    const dispatch = useDispatch();
+
+    const user = useAuth().authUser;
+
     const onClickModalClose = () => {
         toggleModal();
     };
-
+    
     const [calculatedWaterAmount, setCalculatedWaterAmount] = useState(0);
 
     const calculateWaterAmount = useCallback(values => {
         const weightCoefficient = values.gender === 'female' ? 0.03 : 0.04;
         const timeCoefficient = values.gender === 'female' ? 0.4 : 0.6;
+        if (values.weight >= 0 && values.activityTime >= 0) {
             const calculatedAmount = 
             values.weight * weightCoefficient +
             values.activityTime * timeCoefficient;
             setCalculatedWaterAmount(calculatedAmount.toFixed(1));
+        } else {
+            setCalculatedWaterAmount('Error');
+        }
     }, []);
 
 
-    const handleChangeInput = (e, fieldName) => {
+    const handleChangeInput = e => {
         formik.handleChange(e);
-        const inputText = e.target.value;
-        let numericValue = parseFloat(inputText);
-        if (isNaN(numericValue)) {
-            numericValue = 0;
+    }
+
+    const handleFocus = (e, fieldName) => {
+        if (fieldName !== 'waterAmount') {
+            e.target.value = '';
         }
-        formik.setFieldValue(fieldName, numericValue)
+    };
+
+    const handleBlur = (e, fieldName) => {
+        if (e.target.value >= 0) {
+            if (fieldName !== 'wateramount') {
+                formik.setFieldValue('waterAmount', calculatedWaterAmount);
+            }
+        } else {
+            formik.setFieldValue('waterAmount', 0);
+            toast.warning('Negative numbers are not allowed');
+        }
     };
     
     const handleSubmit = async () => {
         let amountWater = formik.values.waterAmount * 1000;
 
-        if (amountWater >= 0 && amountWater <= 20000) {
-            window.alert("Daily norma successfully updated");
+        if (amountWater >= 0 && amountWater <= 10000) {
+            dispatch(editDailyNormaThunk(amountWater));
+            toast.success('Daily norma successfully updated');
         } else {
-            window.alert("The amount of water must be a positive number and no more than 20 liters");
+            toast.warning(
+                'The amount of water must be a positive number and no more than 10 liters'
+            );
         }
         formik.resetForm();
         toggleModal();
@@ -68,7 +94,7 @@ const DailyNormaModal = () => {
     
     const formik = useFormik({
         initialValues: {
-            gender: 'male',
+            gender: user.gender,
             weight: 0,
             activityTime: 0,
             waterAmount: 0,
@@ -77,25 +103,9 @@ const DailyNormaModal = () => {
         onSubmit: handleSubmit,
     });
 
-    
-
-    const handleFocus = (e) => {
-            e.target.value = '';
-        }
-
-
-
     useEffect(() => {
         calculateWaterAmount(formik.values);
-        console.log(formik.values);
-        console.log(formik.values.weight);
-        console.log(formik.values.activityTime);
-        console.log(formik.values.waterAmount);
     }, [calculateWaterAmount, formik.values]);
-
-
-    
-
 
     return (
         <Modal onClose={toggleModal}>
@@ -157,7 +167,7 @@ const DailyNormaModal = () => {
                             value={formik.values.weight}
                             onChange={e => handleChangeInput(e, 'weight')}
                             onFocus={e => handleFocus(e, 'weight')}
-                            onBlur={formik.handleBlur}
+                            onBlur={e => handleBlur(e, 'weight')}
                             name="weight"
                             type="number"
                             min="0"
@@ -172,7 +182,7 @@ const DailyNormaModal = () => {
                             value={formik.values.activityTime}
                             onChange={e => handleChangeInput(e, 'activityTime')}
                             onFocus={e => handleFocus(e, 'activityTime')}
-                            onBlur={formik.handleBlur}
+                            onBlur={e => handleBlur(e, 'activityTime')}
                             name="activityTime"
                             type="number"
                             min="0"
@@ -188,9 +198,6 @@ const DailyNormaModal = () => {
                                 ) : (
                                     `${calculatedWaterAmount} L`
                                 )}
-                                {/* {isNaN(calculatedWaterAmount)
-                                    ? (<ErrorMessage>Input data error</ErrorMessage>)
-                            : `${calculatedWaterAmount}`} */}
                             </LiterPerDay>
                         </Required>
 
@@ -200,7 +207,7 @@ const DailyNormaModal = () => {
                             value={formik.values.waterAmount}
                             onChange={e => handleChangeInput(e, 'waterAmount')}
                             onFocus={e => handleFocus(e, 'waterAmount')}
-                            onBlur={formik.handleBlur}
+                            onBlur={e => handleBlur(e, 'waterAmount')}
                             name="waterAmount"
                             type="number"
                             min="0"
@@ -214,7 +221,7 @@ const DailyNormaModal = () => {
                                 Save
                             </SaveButton>
                         </WrapperForButton>
-
+                                <ToastContainer/>
                     </FormStyled>
                 </>
             </ModalContainer>

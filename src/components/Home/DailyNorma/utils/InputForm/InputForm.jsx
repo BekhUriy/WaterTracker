@@ -6,7 +6,7 @@ const InputForm = ({ inputType, label, error, ...props }) => {
             <Label>
                 {label}
                 <Input {...props} />
-                {<ErrorMessage>{error}</ErrorMessage>}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
             </Label>
         )
     }
