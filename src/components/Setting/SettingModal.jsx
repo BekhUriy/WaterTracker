@@ -1,19 +1,37 @@
 // src/components/Setting/SettingModal.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CloseSvg } from './closeSvg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BlockGender, BlockPassword, GeneralBlock, Input, InputTitle, PasswordLabel, SettingAndIcon, SettingTitle, WrapperSetting, Button, SaveButton, InputWrapper, StyledVisibilityOffIcon, StyledVisibilityOutIcon } from './SettingModal.styled';
+import {
+  BlockGender,
+  BlockPassword,
+  GeneralBlock,
+  Input,
+  InputTitle,
+  PasswordLabel,
+  SettingAndIcon,
+  SettingTitle,
+  WrapperSetting,
+  Button,
+  SaveButton,
+  InputWrapper,
+  StyledVisibilityOffIcon,
+  StyledVisibilityOutIcon,
+} from './SettingModal.styled';
+import { Backdrop } from '../Logout/UserLogoutModal.styled';
 import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
 import { modalClose } from '../../redux/setingModalSlicer';
 import { updateApiThunk } from '../../redux/user/thunk';
-import { handleCloseModal, handleBackdropClick, handleKeyPress } from '../Logout/Handlers';
-import { Backdrop } from '@mui/material';
-
+import {
+  handleBackdropClick,
+  handleCloseModal,
+  handleKeyPress,
+} from './HandlersSetting';
 const formSchema = Yup.object().shape({
   email: Yup.string()
     .email('Enter a valid email')
@@ -28,6 +46,7 @@ const formSchema = Yup.object().shape({
 });
 
 export const SettingModal = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   console.log(user);
 
@@ -42,6 +61,15 @@ export const SettingModal = () => {
 
   const [isValid, setIsValid] = useState(true);
 
+  useEffect(() => {
+    const handleKeyDown = handleKeyPress(dispatch);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dispatch]);
+
   const togglePasswordVisibility = (setState) => {
     setState((prevState) => !prevState);
   };
@@ -55,13 +83,14 @@ export const SettingModal = () => {
       toast.error('Enter valid data, please!');
     }
     try {
-      await updateApiThunk({ name, email, password });
+      await updateApiThunk({ name, email, password }).unwrap();
       console.log('Data saved successfully');
       modalClose();
     } catch (error) {
       notify();
       toast.error('An error occurred while saving data.');
     }
+    return;
   };
 
   const validate = () => {
@@ -76,13 +105,21 @@ export const SettingModal = () => {
 
   return (
     <>
-      <Backdrop onClick={handleBackdropClick} tabIndex={-1} />
-      <WrapperSetting onKeyDown={handleKeyPress}>
+      <Backdrop onClick={handleBackdropClick(dispatch)} tabIndex={-1} />
+      <WrapperSetting>
         <SettingAndIcon>
           <SettingTitle>Setting</SettingTitle>
-          <CloseSvg onClick={handleCloseModal} />
+          <button
+            style={{
+              border: 'none',
+              background: '#ffffff',
+            }}
+            onClick={handleCloseModal(dispatch)}
+          >
+            <CloseSvg />
+          </button>
         </SettingAndIcon>
-        <UploadPhoto />
+        <UploadPhoto user={user} />
         <GeneralBlock>
           <BlockGender>
             <GenderBlock user={user} onSave={onSave} />
@@ -167,7 +204,7 @@ export const SettingModal = () => {
         </GeneralBlock>
         <Button>
           <SaveButton
-            disabled={!isValid}
+            /*   disabled={!isValid} */
             type="submit"
             onClick={() => onSave(user.name, user.email)}
           >

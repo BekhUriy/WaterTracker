@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { BlockInput, InputTitle, Inputs, Input } from './SettingModal.styled';
 
-export const NameEmailBlock = ({ user, validate}) => {
+export const NameEmailBlock = ({ user, validate }) => {
   const [name, setName] = useState(user.name || '');
   const [email, setEmail] = useState(user.email || '');
+  console.log(user.email);
 
-  const handleEmailChange = (value) =>
-  {
-  setEmail(value);
-  validate()
+  const handleEmailChange = (value) => {
+    setEmail(value);
+    validate();
   };
 
   const handleNameChange = (value) => {
     setName(value);
-    validate()
-  }
+    validate();
+  };
 
   return (
     <Inputs>
@@ -25,7 +25,7 @@ export const NameEmailBlock = ({ user, validate}) => {
           name="name"
           value={name}
           placeholder={user.name}
-          onChange={e => handleNameChange(e.target.value)}
+          onChange={(e) => handleNameChange(e.target.value)}
           required
           style={{ color: '#407bff' }}
         />
@@ -37,7 +37,7 @@ export const NameEmailBlock = ({ user, validate}) => {
           name="email"
           value={email}
           placeholder={user.email}
-          onChange={e => handleEmailChange(e.target.value)}
+          onChange={(e) => handleEmailChange(e.target.value)}
           required
           style={{ color: '#407bff' }}
         />
