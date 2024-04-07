@@ -14,17 +14,22 @@ import {
 import CrossbarButtonIcon from './CrossbarIcons/CrossbarButtonIcon';
 import CrossbarModal from './CrossbarModal';
 import { useAuth } from '../../../hooks/useAuth.js';
+import { useWater } from '../../../hooks/useWater.js';
 
 const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
   const authUser = useAuth().authUser;
+  const waterRecords = useWater().waterRecords;
 
   useEffect(() => {
-    const percentage = Math.round((waterAmount / authUser?.waterRate) * 100);
+    const percentage = Math.round(
+      (waterAmount / authUser?.waterRate) * 100 +
+        waterRecords?.percentageOfWaterConsumption
+    );
     setWaterIntakePercentage(percentage);
-  }, [waterAmount]);
+  }, [waterAmount, waterRecords]);
 
   const handleSaveWaterAmount = (newWaterAmount) => {
     setWaterAmount((prevWaterAmount) => prevWaterAmount + newWaterAmount);

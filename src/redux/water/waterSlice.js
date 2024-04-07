@@ -15,13 +15,11 @@ const handlePending = (state) => {
 };
 
 const handleFulfilled = (state, action) => {
-  console.log(action.payload);
   state.isLoading = false;
   state.error = null;
   state.waterRecords = action.payload;
 };
 const handleFulfilledGetById = (state, action) => {
-  console.log(action.payload);
   state.isLoading = false;
   state.error = null;
   state.waterRecord = action.payload;
@@ -29,7 +27,7 @@ const handleFulfilledGetById = (state, action) => {
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords.push(action.payload);
+  state.waterRecords.waterRecords.push(action.payload);
 };
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
@@ -74,7 +72,7 @@ const handleFulfilledMonthGet = (state, action) => {
   state.monthStats = action.payload;
 };
 const initialState = {
-  waterRecords: [],
+  waterRecords: null,
   monthStats: [],
   waterRate: '',
   isLoading: false,

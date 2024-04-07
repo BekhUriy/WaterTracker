@@ -23,6 +23,7 @@ import {
 } from './CrossbarModal.styled';
 import { useDispatch } from 'react-redux';
 import { addPortionThunk } from '../../../redux/water/waterThunk.js';
+import { format } from 'date-fns';
 
 const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   const [amountWater, setAmountWater] = useState(0);
@@ -40,7 +41,12 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   };
 
   const handleSaveButtonClick = () => {
-    dispatch(addPortionThunk({ amountWater, date: '2024-04-06T13:11:47.207Z' }));
+    const [hours, minutes] = currentTime.split(':');
+    let currentDate = new Date();
+    currentDate.setHours(hours);
+    currentDate.setMinutes(minutes);
+
+    dispatch(addPortionThunk({ amountWater, date: currentDate.toISOString() }));
     onClose();
     onSave(amountWater);
     setCurrentTime(getCurrentTime());
@@ -48,6 +54,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
 
   const handleEnterValueChange = (event) => {
     const newValue = parseInt(event.target.value);
+
     setAmountWater(newValue);
   };
 
@@ -57,6 +64,10 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
     const minutes = now.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
+
+  const handleChangeTime = (e) => {
+    console.log(e.target.value);
+  };
 
   useEffect(() => {
     const handleEscKeyPress = (event) => {
@@ -108,6 +119,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
               type="time"
               step={300}
               value={currentTime}
+              onChange={handleChangeTime}
             ></RecordingTimeInput>
           </div>
 

@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { useWater } from '../../hooks/useWater.js';
 import { useDispatch } from 'react-redux';
 import { currentThunk } from '../../redux/auth/thunk.js';
+import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
 
 const HomePage = () => {
   const user = useAuth().authUser;
@@ -23,6 +24,10 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(currentThunk());
   }, [isChangeWaterRate]);
+
+  useEffect(() => {
+    dispatch(getWaterPortionsThunk());
+  }, []);
 
   return (
     <BubblesContainer>
