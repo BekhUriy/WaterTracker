@@ -1,20 +1,25 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { getWaterPortionsThunk, EditPortionThunk, addPortionThunk, deletePortionThunk, editDailyNormaThunk, monthStatsThunk, getWaterPortionByIdThunk } from './waterThunk.js';
+import {
+  getWaterPortionsThunk,
+  EditPortionThunk,
+  addPortionThunk,
+  deletePortionThunk,
+  editDailyNormaThunk,
+  monthStatsThunk,
+  getWaterPortionByIdThunk,
+} from './waterThunk.js';
 
-
-const handlePending = state => {
+const handlePending = (state) => {
   state.isLoading = true;
 };
 
 const handleFulfilled = (state, action) => {
-  console.log(action.payload);
   state.isLoading = false;
   state.error = null;
   state.waterRecords = action.payload;
 };
 const handleFulfilledGetById = (state, action) => {
-  console.log(action.payload);
   state.isLoading = false;
   state.error = null;
   state.waterRecord = action.payload;
@@ -22,24 +27,26 @@ const handleFulfilledGetById = (state, action) => {
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords.push(action.payload);
+  state.waterRecords.waterRecords.push(action.payload);
 };
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords = state.waterRecords.filter(el => el.id !== action.payload.id);
+  state.waterRecords = state.waterRecords.filter(
+    (el) => el.id !== action.payload.id
+  );
 };
 const handleFulfilledEdit = (state, action) => {
   state.isLoading = false;
   state.error = null;
   const editedRecord = action.payload;
-  state.waterRecords = state.waterRecords.map(water => {
+  state.waterRecords = state.waterRecords.map((water) => {
     if (water.id === editedRecord.id) {
-    return editedRecord;
+      return editedRecord;
     }
     return water;
   });
-}
+};
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
@@ -57,28 +64,33 @@ const handleFulfilledEditDailyNorma = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.waterRate = action.payload;
-}
+};
 ///////Month
 const handleFulfilledMonthGet = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.monthStats = action.payload;
-}
+};
 const initialState = {
-  waterRecords: [],
+  waterRecords: null,
   monthStats: [],
-  waterRate:"",
+  waterRate: '',
   isLoading: false,
   error: null,
-waterRecord:null,
+  waterRecord: null,
+  isChangeWaterRate: false,
 };
 
 const waterSlice = createSlice({
   name: 'waterSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleWaterRate: (state) => {
+      state.isChangeWaterRate = (prev) => !prev;
+    },
+  },
 
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(getWaterPortionsThunk.fulfilled, handleFulfilled)
       .addCase(addPortionThunk.fulfilled, handleFulfilledAdd)
@@ -97,7 +109,7 @@ const waterSlice = createSlice({
           editDailyNormaThunk.pending,
           monthStatsThunk.pending
         ),
-        handlePending,
+        handlePending
       )
       .addMatcher(
         isAnyOf(
@@ -109,10 +121,10 @@ const waterSlice = createSlice({
           editDailyNormaThunk.rejected,
           monthStatsThunk.rejected
         ),
-        handleRejected,
+        handleRejected
       );
   },
 });
 
-
 export const waterReducer = waterSlice.reducer;
+export const { toggleWaterRate } = waterSlice.actions;
