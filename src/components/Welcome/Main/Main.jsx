@@ -6,6 +6,7 @@ const Main = () => {
   return (
     <WelcomeContentContainer>
       {/* <Container> */}
+      
         <WaterConsumptionTracker />
         <WhyDrinkWater />
       {/* </Container> */}

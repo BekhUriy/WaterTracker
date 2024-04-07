@@ -1,18 +1,47 @@
-import { useEffect, useState } from "react";
-import XMarkOutlineIcon from "../Crossbar/CrossbarIcons/XMarkOutlineIcon";
-import { AmountWaterBox, AmountWaterDecrementButton, AmountWaterIncrementButton, AmountWaterMlBox, AmountWaterMlDiv, CrossbarAddWaterButton, EnterValueInput, RecordingTimeInput } from "../Crossbar/CrossbarModal.styled";
-import { Icon } from "./IconButtons";
-import { GlassIcon } from "./Icons/GlassIcon";
-import {  Overlay, StyledCounter, StyledDataBar, StyledEditWaterBox, StyledModal, StyledModalHeader } from "./StyledEditWaterModal";
-import { IconFramTwo, StyledDataContainer, StyledTime, StyledWater } from "./StyledaddWaterList";
-import { useDispatch } from "react-redux";
-import { format } from "date-fns";
-import { EditPortionThunk, getWaterPortionByIdThunk } from "../../../redux/water/waterThunk";
-import { useWater } from "../../../hooks/useWater";
-import MinusSmallSolidIcon from "../Crossbar/CrossbarIcons/MinusSmallSolidIcon";
-import PlusSmallSolidIcon from "../Crossbar/CrossbarIcons/PlusSmallSolidIcon";
+import { useEffect, useState } from 'react';
+import XMarkOutlineIcon from '../Crossbar/CrossbarIcons/XMarkOutlineIcon';
+import {
+  AmountWaterBox,
+  AmountWaterDecrementButton,
+  AmountWaterIncrementButton,
+  AmountWaterMlBox,
+  AmountWaterMlDiv,
+  ChooseValueSaveButton,
+  ChooseValueSaveSpan,
+  CrossbarAddWaterButton,
+  CrossbarChooseValueSaveDiv,
+  EnterValueInput,
+  RecordingTimeInput,
+} from '../Crossbar/CrossbarModal.styled';
+import { Icon } from './IconButtons';
+import { GlassIcon } from './Icons/GlassIcon';
+import {
+  AmountWaterText,
+  CorrectDataText,
+  DeleteModalHeaderText,
+  Overlay,
+  StyledDataBar,
+  StyledEditWaterBox,
+  StyledModal,
+  StyledModalHeader,
+} from './StyledEditWaterModal';
+import {
+  IconFramTwo,
+  StyledDataContainer,
+  StyledTime,
+  StyledWater,
+} from './StyledaddWaterList';
+import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
+import {
+  EditPortionThunk,
+  getWaterPortionByIdThunk,
+} from '../../../redux/water/waterThunk';
+import { useWater } from '../../../hooks/useWater';
+import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
+import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
-export const EditWaterModal = ({ isOpen, onClose, onSave,id })=>{
+export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
   const dispatch = useDispatch();
@@ -68,30 +97,35 @@ export const EditWaterModal = ({ isOpen, onClose, onSave,id })=>{
       document.removeEventListener('keydown', handleEscKeyPress);
     };
   }, [isOpen, onClose]);
-  if (isOpen===false) return null
-    return (
-   <Overlay >
-     <StyledModal>
-         <StyledModalHeader>
-             <h2>Edit the entered amount of water</h2>
-         <CrossbarAddWaterButton onClick={onClose}>
-         <XMarkOutlineIcon />
-        </CrossbarAddWaterButton>
-         </StyledModalHeader>
+  if (isOpen === false) return null;
+  return (
+    <Overlay>
+      <StyledModal>
+        <StyledModalHeader>
+          <DeleteModalHeaderText>
+            Edit the entered amount of water
+          </DeleteModalHeaderText>
+          <CrossbarAddWaterButton onClick={onClose}>
+            <XMarkOutlineIcon />
+          </CrossbarAddWaterButton>
+        </StyledModalHeader>
 
-         <StyledEditWaterBox>
+        <StyledEditWaterBox>
           <StyledDataBar>
-       <Icon>
-            <IconFramTwo>
-              <GlassIcon />
-            </IconFramTwo>
-          </Icon> 
-          <StyledDataContainer>
-            <StyledWater>200ml</StyledWater>
-            <StyledTime>11:00 AM</StyledTime>
-          </StyledDataContainer>
-         </StyledDataBar>
-         <AmountWaterBox>
+            <Icon>
+              <IconFramTwo>
+                <GlassIcon />
+              </IconFramTwo>
+            </Icon>
+            <StyledDataContainer>
+              <StyledWater>200ml</StyledWater>
+              <StyledTime>11:00 AM</StyledTime>
+            </StyledDataContainer>
+          </StyledDataBar>
+          <div>
+            <CorrectDataText>Correct entered data:</CorrectDataText>
+            <AmountWaterText>Amount of water:</AmountWaterText>
+            <AmountWaterBox>
               <AmountWaterDecrementButton onClick={decrementWaterAmount}>
                 <MinusSmallSolidIcon />
               </AmountWaterDecrementButton>
@@ -102,32 +136,33 @@ export const EditWaterModal = ({ isOpen, onClose, onSave,id })=>{
                 <PlusSmallSolidIcon />
               </AmountWaterIncrementButton>
             </AmountWaterBox>
-         <RecordingTimeInput
+          </div>
+          <div>
+            <AmountWaterText>Recording time:</AmountWaterText>
+            <RecordingTimeInput
               type="time"
               step={300}
               value={currentTime}
             ></RecordingTimeInput>
-             <EnterValueInput
+          </div>
+          <div>
+            <AmountWaterText>
+              Enter the value of the water used:
+            </AmountWaterText>
+            <EnterValueInput
               type="number"
               value={amountWater}
               onChange={handleEnterValueChange}
             ></EnterValueInput>
-<p>Correct entered data:</p>
-<p>Amount of water:</p>
-<StyledCounter>
-<button type="button"></button>
-
-<button type="button"></button>
-</StyledCounter>
-
-
-
-<p>Recording time:</p>
-Enter the value of the water used:
-
-</StyledEditWaterBox>
-     </StyledModal>
-   </Overlay>
- );
-}
-
+          </div>
+          <CrossbarChooseValueSaveDiv>
+            <ChooseValueSaveSpan>{amountWater} ml</ChooseValueSaveSpan>
+            <ChooseValueSaveButton onClick={handleSaveButtonClick}>
+              Save
+            </ChooseValueSaveButton>
+          </CrossbarChooseValueSaveDiv>
+        </StyledEditWaterBox>
+      </StyledModal>
+    </Overlay>
+  );
+};
