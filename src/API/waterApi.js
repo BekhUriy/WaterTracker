@@ -17,13 +17,14 @@ export const addWaterPortion = async (body) => {
 };
 
 export const editWaterPortion = async (id, body) => {
-  const { data } = await apiServices.patch(urls.waters.waterById(id), body);
-  return data;
+await apiServices.patch(urls.waters.waterById(id), body);
+  // return data;
+  
 };
 
 export const deletePortion = async (id) => {
-  const { data } = await apiServices.delete(urls.waters.waterById(id));
-  return data;
+ await apiServices.delete(urls.waters.waterById(id));
+  return id;
 };
 
 export const editDailyNorma = async (body) => {

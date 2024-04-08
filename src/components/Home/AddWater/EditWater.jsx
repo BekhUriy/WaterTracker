@@ -37,27 +37,17 @@ import {
   EditPortionThunk,
   getWaterPortionByIdThunk,
 } from '../../../redux/water/waterThunk';
-import { useWater } from '../../../hooks/useWater';
+// import { useWater } from '../../../hooks/useWater';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
-export const EditWaterModal = ({ isOpen, onClose, onSave, recordData }) => {
+export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const dispatch = useDispatch();
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
 
   const curruntDate = new Date();
   const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-
-  // console.log(id); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // id - undefined
-  // WARNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  // const waterRecords = useWater().waterRecords;
-
-  // useEffect(() => {
-  //   dispatch(getWaterPortionByIdThunk(id));
-  // }, []);
 
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
@@ -72,7 +62,7 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, recordData }) => {
   const handleSaveButtonClick = () => {
     dispatch(EditPortionThunk({ amountWater, date: formatedDate }));
     onClose();
-    onSave(amountWater);
+    // onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 

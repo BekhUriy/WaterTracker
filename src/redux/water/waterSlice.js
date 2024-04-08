@@ -35,17 +35,18 @@ const handleFulfilledAdd = (state, action) => {
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords = state.waterRecords.filter(
-    (el) => el.id !== action.payload.id
+  state.waterRecords.waterRecords = state.waterRecords.waterRecords.filter(
+    (el) => el._id !== action.payload
   );
 };
 
 const handleFulfilledEdit = (state, action) => {
   state.isLoading = false;
   state.error = null;
+  console.log(action.payload)
   const editedRecord = action.payload;
-  state.waterRecords = state.waterRecords.map((water) => {
-    if (water.id === editedRecord.id) {
+  state.waterRecords.waterRecords = state.waterRecords.waterRecords.map((water) => {
+    if (water._id === editedRecord.id) {
       return editedRecord;
     }
     return water;

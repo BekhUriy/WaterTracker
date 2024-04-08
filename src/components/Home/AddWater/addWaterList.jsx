@@ -67,6 +67,7 @@ export const AddWaterList = ({ water }) => {
     if (!waterRecords || waterRecords.length === 0) return;
 
     return waterRecords.map((waterRecord) => {
+      console.log(waterRecord.date)
       return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
@@ -77,7 +78,7 @@ export const AddWaterList = ({ water }) => {
             </Icon>
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater}</StyledWater>
-              <StyledTime>{waterRecord.date}</StyledTime>
+              <StyledTime>{format(waterRecord.date, 'hh:mm') }</StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
