@@ -13,30 +13,44 @@ export const Avatar = styled.div`
 `;
 
 export const WrapperSetting = styled.form`
+  transform: translate(-50%, -50%);
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 1008px;
-  height: 592px;
-  padding: 32px 24px;
-  border: 1px solid gray;
+  padding: 32px 12px;
+  min-width: 280px;
+  max-height: 90vh;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
-  background-color: #ffffff;
-  box-sizing: border-box;
- 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 2;
+  max-width: 1008px;
+
+  @media (min-width: 768px) {
+    padding: 32px 24px;
+  }
+`;
+
+export const Scrollbar = styled.div`
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #9ebbff;
+  }
 `;
 
 export const SettingAndIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 960px;
+  width: 100%;
   height: 32px;
-  gap: 756px;
 `;
 
 export const SettingTitle = styled.h1`
@@ -79,16 +93,30 @@ export const Label = styled.label`
 
 export const GeneralBlock = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 24px;
-  width: 960px;
-  height: 272px;
+  width: 256px;
+  height: auto;
+
+  @media (min-width: 768px) {
+    width: 544px;
+  }
+
+  @media (min-width: 1440px) {
+    flex-direction: row;
+    min-width: 960px;
+  }
 `;
 export const Gender = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 182px;
+  width: 256px;
   height: 52px;
+
+  @media (min-width: 768px) {
+    width: 392px;
+  }
 `;
 
 export const GenderTitle = styled.p`
@@ -100,6 +128,7 @@ export const GenderTitle = styled.p`
   width: 100%;
   height: 20px;
 `;
+
 export const InputsRadio = styled.div`
   display: flex;
   gap: 24px;
@@ -107,15 +136,26 @@ export const InputsRadio = styled.div`
 
 export const InputGender = styled.div`
   display: flex;
-  gap: 6px;
+  gap: 8px;
+
+  @media (min-width: 768px) {
+    gap: 6px;
+  }
 `;
 
 export const BlockGender = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 52px;
-  width: 392px;
+  gap: 24px;
+  width: 256px;
   box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    width: 392px;
+  }
+  @media (min-width: 1440px) {
+    gap: 52px;
+  }
 `;
 
 export const Inputs = styled.div`
@@ -168,8 +208,12 @@ export const BlockPassword = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 544px;
+  width: 256px;
   box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    width: 392px;
+  }
 `;
 
 export const PasswordLabel = styled.label`
@@ -189,15 +233,21 @@ export const PasswordLabel = styled.label`
 `;
 
 export const Button = styled.div`
-  margin-left: auto;
   display: flex;
   box-sizing: border-box;
   border: 0;
-  max-width: 160px;
-  height: 44px;
+  width: 100%;
+  height: 36px;
   border-radius: 10px;
-  padding: 10px 30px;
+  padding: 8px 30px;
   background-color: #407bff;
+
+  @media (min-width: 768px) {
+    margin-left: auto;
+    max-width: 160px;
+    padding: 10px 30px;
+    height: 44px;
+  }
 `;
 
 export const SaveButton = styled.button`
@@ -206,13 +256,18 @@ export const SaveButton = styled.button`
   justify-content: center;
   background-color: #407bff;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   color: #ffffff;
   text-align: center;
   border: 0;
-  width: 100px;
+  width: 100%;
   padding: 0;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const StyledVisibilityOffIcon = styled(VisibilityOffOutlinedIcon)`
