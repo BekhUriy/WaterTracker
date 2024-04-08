@@ -49,6 +49,7 @@ export const AddWaterList = ({ water }) => {
     setSelectedWaterRecord(waterRecord);
     setIsEditModalOpen(true);
   };
+
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
@@ -57,6 +58,7 @@ export const AddWaterList = ({ water }) => {
     setSelectedWaterRecord(waterRecord);
     
   };
+
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };

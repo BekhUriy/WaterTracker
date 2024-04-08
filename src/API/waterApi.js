@@ -1,36 +1,37 @@
 import { apiServices } from './apiServices.js';
+import { urls } from '../constants/urls.js';
 
 export const getWaterPortionsList = async () => {
-  const { data } = await apiServices.get(`/today`);
+  const { data } = await apiServices.get(urls.waters.today);
   return data;
 };
+
 export const getWaterPortion = async (id) => {
-  const { data } = await apiServices.get(`/water${id}`);
+  const { data } = await apiServices.get(urls.waters.waterById(id));
   return data;
 };
+
 export const addWaterPortion = async (body) => {
-  console.log('body for post add water', body);
-  const { data } = await apiServices.post(`/water`, body);
-  console.log('return addWaterPortion', data);
-  return { data };
+  const { data } = await apiServices.post(urls.waters.water, body);
+  return data;
 };
+
 export const editWaterPortion = async (id, body) => {
-  const { data } = await apiServices.patch(`/water/${id}`, body);
-  return { data };
+  const { data } = await apiServices.patch(urls.waters.waterById(id), body);
+  return data;
 };
+
 export const deletePortion = async (id) => {
-  const { data } = await apiServices.delete(`/water/${id}`);
-  console.log('return addWaterPortion', data);
-  return { data };
+  const { data } = await apiServices.delete(urls.waters.waterById(id));
+  return data;
 };
 
-//////////////////////////DailyNorma
-
-// export const getDailyNorma = async () => {
-//   const { data } = await apiServices.get('/user');
-//   return data;
-// };
 export const editDailyNorma = async (body) => {
-  const { data } = await apiServices.patch(`/waterrate`, body);
-  return { data };
+  const { data } = await apiServices.patch(urls.waters.waterRate, body);
+  return data;
+};
+
+export const getMonthStateApi = async (date) => {
+  const { data } = await apiServices.get(urls.waters.month(date));
+  return data;
 };

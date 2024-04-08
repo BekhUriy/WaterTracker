@@ -49,9 +49,15 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, recordData }) => {
   const curruntDate = new Date();
   const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
 
-  const waterRecords = useWater().waterRecords;
+  // console.log(id); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // id - undefined
+  // WARNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+  // const waterRecords = useWater().waterRecords;
 
+  // useEffect(() => {
+  //   dispatch(getWaterPortionByIdThunk(id));
+  // }, []);
 
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
