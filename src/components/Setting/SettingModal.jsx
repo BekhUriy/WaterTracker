@@ -19,6 +19,7 @@ import {
   InputWrapper,
   StyledVisibilityOffIcon,
   StyledVisibilityOutIcon,
+  Scrollbar,
 } from './SettingModal.styled';
 import { Backdrop } from '../Logout/UserLogoutModal.styled';
 import { GenderBlock } from 'components/Setting/GenderBlock';
@@ -105,114 +106,126 @@ export const SettingModal = () => {
 
   return (
     <>
-      <Backdrop onClick={handleBackdropClick(dispatch)} tabIndex={-1} />
-      <WrapperSetting>
-        <SettingAndIcon>
-          <SettingTitle>Setting</SettingTitle>
-          <button
-            style={{
-              border: 'none',
-              background: '#ffffff',
-            }}
-            onClick={handleCloseModal(dispatch)}
-          >
-            <CloseSvg />
-          </button>
-        </SettingAndIcon>
-        <UploadPhoto user={user} />
-        <GeneralBlock>
-          <BlockGender>
-            <GenderBlock user={user} onSave={onSave} />
-            <NameEmailBlock user={user} validate={validate} />
-          </BlockGender>
+      <Backdrop onClick={handleBackdropClick(dispatch)} />
+      <Scrollbar>
+        <WrapperSetting>
+          <SettingAndIcon>
+            <SettingTitle>Setting</SettingTitle>
+            <button
+              style={{
+                border: 'none',
+                background: '#ffffff',
+              }}
+              onClick={handleCloseModal(dispatch)}
+            >
+              <CloseSvg />
+            </button>
+          </SettingAndIcon>
+          <UploadPhoto user={user} />
+          <GeneralBlock>
+            <BlockGender>
+              <GenderBlock user={user} onSave={onSave} />
+              <NameEmailBlock user={user} validate={validate} />
+            </BlockGender>
 
-          <BlockPassword>
-            <InputTitle>Password</InputTitle>
-            <InputWrapper>
-              <PasswordLabel htmlFor="oldPassword">
-                Outdated password:
-              </PasswordLabel>
-              <div style={{ position: 'relative' }}>
-                <Input
-                  type={showOldPassword ? 'text' : 'password'}
-                  name="oldPassword"
-                  value={showOldPassword ? oldPassword : ''}
-                  placeholder="Password"
-                  onChange={(e) => setOldPassword(e.target.value)}
-                  style={{ color: '#407bff' }}
-                />
-                {showOldPassword ? (
-                  <StyledVisibilityOutIcon
-                    onClick={() => togglePasswordVisibility(setShowOldPassword)}
+            <BlockPassword>
+              <InputTitle>Password</InputTitle>
+              <InputWrapper>
+                <PasswordLabel htmlFor="oldPassword">
+                  Outdated password:
+                </PasswordLabel>
+                <div style={{ position: 'relative' }}>
+                  <Input
+                    type={showOldPassword ? 'text' : 'password'}
+                    name="oldPassword"
+                    value={showOldPassword ? oldPassword : ''}
+                    placeholder="Password"
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    style={{ color: '#407bff' }}
                   />
-                ) : (
-                  <StyledVisibilityOffIcon
-                    onClick={() => togglePasswordVisibility(setShowOldPassword)}
+                  {showOldPassword ? (
+                    <StyledVisibilityOutIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowOldPassword)
+                      }
+                    />
+                  ) : (
+                    <StyledVisibilityOffIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowOldPassword)
+                      }
+                    />
+                  )}
+                </div>
+              </InputWrapper>
+              <InputWrapper>
+                <PasswordLabel htmlFor="name">New password:</PasswordLabel>
+                <div style={{ position: 'relative' }}>
+                  <Input
+                    type={showNewPassword ? 'text' : 'password'}
+                    name="password"
+                    value={showNewPassword ? newPassword : ''}
+                    placeholder="Password"
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    style={{ color: '#407bff' }}
                   />
-                )}
-              </div>
-            </InputWrapper>
-            <InputWrapper>
-              <PasswordLabel htmlFor="name">New password:</PasswordLabel>
-              <div style={{ position: 'relative' }}>
-                <Input
-                  type={showNewPassword ? 'text' : 'password'}
-                  name="password"
-                  value={showNewPassword ? newPassword : ''}
-                  placeholder="Password"
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  style={{ color: '#407bff' }}
-                />
-                {showNewPassword ? (
-                  <StyledVisibilityOutIcon
-                    onClick={() => togglePasswordVisibility(setShowNewPassword)}
+                  {showNewPassword ? (
+                    <StyledVisibilityOutIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowNewPassword)
+                      }
+                    />
+                  ) : (
+                    <StyledVisibilityOffIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowNewPassword)
+                      }
+                    />
+                  )}
+                </div>
+              </InputWrapper>
+              <InputWrapper>
+                <PasswordLabel htmlFor="name">
+                  Repeat new password:
+                </PasswordLabel>
+                <div style={{ position: 'relative' }}>
+                  <Input
+                    type={showRepeatPassword ? 'text' : 'password'}
+                    name="password"
+                    value={showRepeatPassword ? repeatPassword : ''}
+                    placeholder="Password"
+                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    style={{ color: '#407bff' }}
                   />
-                ) : (
-                  <StyledVisibilityOffIcon
-                    onClick={() => togglePasswordVisibility(setShowNewPassword)}
-                  />
-                )}
-              </div>
-            </InputWrapper>
-            <InputWrapper>
-              <PasswordLabel htmlFor="name">Repeat new password:</PasswordLabel>
-              <div style={{ position: 'relative' }}>
-                <Input
-                  type={showRepeatPassword ? 'text' : 'password'}
-                  name="password"
-                  value={showRepeatPassword ? repeatPassword : ''}
-                  placeholder="Password"
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                  style={{ color: '#407bff' }}
-                />
-                {showRepeatPassword ? (
-                  <StyledVisibilityOutIcon
-                    onClick={() =>
-                      togglePasswordVisibility(setShowRepeatPassword)
-                    }
-                  />
-                ) : (
-                  <StyledVisibilityOffIcon
-                    onClick={() =>
-                      togglePasswordVisibility(setShowRepeatPassword)
-                    }
-                  />
-                )}
-              </div>
-            </InputWrapper>
-          </BlockPassword>
-        </GeneralBlock>
-        <Button>
-          <SaveButton
-            /*   disabled={!isValid} */
-            type="submit"
-            onClick={() => onSave(user.name, user.email)}
-          >
-            Save
-          </SaveButton>
-          <ToastContainer />
-        </Button>
-      </WrapperSetting>
+                  {showRepeatPassword ? (
+                    <StyledVisibilityOutIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowRepeatPassword)
+                      }
+                    />
+                  ) : (
+                    <StyledVisibilityOffIcon
+                      onClick={() =>
+                        togglePasswordVisibility(setShowRepeatPassword)
+                      }
+                    />
+                  )}
+                </div>
+              </InputWrapper>
+            </BlockPassword>
+          </GeneralBlock>
+          <Button>
+            <SaveButton
+              /*   disabled={!isValid} */
+              type="submit"
+              onClick={() => onSave(user.name, user.email)}
+            >
+              Save
+            </SaveButton>
+            <ToastContainer />
+          </Button>
+        </WrapperSetting>
+      </Scrollbar>
     </>
   );
 };

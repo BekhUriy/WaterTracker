@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import {
-  selectIsChangeWaterRate,
+  selectForceRender,
   selectMonthStats,
   selectWaterRecords,
 } from '../redux/water/selectors.js';
@@ -8,5 +8,5 @@ import {
 export const useWater = () => ({
   waterRecords: useSelector(selectWaterRecords),
   monthStats: useSelector(selectMonthStats),
-  isChangeWaterRate: useSelector(selectIsChangeWaterRate),
+  forceRender: useSelector(selectForceRender),
 });
