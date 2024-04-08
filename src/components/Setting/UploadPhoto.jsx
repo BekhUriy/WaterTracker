@@ -8,7 +8,7 @@ import {
 } from './SettingModal.styled';
 import { ArrowUpSvg } from './ArrowUpSvg';
 import { useDispatch } from 'react-redux';
-import { updateAvatarApiThunk } from '../../redux/user/thunk';
+import { updateAvatarThunk } from '../../redux/user/thunk';
 
 export const UploadPhoto = ({ user }) => {
   const [avatarURL, setAvatarURL] = useState(user.avatarURL);
@@ -22,7 +22,7 @@ export const UploadPhoto = ({ user }) => {
       formData.append('avatar', file);
 
       try {
-        await dispatch(updateAvatarApiThunk(formData)).unwrap();
+        await dispatch(updateAvatarThunk(formData)).unwrap();
       } catch (error) {
         console.error('Error updating profile:', error);
       }

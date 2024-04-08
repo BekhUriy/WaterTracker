@@ -1,21 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateApiThunk, updateAvatarApiThunk } from './thunk';
+import {
+  updatePassworsThunk,
+  updateAvatarThunk,
+  updateNameGenderThunk,
+} from './thunk';
 
-const initialState = {};
+const initialState = {
+  message: '',
+};
 
-const updateSlice = createSlice({
+const useSlice = createSlice({
   name: 'updateSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(updateApiThunk.fulfilled, (state, action) => {
-        state.data = action.payload;
+      .addCase(updatePassworsThunk.fulfilled, (state, action) => {
+        state.message = action.payload.message;
       })
-      .addCase(updateAvatarApiThunk.fulfilled, (state, action) => {
-        state.data = action.payload;
+      .addCase(updateAvatarThunk.fulfilled, (state, action) => {
+        state.message = action.payload.message;
+      })
+      .addCase(updateNameGenderThunk.fulfilled, (state, action) => {
+        state.message = action.payload.message;
       });
   },
 });
 
-export const updateReducer = updateSlice.reducer;
+export const userReducer = useSlice.reducer;

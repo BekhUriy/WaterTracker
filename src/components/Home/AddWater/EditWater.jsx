@@ -37,28 +37,18 @@ import {
   EditPortionThunk,
   getWaterPortionByIdThunk,
 } from '../../../redux/water/waterThunk';
-import { useWater } from '../../../hooks/useWater';
+// import { useWater } from '../../../hooks/useWater';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
-export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
+export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const dispatch = useDispatch();
+ 
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-
   const curruntDate = new Date();
   const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-
-  // console.log(id); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // id - undefined
-  // WARNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  // const waterRecords = useWater().waterRecords;
-
-  // useEffect(() => {
-  //   dispatch(getWaterPortionByIdThunk(id));
-  // }, []);
-
+  
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
@@ -72,7 +62,7 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   const handleSaveButtonClick = () => {
     dispatch(EditPortionThunk({ amountWater, date: formatedDate }));
     onClose();
-    onSave(amountWater);
+    // onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 
@@ -105,6 +95,18 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   }, [isOpen, onClose]);
 
   if (isOpen === false) return null;
+  const baseWaterAmount = recordData.amountWater;
+  console.log(baseWaterAmount)
+   const id = recordData._id;
+   const time=recordData.date
+        const localDate = time.toLocaleString(); 
+      const dateStr = localDate;
+const date = new Date(dateStr);
+const hours = date.getUTCHours();
+const minutes = date.getUTCMinutes();
+const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  //  dispatch(getWaterPortionByIdThunk(id));
+  dispatch(getWaterPortionByIdThunk(id));
 
   return (
     <Overlay>
@@ -126,8 +128,8 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
               </IconFramTwo>
             </Icon>
             <StyledDataContainer>
-              <StyledWater>200ml</StyledWater>
-              <StyledTime>11:00 AM</StyledTime>
+              <StyledWater>{recordData.amountWater}</StyledWater>
+              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
             </StyledDataContainer>
           </StyledDataBar>
           <div>

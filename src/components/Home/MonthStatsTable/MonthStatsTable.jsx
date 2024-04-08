@@ -91,7 +91,7 @@ const MonthStatsTable = () => {
       isWithinInterval(currentDate, {
         start: startOfCurrentMonth,
         end: endOfCurrentMonth,
-      }),
+      })
     );
   }, [currentDate]);
 
@@ -101,6 +101,7 @@ const MonthStatsTable = () => {
 
   const getInfoForDay = (monthStats, currentDate) => {
     const [res] = monthStats.filter((el) => el.date === currentDate);
+
     if (res) {
       const percentage =
         Math.ceil(res.percentage / 10) * 10 > 100
@@ -109,7 +110,7 @@ const MonthStatsTable = () => {
 
       return {
         data: currentDate,
-        dailyNorma: res.dailyNorma / 1000,
+        dailyNorma: percentage === 0 ? 1.5 : res.dailyNorma / 1000,
         percentage,
         totalRecords: res.totalRecords,
       };
@@ -134,9 +135,7 @@ const MonthStatsTable = () => {
             </IconWrapper>
           </ButtonPagination>
           <span>{format(currentDate, 'MMMM yyyy')}</span>
-          <ButtonPagination onClick={handleNextMonth}
-                            disabled={isCurrentMonth}
-          >
+          <ButtonPagination onClick={handleNextMonth} disabled={isCurrentMonth}>
             <IconWrapper isCurrentMonth={isCurrentMonth}>
               <ArrowForwardIosIcon />
             </IconWrapper>

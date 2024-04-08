@@ -24,15 +24,20 @@ import { GlassIcon } from './Icons/GlassIcon';
 import { PlusIconSmall } from './Icons/PlusIcon';
 import { EditWaterModal } from './EditWater';
 import { DeleteModal } from './DeleteModal';
+import { useDispatch } from 'react-redux';
 import CrossbarModal from '../Crossbar/CrossbarModal';
+import { getWaterPortionByIdThunk } from '../../../redux/water/waterThunk';
 
 export const AddWaterList = ({ water }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  const [selectedWaterRecord, setSelectedWaterRecord] = useState(null);
   const { waterRecords } = water;
+  const dispatch = useDispatch();
+  console.log(waterRecords);
 
+ 
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -41,16 +46,18 @@ export const AddWaterList = ({ water }) => {
     setIsModalOpen(false);
   };
 
-  const handleOpenEditModal = () => {
+  const handleOpenEditModal = (waterRecord) => {
+    setSelectedWaterRecord(waterRecord);
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
-
-  const handleOpenDeleteModal = () => {
+  const handleOpenDeleteModal = (waterRecord) => {
     setIsDeleteModalOpen(true);
+    setSelectedWaterRecord(waterRecord);
+    
   };
 
   const closeDeleteModal = () => {
@@ -61,8 +68,15 @@ export const AddWaterList = ({ water }) => {
     if (!waterRecords || waterRecords.length === 0) return;
 
     return waterRecords.map((waterRecord) => {
-      return (
-        <ListItem key={waterRecord.id}>
+      const time=waterRecord.date
+        const localDate = time.toLocaleString(); 
+      const dateStr = localDate;
+const date = new Date(dateStr);
+const hours = date.getUTCHours();
+const minutes = date.getUTCMinutes();
+const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+     return (
+        <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
             <Icon>
               <IconFramTwo>
@@ -71,46 +85,20 @@ export const AddWaterList = ({ water }) => {
             </Icon>
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater}</StyledWater>
-              <StyledTime>{waterRecord.date}</StyledTime>
+              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
             <IconButton>
-              <EditIcon onClick={handleOpenEditModal} />
+              <EditIcon onClick={()=>handleOpenEditModal(waterRecord)} />
             </IconButton>
             <IconButton>
-              <TrashIcon onClick={handleOpenDeleteModal} />
+              <TrashIcon onClick={() => handleOpenDeleteModal(waterRecord)} />
             </IconButton>
           </StyledRightContainer>
         </ListItem>
       );
     });
-  };
-
-  const WaterRecordsListItemsDraft = () => {
-    return (
-      <ListItem>
-        <StyledLeftContainer>
-          <Icon>
-            <IconFramTwo>
-              <GlassIcon />
-            </IconFramTwo>
-          </Icon>
-          <StyledDataContainer>
-            <StyledWater>200ml</StyledWater>
-            <StyledTime>11:00 AM</StyledTime>
-          </StyledDataContainer>
-        </StyledLeftContainer>
-        <StyledRightContainer>
-          <IconButton>
-            <EditIcon onClick={handleOpenEditModal} />
-          </IconButton>
-          <IconButton>
-            <TrashIcon onClick={handleOpenDeleteModal} />
-          </IconButton>
-        </StyledRightContainer>
-      </ListItem>
-    );
   };
 
   const PortionsList = () => {
@@ -131,9 +119,9 @@ export const AddWaterList = ({ water }) => {
           <StyledButtonText>Add water</StyledButtonText>
         </StyledAddWaterButton>
       </StyledAddWaterListContainer>
-      <EditWaterModal isOpen={isEditModalOpen} onClose={closeEditModal} />
+      <EditWaterModal isOpen={isEditModalOpen} onClose={closeEditModal} recordData={selectedWaterRecord}/>
       <CrossbarModal isOpen={isModalOpen} onClose={closeModal} />
-      <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} />
+      <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} recordData={selectedWaterRecord}/>
     </div>
   );
 };
