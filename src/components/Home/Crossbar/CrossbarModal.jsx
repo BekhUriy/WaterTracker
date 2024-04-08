@@ -23,7 +23,6 @@ import {
 } from './CrossbarModal.styled';
 import { useDispatch } from 'react-redux';
 import { addPortionThunk } from '../../../redux/water/waterThunk.js';
-import { format } from 'date-fns';
 
 const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   const [amountWater, setAmountWater] = useState(0);
@@ -66,7 +65,8 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   }
 
   const handleChangeTime = (e) => {
-    console.log(e.target.value);
+    const selectedTime = e.target.value;
+    setCurrentTime(selectedTime);
   };
 
   useEffect(() => {
@@ -119,7 +119,6 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
               type="time"
               step={300}
               value={currentTime}
-              readOnly
               onChange={handleChangeTime}
             ></RecordingTimeInput>
           </div>
@@ -132,7 +131,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
               type="number"
               value={amountWater}
               onChange={handleEnterValueChange}
-            ></EnterValueInput>
+            />
           </div>
 
           <CrossbarChooseValueSaveDiv>

@@ -54,7 +54,6 @@ export const CrossbarInput = styled.input`
   background-color: rgb(215, 227, 255);
   background-image: linear-gradient(rgb(158, 187, 255), rgb(158, 187, 255));
   background-repeat: no-repeat;
-  background-size: ${({ percentage }) => percentage}% 100%;
   height: 8px;
 
   @media screen and (min-width: 768px) {
@@ -129,7 +128,6 @@ export const CrossbarSpanMiddle = styled.span`
   margin-bottom: 4px;
   gap: 4px;
   color: #407bff;
-  left: ${({ percentage }) => `calc(${percentage}% + 2px)`};
 
   &::before {
     content: '|';
