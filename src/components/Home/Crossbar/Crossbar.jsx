@@ -22,6 +22,7 @@ const Crossbar = () => {
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
   const authUser = useAuth().authUser;
   const waterRecords = useWater().waterRecords;
+
   useEffect(() => {
     const percentage = Math.round(
       (waterAmount / authUser?.waterRate) * 100 +
@@ -52,14 +53,14 @@ const Crossbar = () => {
           min={0}
           max={100}
           value={waterIntakePercentage}
-          percentage={waterIntakePercentage}
+          style={{ backgroundSize: `${waterIntakePercentage}% 100%` }}
         />
 
         <CrossbarProcentSpan>
           <CrossbarSpanStart>0%</CrossbarSpanStart>
           {waterIntakePercentage > 1 && waterIntakePercentage < 99 && (
             <CrossbarSpanMiddle
-              percentage={waterIntakePercentage}
+              style={{ left: `calc(${waterIntakePercentage}% + 2px)` }}
               id="WaterMark"
             >
               {waterIntakePercentage}%
