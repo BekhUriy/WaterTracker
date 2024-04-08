@@ -37,6 +37,7 @@ export const AddWaterList = ({ water }) => {
   const dispatch = useDispatch();
   console.log(waterRecords);
 
+ 
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -67,8 +68,14 @@ export const AddWaterList = ({ water }) => {
     if (!waterRecords || waterRecords.length === 0) return;
 
     return waterRecords.map((waterRecord) => {
-      console.log(waterRecord.date)
-      return (
+      const time=waterRecord.date
+        const localDate = time.toLocaleString(); 
+      const dateStr = localDate;
+const date = new Date(dateStr);
+const hours = date.getUTCHours();
+const minutes = date.getUTCMinutes();
+const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+     return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
             <Icon>
@@ -78,7 +85,7 @@ export const AddWaterList = ({ water }) => {
             </Icon>
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater}</StyledWater>
-              <StyledTime>{format(waterRecord.date, 'hh:mm') }</StyledTime>
+              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
