@@ -28,7 +28,7 @@ import { useAuth } from '../../../../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { editDailyNormaThunk } from '../../../../redux/water/waterThunk';
-import { toggleWaterRate } from '../../../../redux/water/waterSlice';
+import { forceRender } from '../../../../redux/water/waterSlice';
 
 const DailyNormaModal = () => {
   const toggleModal = useContext(ModalContext);
@@ -36,44 +36,46 @@ const DailyNormaModal = () => {
   const dispatch = useDispatch();
 
   const user = useAuth().authUser;
-  
+
   const onClickModalClose = () => {
     toggleModal();
   };
-  
+
   const [calculatedWaterAmount, setCalculatedWaterAmount] = useState(0);
-  
-  const calculateWaterAmount = useCallback(values => {
+
+  const calculateWaterAmount = useCallback((values) => {
     const weightCoefficient = values.gender === 'female' ? 0.03 : 0.04;
     const timeCoefficient = values.gender === 'female' ? 0.4 : 0.6;
     if (values.weight >= 0 && values.activityTime >= 0) {
       const calculatedAmount =
-      values.weight * weightCoefficient +
-      values.activityTime * timeCoefficient;
+        values.weight * weightCoefficient +
+        values.activityTime * timeCoefficient;
       setCalculatedWaterAmount(calculatedAmount.toFixed(1));
     } else {
       setCalculatedWaterAmount('Error');
     }
   }, []);
-  
+
   const handleChangeInput = (e) => {
     formik.handleChange(e);
   };
-  
+
   const handleSubmit = async () => {
     let amountWater = formik.values.waterAmount * 1000;
 
     if (amountWater >= 0 && amountWater <= 10000) {
       dispatch(editDailyNormaThunk({ waterRate: amountWater }));
-      dispatch(toggleWaterRate());
+      dispatch(forceRender());
       toast.success('Daily norma successfully updated');
     } else {
-      toast.warning('The amount of water must be a positive number and no more than 10 liters');
+      toast.warning(
+        'The amount of water must be a positive number and no more than 10 liters'
+      );
     }
     formik.resetForm();
     toggleModal();
   };
-  
+
   const formik = useFormik({
     initialValues: {
       gender: user.gender,
@@ -84,13 +86,13 @@ const DailyNormaModal = () => {
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
   });
-  
+
   const handleFocus = (e, fieldName) => {
     if (fieldName !== 'waterAmount') {
       e.target.value = '';
     }
   };
-  
+
   const handleBlur = (e, fieldName) => {
     if (e.target.value >= 0) {
       if (fieldName !== 'wateramount') {
@@ -225,7 +227,7 @@ const DailyNormaModal = () => {
                 Save
               </SaveButton>
             </WrapperForButton>
-            <ToastContainer/>
+            <ToastContainer />
           </FormStyled>
         </>
       </ModalContainer>

@@ -33,8 +33,6 @@ export const AddWaterList = ({ water }) => {
 
   const { waterRecords } = water;
 
-  console.log(waterRecords);
-
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -46,12 +44,15 @@ export const AddWaterList = ({ water }) => {
   const handleOpenEditModal = () => {
     setIsEditModalOpen(true);
   };
+
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
+
   const handleOpenDeleteModal = () => {
     setIsDeleteModalOpen(true);
   };
+
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };

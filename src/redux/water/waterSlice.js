@@ -19,16 +19,19 @@ const handleFulfilled = (state, action) => {
   state.error = null;
   state.waterRecords = action.payload;
 };
+
 const handleFulfilledGetById = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.waterRecord = action.payload;
 };
+
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.waterRecords.waterRecords.push(action.payload.data);
+  state.waterRecords.waterRecords.push(action.payload);
 };
+
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
   state.error = null;
@@ -36,6 +39,7 @@ const handleFulfilledDelete = (state, action) => {
     (el) => el.id !== action.payload.id
   );
 };
+
 const handleFulfilledEdit = (state, action) => {
   state.isLoading = false;
   state.error = null;
@@ -47,30 +51,24 @@ const handleFulfilledEdit = (state, action) => {
     return water;
   });
 };
+
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
-
-/////////DailyNorma
-// const handleFulfilledGetNorma = (state, action) => {
-//   console.log(action.payload);
-//   state.isLoading = false;
-//   state.error = null;
-//   state.dailyNorma = action.payload;
-// };
 
 const handleFulfilledEditDailyNorma = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.waterRate = action.payload;
 };
-///////Month
+
 const handleFulfilledMonthGet = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.monthStats = action.payload;
 };
+
 const initialState = {
   waterRecords: null,
   monthStats: [],
@@ -78,15 +76,15 @@ const initialState = {
   isLoading: false,
   error: null,
   waterRecord: null,
-  isChangeWaterRate: false,
+  forceRender: false,
 };
 
 const waterSlice = createSlice({
   name: 'waterSlice',
   initialState,
   reducers: {
-    toggleWaterRate: (state) => {
-      state.isChangeWaterRate = (prev) => !prev;
+    forceRender: (state) => {
+      state.forceRender = !state.forceRender;
     },
   },
 
@@ -127,4 +125,4 @@ const waterSlice = createSlice({
 });
 
 export const waterReducer = waterSlice.reducer;
-export const { toggleWaterRate } = waterSlice.actions;
+export const { forceRender } = waterSlice.actions;
