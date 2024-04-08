@@ -11,8 +11,18 @@ import  { useState } from 'react';
 const validationSchema = Yup.object().shape({
   email: Yup.string('Enter your email')
     .email('Enter a valid email')
-     .matches(/^[^\s@]+@[^\s@]+.[^\s@]+$/, 'Email is not valid')
-    .required('Email is required'),
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
+    .min(6, 'Email must be at least 6 characters')
+    .max(30, 'Email must not exceed 30 characters')
+    .trim()
+    .required('Email is required')
+    .test('valid-domain', 'Email domain is not valid', function(value) {
+      const validDomains = ['com', 'net', 'ua', 'uk', 'org', 'ca'];
+      const domain = value.split('@')[1];
+      if (!domain) return false;
+      const domainSegments = domain.split('.');
+      return domainSegments.length === 2 && validDomains.includes(domainSegments[1]);
+    }),
   password: Yup.string()
     .required('Password is required')
     .min(8, 'Your password is too short.'),
