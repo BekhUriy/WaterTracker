@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateApiThunk, updateAvatarApiThunk } from './thunk';
+import {
+  updatePassworsThunk,
+  updateAvatarThunk,
+  updateNameGenderThunk,
+} from './thunk';
 
 const initialState = {
   message: '',
 };
 
-const updateSlice = createSlice({
+const useSlice = createSlice({
   name: 'updateSlice',
   initialState,
   reducers: {},
@@ -23,4 +27,4 @@ const updateSlice = createSlice({
   },
 });
 
-export const updateReducer = updateSlice.reducer;
+export const userReducer = useSlice.reducer;

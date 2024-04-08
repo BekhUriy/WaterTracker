@@ -16,6 +16,7 @@ import storage from 'redux-persist/lib/storage';
 import { rootReducer } from './redux/rootSlice';
 import logoutModalSlicer from './redux/logoutModalSlicer';
 import { waterReducer } from './redux/water/waterSlice.js';
+import { userReducer } from './redux/user/slice.js';
 
 const persistConfig = {
   key: 'user',
@@ -29,18 +30,19 @@ export const store = configureStore({
   reducer: {
     root: rootReducer,
     auth: persistedReducer,
+    user: userReducer,
+    water: waterReducer,
     modalWindow: modalWindowSlicer,
     settingModal: settingModalSlicer,
     logoutModal: logoutModalSlicer,
-    water: waterReducer,
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-//   devTools: process.env.NODE_ENV === 'development',
+  //   devTools: process.env.NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);
