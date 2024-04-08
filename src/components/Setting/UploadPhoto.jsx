@@ -6,31 +6,32 @@ import {
   Avatar,
   Label,
 } from './SettingModal.styled';
-
 import { ArrowUpSvg } from './ArrowUpSvg';
 import { useDispatch } from 'react-redux';
-import { updateApiThunk } from '../../redux/user/thunk';
+import { updateAvatarApiThunk } from '../../redux/user/thunk';
 
-export const UploadPhoto = () => {
-  const [avatarSrc, setAvatarSrc] = useState(null);
+export const UploadPhoto = ({ user }) => {
+  const [avatarURL, setAvatarURL] = useState(user.avatarURL);
+
   const dispatch = useDispatch();
 
-  const handleFileChange = event => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      try {
+        await dispatch(updateAvatarApiThunk(formData)).unwrap();
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+
       const reader = new FileReader();
-      reader.onload = async function (e) {
-        setAvatarSrc(e.target.result);
-        try {
-          await dispatch(updateApiThunk({ avatar: e.target.result }));
-        } catch (error) {
-          console.error('Error updating profile:', error);
-        }
+      reader.onload = () => {
+        setAvatarURL(reader.result);
       };
       reader.readAsDataURL(file);
-      reader.onerror = function (error) {
-        console.error('Error reading the file: ', error);
-      };
     }
   };
 
@@ -38,11 +39,12 @@ export const UploadPhoto = () => {
     <UploadPhotoWrapper>
       <YourPhoto>Your photo</YourPhoto>
       <Upload>
-        <Avatar src={avatarSrc} alt="Avatar" />
+        <Avatar src={avatarURL} alt="Avatar" />
         <Label htmlFor="fileInput">
           <ArrowUpSvg />
           <span>Upload a photo</span>
         </Label>
+
         <input
           id="fileInput"
           type="file"

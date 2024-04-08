@@ -21,30 +21,40 @@ import {
   RecordingTimeInput,
   RecordingTimeTitle,
 } from './CrossbarModal.styled';
+import { useDispatch } from 'react-redux';
+import { addPortionThunk } from '../../../redux/water/waterThunk.js';
 
 const CrossbarModal = ({ isOpen, onClose, onSave }) => {
-  const [waterAmount, setWaterAmount] = useState(0);
+  const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
+  const dispatch = useDispatch();
 
   const incrementWaterAmount = () => {
-    setWaterAmount((prevAmount) => prevAmount + 50);
+    setAmountWater((prevAmount) => prevAmount + 50);
   };
 
   const decrementWaterAmount = () => {
-    if (waterAmount >= 50) {
-      setWaterAmount((prevAmount) => prevAmount - 50);
+    if (amountWater >= 50) {
+      setAmountWater((prevAmount) => prevAmount - 50);
     }
   };
 
   const handleSaveButtonClick = () => {
+    const [hours, minutes] = currentTime.split(':');
+    let currentDate = new Date();
+    currentDate.setHours(hours);
+    currentDate.setMinutes(minutes);
+
+    dispatch(addPortionThunk({ amountWater, date: currentDate.toISOString() }));
     onClose();
-    onSave(waterAmount);
+    onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 
   const handleEnterValueChange = (event) => {
     const newValue = parseInt(event.target.value);
-    setWaterAmount(newValue);
+
+    setAmountWater(newValue);
   };
 
   function getCurrentTime() {
@@ -53,6 +63,11 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
     const minutes = now.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
+
+  const handleChangeTime = (e) => {
+    const selectedTime = e.target.value;
+    setCurrentTime(selectedTime);
+  };
 
   useEffect(() => {
     const handleEscKeyPress = (event) => {
@@ -90,7 +105,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
                 <MinusSmallSolidIcon />
               </AmountWaterDecrementButton>
               <AmountWaterMlDiv>
-                <AmountWaterMlBox>{waterAmount} ml</AmountWaterMlBox>
+                <AmountWaterMlBox>{amountWater} ml</AmountWaterMlBox>
               </AmountWaterMlDiv>
               <AmountWaterIncrementButton onClick={incrementWaterAmount}>
                 <PlusSmallSolidIcon />
@@ -104,6 +119,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
               type="time"
               step={300}
               value={currentTime}
+              onChange={handleChangeTime}
             ></RecordingTimeInput>
           </div>
 
@@ -113,13 +129,13 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
             </EnterValueTitle>
             <EnterValueInput
               type="number"
-              value={waterAmount}
+              value={amountWater}
               onChange={handleEnterValueChange}
-            ></EnterValueInput>
+            />
           </div>
 
           <CrossbarChooseValueSaveDiv>
-            <ChooseValueSaveSpan>{waterAmount} ml</ChooseValueSaveSpan>
+            <ChooseValueSaveSpan>{amountWater} ml</ChooseValueSaveSpan>
             <ChooseValueSaveButton onClick={handleSaveButtonClick}>
               Save
             </ChooseValueSaveButton>

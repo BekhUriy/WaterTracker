@@ -22,6 +22,10 @@ export const Backdrop = styled.div`
         -ms-overflow-style: none;
 
         &::-webkit-scrollbar-thumb {
+            width: 0.5em;
+        }
+
+        &::-webkit-scrollbar-thumb {
             background-color: transparent;
         }
     }
@@ -35,10 +39,10 @@ const Container = styled.div(({ type }) => ({
 }));
 
 export const ModalContainer = styled(Container)`
-    margin-top: 340px;
+    margin-top: 320px;
     margin-bottom: 40px;
     @media screen and (min-width: 768px) {
         padding: 32px 24px;
-        margin-top: 180px;
+        margin-top: 160px;
     }
 `;

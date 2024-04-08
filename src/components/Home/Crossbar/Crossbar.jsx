@@ -13,19 +13,23 @@ import {
 } from './Crossbar.styled';
 import CrossbarButtonIcon from './CrossbarIcons/CrossbarButtonIcon';
 import CrossbarModal from './CrossbarModal';
+import { useAuth } from '../../../hooks/useAuth.js';
+import { useWater } from '../../../hooks/useWater.js';
 
 const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
-
-  const WaterNormaValue = '2.0 L'; // temporarily instead of import 'WaterNormaValue'
+  const authUser = useAuth().authUser;
+  const waterRecords = useWater().waterRecords;
 
   useEffect(() => {
-    const waterNormaInML = parseFloat(WaterNormaValue) * 1000;
-    const percentage = Math.round((waterAmount / waterNormaInML) * 100);
+    const percentage = Math.round(
+      (waterAmount / authUser?.waterRate) * 100 +
+        waterRecords?.percentageOfWaterConsumption
+    );
     setWaterIntakePercentage(percentage);
-  }, [waterAmount]);
+  }, [waterAmount, waterRecords]);
 
   const handleSaveWaterAmount = (newWaterAmount) => {
     setWaterAmount((prevWaterAmount) => prevWaterAmount + newWaterAmount);
@@ -49,14 +53,14 @@ const Crossbar = () => {
           min={0}
           max={100}
           value={waterIntakePercentage}
-          percentage={waterIntakePercentage}
+          style={{ backgroundSize: `${waterIntakePercentage}% 100%` }}
         />
 
         <CrossbarProcentSpan>
           <CrossbarSpanStart>0%</CrossbarSpanStart>
           {waterIntakePercentage > 1 && waterIntakePercentage < 99 && (
             <CrossbarSpanMiddle
-              percentage={waterIntakePercentage}
+              style={{ left: `calc(${waterIntakePercentage}% + 2px)` }}
               id="WaterMark"
             >
               {waterIntakePercentage}%

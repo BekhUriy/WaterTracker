@@ -174,6 +174,7 @@ export const Required = styled.div`
 export const LiterPerDay = styled.b`
     font-size: 18px;
     line-height: 1.33;
+    width: 64px;
     color: var(--text-blue);
     display: flex;
     align-items: center;
@@ -195,9 +196,9 @@ export const WrapperForButton = styled.div`
 export const ErrorMessage = styled.p`
     color: red;
     font-size: 18px;
-    /* animation: blink 1s infinite; */
+    animation: blink 1s infinite;
 
-    /* @keyframes blink {
+    @keyframes blink {
         0% {
             opacity: 1;
         }
@@ -207,5 +208,5 @@ export const ErrorMessage = styled.p`
         100% {
             opacity: 1;
         }
-    } */
+    }
 `

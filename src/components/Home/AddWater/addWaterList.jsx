@@ -1,15 +1,13 @@
-// import { useDispatch, useSelector } from "react-redux";
-// import { getPortions } from "../../redux/addWater/addWaterSelector"
-// import { useEffect } from "react";
-// import { getWaterPortionsThunk } from "../../redux/addWater/addWaterOperations";
+import { useState } from 'react';
+import { format } from 'date-fns';
+
 import {
- 
   IconButtonFrameTwo,
   IconFramTwo,
   ListItem,
+  StyledAddWaterButton,
   StyledAddWaterListContainer,
   StyledAddWaterListFrame,
-  StyledAddWaterMainContainer,
   StyledButtonText,
   StyledDataContainer,
   StyledLeftContainer,
@@ -19,56 +17,76 @@ import {
   StyledTime,
   StyledWater,
 } from './StyledaddWaterList';
-
 import EditIcon from './Icons/EditIcon';
 import TrashIcon from './Icons/TrashIcon';
-import { AddWaterButton, Icon, IconButton } from './IconButtons';
+import { Icon, IconButton } from './IconButtons';
 import { GlassIcon } from './Icons/GlassIcon';
 import { PlusIconSmall } from './Icons/PlusIcon';
-// import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import{EditWaterModal} from './EditWater'
+import { EditWaterModal } from './EditWater';
 import { DeleteModal } from './DeleteModal';
 import CrossbarModal from '../Crossbar/CrossbarModal';
-// import { useSelector } from 'react-redux';
-// import { getWater } from '../../../redux/addWater/addWaterSelector';
-export const AddWaterList = () => {
-  //  const dispatch = useDispatch();
-  //  const [isLargeScreen, setIsLargeScreen] = useState(false);
-   const [isModalOpen, setIsModalOpen] = useState(false);
-   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const handleOpenAddModal = () => {
+
+export const AddWaterList = ({ water }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const { waterRecords } = water;
+
+  console.log(waterRecords);
+
+  const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
   };
-  const closeAddModal = () => {
+
+  const closeModal = () => {
     setIsModalOpen(false);
   };
+
   const handleOpenEditModal = () => {
     setIsEditModalOpen(true);
-  }
+  };
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
   const handleOpenDeleteModal = () => {
     setIsDeleteModalOpen(true);
-  }
+  };
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
-      // const {waterRecords, isLoading, error} = useSelector(getWater);
-  // useEffect(()=>{
-  // dispatch(getWaterPortionsThunk())
-  // })
-  // if (!water || water.length === 0 ) return;
-  // const WaterRecordsListItems = water.map((waterRecord)=>{
-    //  //     return(
-  //         <li key={water.id}>
-  //             {water.amount}{water.time}
-  //         </li>
-  //     )
-  // })
+
   const WaterRecordsListItems = () => {
+    if (!waterRecords || waterRecords.length === 0) return;
+
+    return waterRecords.map((waterRecord) => {
+      return (
+        <ListItem key={waterRecord.id}>
+          <StyledLeftContainer>
+            <Icon>
+              <IconFramTwo>
+                <GlassIcon />
+              </IconFramTwo>
+            </Icon>
+            <StyledDataContainer>
+              <StyledWater>{waterRecord.amountWater}</StyledWater>
+              <StyledTime>{waterRecord.date}</StyledTime>
+            </StyledDataContainer>
+          </StyledLeftContainer>
+          <StyledRightContainer>
+            <IconButton>
+              <EditIcon onClick={handleOpenEditModal} />
+            </IconButton>
+            <IconButton>
+              <TrashIcon onClick={handleOpenDeleteModal} />
+            </IconButton>
+          </StyledRightContainer>
+        </ListItem>
+      );
+    });
+  };
+
+  const WaterRecordsListItemsDraft = () => {
     return (
       <ListItem>
         <StyledLeftContainer>
@@ -83,7 +101,7 @@ export const AddWaterList = () => {
           </StyledDataContainer>
         </StyledLeftContainer>
         <StyledRightContainer>
-          <IconButton >
+          <IconButton>
             <EditIcon onClick={handleOpenEditModal} />
           </IconButton>
           <IconButton>
@@ -93,40 +111,28 @@ export const AddWaterList = () => {
       </ListItem>
     );
   };
+
   const PortionsList = () => {
-    return (
-      // {portions.length>0? portionsListItem :null}
-      <StyledListAddWater>
-        {' '}
-        <WaterRecordsListItems />
-        <WaterRecordsListItems />
-        <WaterRecordsListItems />
-        <WaterRecordsListItems />
-        <WaterRecordsListItems />
-      </StyledListAddWater>
-    );
+    return <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>;
   };
 
   return (
-  
-      <div>
+    <div>
       <StyledAddWaterListContainer>
-            <StyledListHeader>Today</StyledListHeader>
-               <StyledAddWaterListFrame>
-            <PortionsList />
-                </StyledAddWaterListFrame>
-            <AddWaterButton  >
-            <IconButtonFrameTwo>
-           <PlusIconSmall /> 
-           </IconButtonFrameTwo>
-           <StyledButtonText>Add water</StyledButtonText>
-        </AddWaterButton>
+        <StyledListHeader>Today</StyledListHeader>
+        <StyledAddWaterListFrame>
+          <PortionsList />
+        </StyledAddWaterListFrame>
+        <StyledAddWaterButton onClick={handleCrossbarButtonClick}>
+          <IconButtonFrameTwo>
+            <PlusIconSmall />
+          </IconButtonFrameTwo>
+          <StyledButtonText>Add water</StyledButtonText>
+        </StyledAddWaterButton>
       </StyledAddWaterListContainer>
       <EditWaterModal isOpen={isEditModalOpen} onClose={closeEditModal} />
-      <CrossbarModal isOpen={isModalOpen} onClose={closeAddModal} />
-      <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal}/>
-      </div>
-
-   
+      <CrossbarModal isOpen={isModalOpen} onClose={closeModal} />
+      <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} />
+    </div>
   );
 };

@@ -35,13 +35,11 @@ flex-direction:column;
 @media (min-width: 768px){
 width: 656px;
 height: 260px;
-border:1px black dashed;
 }
 @media (min-width: 1158px){
     width: 544px;
     height: 260px;
-      border:1px red dashed;
-      position:relative;
+           position:relative;
 }
 `
 export const StyledListHeader = styled.p`

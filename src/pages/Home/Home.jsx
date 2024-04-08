@@ -9,20 +9,42 @@ import {
   HomeSection,
   StatisticsContainer,
 } from './Home.styled.js';
+import { useAuth } from '../../hooks/useAuth.js';
+import { useEffect } from 'react';
+import { useWater } from '../../hooks/useWater.js';
+import { useDispatch } from 'react-redux';
+import { currentThunk } from '../../redux/auth/thunk.js';
+import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
+import { AddWaterList } from '../../components/Home/AddWater/addWaterList.jsx';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+
+  const user = useAuth().authUser;
+  const isChangeWaterRate = useWater().isChangeWaterRate;
+  const water = useWater().waterRecords;
+
+  useEffect(() => {
+    dispatch(currentThunk());
+  }, [isChangeWaterRate]);
+
+  useEffect(() => {
+    dispatch(getWaterPortionsThunk());
+  }, []);
+
   return (
     <BubblesContainer>
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            <DailyNorma />
-            <DailyNormaBackground/>
+            <DailyNorma user={user} />
+            <DailyNormaBackground />
             {/* DailyNorma */}
-            <Crossbar/>
+            <Crossbar />
             {/* //WaterRatioPanel */}
           </DailyNormaContainer>
           <StatisticsContainer>
+            {water && <AddWaterList water={water} />}
             {/* //TodayWaterList  */}
             <MonthStatsTable />
             {/* //MonthStatsTable */}

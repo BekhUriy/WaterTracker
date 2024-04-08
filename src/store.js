@@ -1,44 +1,40 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './redux/auth/authSlice';
-import  modalWindowSlicer from './redux/modalWindowSlicer';
+import modalWindowSlicer from './redux/modalWindowSlicer';
 import settingModalSlicer from './redux/setingModalSlicer';
-import {monthReducer} from './redux/month/slice'
 import {
-	persistStore,
-	persistReducer,
-	FLUSH,
-	REHYDRATE,
-	PAUSE,
-	PERSIST,
-	PURGE,
-	REGISTER,
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
- import { rootReducer } from './redux/rootSlice';
+import { rootReducer } from './redux/rootSlice';
 import logoutModalSlicer from './redux/logoutModalSlicer';
-
-
+import { waterReducer } from './redux/water/waterSlice.js';
 
 const persistConfig = {
-	key: 'user',
-	storage,
-	whitelist: ['token'],
-}
+  key: 'user',
+  storage,
+  whitelist: ['token'],
+};
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
-
-
 export const store = configureStore({
-	reducer: {
-		root: rootReducer,
-		auth: persistedReducer,
-		modalWindow: modalWindowSlicer,
-		settingModal: settingModalSlicer,
-		logoutModal: logoutModalSlicer,
-		month: monthReducer,
-	},
-	 middleware: getDefaultMiddleware =>
+  reducer: {
+    root: rootReducer,
+    auth: persistedReducer,
+    modalWindow: modalWindowSlicer,
+    settingModal: settingModalSlicer,
+    logoutModal: logoutModalSlicer,
+    water: waterReducer,
+  },
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

@@ -1,1 +1,1 @@
-export const selectMonth = (state) => state.month.monthStats;
+// export const selectMonth = (state) => state.month.monthStats;
