@@ -13,12 +13,21 @@ import {
   StyledDeleteModalText,
   StyledModalHeader,
 } from './StyledEditWaterModal';
-import { deletePortionThunk } from '../../../redux/water/waterThunk';
+import { deletePortionThunk, getWaterPortionByIdThunk } from '../../../redux/water/waterThunk';
 
-export const DeleteModal = ({ isOpen, onClose, id }) => {
+export const DeleteModal = ({ isOpen, onClose, recordData}) => {
   const dispatch = useDispatch();
+console.log(recordData)
 
   if (isOpen === false) return null;
+ 
+
+  const handleDeleteClick=()=>{
+    const id = recordData._id
+    // dispatch(getWaterPortionByIdThunk(id));
+    dispatch(deletePortionThunk(id));
+      onClose();
+  }
 
   return (
     <div>
@@ -36,10 +45,9 @@ export const DeleteModal = ({ isOpen, onClose, id }) => {
           <DeleteButtonsBox>
             <DeleteButtonSubmit>
               <DeleteButtonText
-                onClick={() => dispatch(deletePortionThunk(id))}
-              >
-                {' '}
-                Delete
+                onClick={handleDeleteClick}
+     >
+                     Delete
               </DeleteButtonText>
             </DeleteButtonSubmit>
             <DeleteButtonCancel onClick={onClose}>
