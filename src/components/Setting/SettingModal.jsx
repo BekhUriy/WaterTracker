@@ -27,29 +27,28 @@ import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
 import * as Yup from 'yup';
 import { modalClose } from '../../redux/setingModalSlicer';
-import { updateApiThunk } from '../../redux/user/thunk';
+import {
+  updateNameGenderThunk,
+  updatePassworsThunk,
+} from '../../redux/user/thunk';
 import {
   handleBackdropClick,
   handleCloseModal,
   handleKeyPress,
 } from './HandlersSetting';
+
+import { useAuth } from '../../hooks/useAuth';
 const formSchema = Yup.object().shape({
   email: Yup.string()
     .email('Enter a valid email')
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
-    .required('Email is required'),
-  name: Yup.string()
-    .required('Name is required')
-    .min(2, 'Name must be at least 2 characters'),
-  password: Yup.string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid'),
+  name: Yup.string().min(2, 'Name must be at least 2 characters'),
+  password: Yup.string().min(8, 'Password must be at least 8 characters'),
 });
 
 export const SettingModal = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  const user = useAuth().authUser;
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
@@ -62,14 +61,32 @@ export const SettingModal = () => {
 
   const [isValid, setIsValid] = useState(true);
 
-  useEffect(() => {
-    const handleKeyDown = handleKeyPress(dispatch);
-    window.addEventListener('keydown', handleKeyDown);
+  // -----------------------------------------------------------
+  const [data, setData] = useState({
+    name: '',
+    gender: '',
+  });
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [dispatch]);
+  const [password, setPassword] = useState({
+    oldPass: '',
+    newPass: '',
+  });
+
+  const handleChangePass = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setPassword((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // useEffect(() => {
+  //   const handleKeyDown = handleKeyPress(dispatch);
+  //   window.addEventListener('keydown', handleKeyDown);
+
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, [dispatch]);
 
   const togglePasswordVisibility = (setState) => {
     setState((prevState) => !prevState);
@@ -78,20 +95,35 @@ export const SettingModal = () => {
   const notify = () => {
     toast('Default Notification!');
   };
-  const onSave = async (name, email, password) => {
-    if (!isValid) {
-      notify();
-      toast.error('Enter valid data, please!');
+
+  const onSave = async () => {
+    console.log(data.name.length > 0);
+
+    if (password.newPass.length > 0) {
+      dispatch(
+        updatePassworsThunk({
+          password: password.oldPass,
+          newPassword: password.newPass,
+        })
+      );
     }
-    try {
-      await updateApiThunk({ name, email, password }).unwrap();
-      console.log('Data saved successfully');
-      modalClose();
-    } catch (error) {
-      notify();
-      toast.error('An error occurred while saving data.');
+
+    if (data.name.length > 0) {
+      dispatch(updateNameGenderThunk({ name: data.name, gender: data.gender }));
     }
-    return;
+
+    modalClose();
+    // if (!isValid) {
+    //   notify();
+    //   toast.error('Enter valid data, please!');
+    // }
+    // try {
+
+    // } catch (error) {
+    //   notify();
+    //   toast.error('An error occurred while saving data.');
+    // }
+    // return;
   };
 
   const validate = () => {
@@ -108,7 +140,11 @@ export const SettingModal = () => {
     <>
       <Backdrop onClick={handleBackdropClick(dispatch)} />
       <Scrollbar>
-        <WrapperSetting>
+        <WrapperSetting
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <SettingAndIcon>
             <SettingTitle>Setting</SettingTitle>
             <button
@@ -116,7 +152,7 @@ export const SettingModal = () => {
                 border: 'none',
                 background: '#ffffff',
               }}
-              onClick={handleCloseModal(dispatch)}
+              // onClick={handleCloseModal(dispatch)}
             >
               <CloseSvg />
             </button>
@@ -124,8 +160,13 @@ export const SettingModal = () => {
           <UploadPhoto user={user} />
           <GeneralBlock>
             <BlockGender>
-              <GenderBlock user={user} onSave={onSave} />
-              <NameEmailBlock user={user} validate={validate} />
+              <GenderBlock user={user} date={data} setData={setData} />
+              <NameEmailBlock
+                user={user}
+                validate={validate}
+                setData={setData}
+                data={data}
+              />
             </BlockGender>
 
             <BlockPassword>
@@ -137,10 +178,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showOldPassword ? 'text' : 'password'}
-                    name="oldPassword"
-                    value={showOldPassword ? oldPassword : ''}
+                    name="oldPass"
+                    value={password.oldPass}
                     placeholder="Password"
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showOldPassword ? (
@@ -163,10 +204,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showNewPassword ? 'text' : 'password'}
-                    name="password"
-                    value={showNewPassword ? newPassword : ''}
+                    name="newPass"
+                    value={password.newPass}
                     placeholder="Password"
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showNewPassword ? (
@@ -191,10 +232,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showRepeatPassword ? 'text' : 'password'}
-                    name="password"
-                    value={showRepeatPassword ? repeatPassword : ''}
+                    name="newPass"
+                    value={password.newPass}
                     placeholder="Password"
-                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showRepeatPassword ? (
@@ -218,7 +259,7 @@ export const SettingModal = () => {
             <SaveButton
               /*   disabled={!isValid} */
               type="submit"
-              onClick={() => onSave(user.name, user.email)}
+              onClick={() => onSave(user.name, user.password, user.genre)}
             >
               Save
             </SaveButton>
