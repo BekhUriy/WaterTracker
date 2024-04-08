@@ -43,12 +43,12 @@ import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
 export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const dispatch = useDispatch();
+ 
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-
   const curruntDate = new Date();
   const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-
+  
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
@@ -95,11 +95,19 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   }, [isOpen, onClose]);
 
   if (isOpen === false) return null;
-  // useEffect(() => {
-  //   dispatch(getWaterPortionByIdThunk(id));
-  // }, []);
-  const id = recordData._id
+  const baseWaterAmount = recordData.amountWater;
+  console.log(baseWaterAmount)
+   const id = recordData._id;
+   const time=recordData.date
+        const localDate = time.toLocaleString(); 
+      const dateStr = localDate;
+const date = new Date(dateStr);
+const hours = date.getUTCHours();
+const minutes = date.getUTCMinutes();
+const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  //  dispatch(getWaterPortionByIdThunk(id));
   dispatch(getWaterPortionByIdThunk(id));
+
   return (
     <Overlay>
       <StyledModal>
@@ -120,8 +128,8 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
               </IconFramTwo>
             </Icon>
             <StyledDataContainer>
-              <StyledWater>200ml</StyledWater>
-              <StyledTime>11:00 AM</StyledTime>
+              <StyledWater>{recordData.amountWater}</StyledWater>
+              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
             </StyledDataContainer>
           </StyledDataBar>
           <div>

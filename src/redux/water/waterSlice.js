@@ -46,7 +46,7 @@ const handleFulfilledEdit = (state, action) => {
   console.log(action.payload)
   const editedRecord = action.payload;
   state.waterRecords.waterRecords = state.waterRecords.waterRecords.map((water) => {
-    if (water._id === editedRecord.id) {
+    if (water._id === editedRecord) {
       return editedRecord;
     }
     return water;
