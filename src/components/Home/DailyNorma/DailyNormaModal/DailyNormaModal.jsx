@@ -24,18 +24,15 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { ModalContext } from './ModalProvider/ModalProvider';
 import Modal from '../utils/Modal/Modal';
 import SaveButton from '../utils/SaveButton/SaveButton';
-import { useAuth } from '../../../../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { editDailyNormaThunk } from '../../../../redux/water/waterThunk';
 import { forceRender } from '../../../../redux/water/waterSlice';
 
-const DailyNormaModal = () => {
+const DailyNormaModal = ({ user }) => {
   const toggleModal = useContext(ModalContext);
 
   const dispatch = useDispatch();
-
-  const user = useAuth().authUser;
 
   const onClickModalClose = () => {
     toggleModal();

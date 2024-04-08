@@ -30,14 +30,14 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getWaterPortionsThunk());
-  }, []);
+  }, [user]);
 
   return (
     <BubblesContainer>
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            <DailyNorma user={user} />
+            {user && <DailyNorma user={user} />}
             <DailyNormaBackground />
             {/* DailyNorma */}
             <Crossbar />
