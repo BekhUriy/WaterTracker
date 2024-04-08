@@ -45,7 +45,10 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
     currentDate.setHours(hours);
     currentDate.setMinutes(minutes);
 
-    dispatch(addPortionThunk({ amountWater, date: currentDate.toISOString() }));
+    currentDate.setHours(currentDate.getHours() + 3);
+    const isoDate = currentDate.toISOString();
+    dispatch(addPortionThunk({ amountWater, date: isoDate }));
+
     onClose();
     onSave(amountWater);
     setCurrentTime(getCurrentTime());
