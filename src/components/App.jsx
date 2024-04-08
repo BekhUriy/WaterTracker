@@ -14,6 +14,7 @@ import PublicRoute from '../guards/PublicRoute';
 
 import { useAuth } from '../hooks/useAuth.js';
 import { currentThunk } from '../redux/auth/thunk.js';
+import NotFoundPage from '../pages/ErrorPage/ErrorPage.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function App() {
           />}
         />
         <Route path="*"
-               element={<div>Must be error page, route not found</div>}
+               element={<NotFoundPage/>}
         />
       </Route>
     </Routes>
