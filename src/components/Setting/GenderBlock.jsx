@@ -16,13 +16,13 @@ export const GenderBlock = ({ user }) => {
         <InputGender>
           <input
             type="radio"
-            id="Prefer-not-to-specify"
+            id="Abstain"
             name="gender"
-            value="Prefer not to specify"
-            checked={gender === 'Prefer not to specify'}
-            onChange={() => setGender('Prefer not to specify')}
+            value="Abstain"
+            checked={gender === 'Abstain'}
+            onChange={() => setGender('Abstain')}
           ></input>
-          <label htmlFor="Prefer-not-to-specify">Prefer not to specify</label>
+          <label htmlFor="Abstain"> Abstain</label>
         </InputGender>
         <InputGender>
           <input
