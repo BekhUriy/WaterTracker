@@ -21,12 +21,12 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const user = useAuth().authUser;
-  const isChangeWaterRate = useWater().isChangeWaterRate;
+  const forceRender = useWater().forceRender;
   const water = useWater().waterRecords;
 
   useEffect(() => {
     dispatch(currentThunk());
-  }, [isChangeWaterRate]);
+  }, [forceRender]);
 
   useEffect(() => {
     dispatch(getWaterPortionsThunk());
