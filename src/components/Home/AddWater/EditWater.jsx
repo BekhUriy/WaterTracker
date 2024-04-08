@@ -41,7 +41,7 @@ import { useWater } from '../../../hooks/useWater';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 
-export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
+export const EditWaterModal = ({ isOpen, onClose, onSave, recordData }) => {
   const dispatch = useDispatch();
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
@@ -51,9 +51,7 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
 
   const waterRecords = useWater().waterRecords;
 
-  useEffect(() => {
-    dispatch(getWaterPortionByIdThunk(id));
-  }, []);
+
 
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
@@ -101,7 +99,11 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   }, [isOpen, onClose]);
 
   if (isOpen === false) return null;
-
+  // useEffect(() => {
+  //   dispatch(getWaterPortionByIdThunk(id));
+  // }, []);
+  const id = recordData._id
+  dispatch(getWaterPortionByIdThunk(id));
   return (
     <Overlay>
       <StyledModal>
