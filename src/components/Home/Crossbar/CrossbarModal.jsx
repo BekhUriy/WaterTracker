@@ -69,6 +69,11 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
     setCurrentTime(selectedTime);
   };
 
+  // Update currentTime whenever isOpen changes
+  useEffect(() => {
+    setCurrentTime(getCurrentTime());
+  }, [isOpen, onClose]);
+
   useEffect(() => {
     const handleEscKeyPress = (event) => {
       if (event.key === 'Escape') {
