@@ -6,8 +6,14 @@ import {
   InputsRadio,
 } from './SettingModal.styled';
 
-export const GenderBlock = ({ user }) => {
+export const GenderBlock = ({ user, setData }) => {
   const [gender, setGender] = useState(user.gender || 'Prefer not to specify');
+
+  const handelChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <Gender>
@@ -18,9 +24,9 @@ export const GenderBlock = ({ user }) => {
             type="radio"
             id="Abstain"
             name="gender"
-            value="Abstain"
-            checked={gender === 'Abstain'}
-            onChange={() => setGender('Abstain')}
+            value="Prefer not to specify"
+            checked={gender === 'Prefer not to specify'}
+            onChange={handelChange}
           ></input>
           <label htmlFor="Abstain"> Abstain</label>
         </InputGender>
@@ -31,7 +37,7 @@ export const GenderBlock = ({ user }) => {
             name="gender"
             value="woman"
             checked={gender === 'woman'}
-            onChange={() => setGender('woman')}
+            onChange={handelChange}
           ></input>
           <label htmlFor="woman">Woman</label>
         </InputGender>
@@ -42,7 +48,7 @@ export const GenderBlock = ({ user }) => {
             name="gender"
             value="man"
             checked={gender === 'man'}
-            onChange={() => setGender('man')}
+            onChange={handelChange}
           ></input>
           <label htmlFor="man">Man</label>
         </InputGender>

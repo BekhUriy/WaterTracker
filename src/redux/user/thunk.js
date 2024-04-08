@@ -1,25 +1,42 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updateApi, updateAvatarApi } from '../../API/ApiUser';
+import {
+  updateNameGenderApi,
+  updateAvatarApi,
+  updatePassApi,
+} from '../../API/ApiUser';
 
-export const updateApiThunk = createAsyncThunk(
-  'updateApiThunk',
-  async (updates, avatarUrl, thunkAPI) => {
+export const updateNameGenderThunk = createAsyncThunk(
+  'user/updateNameGenderThunk',
+  async (formData, { rejectWithValue }) => {
     try {
-      return await updateApi(avatarUrl);
+      console.log(formData);
+      return await updateNameGenderApi(formData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );
 
-export const updateAvatarApiThunk = createAsyncThunk(
-  'updateApiThunk',
+export const updateAvatarThunk = createAsyncThunk(
+  'user/updateAvatarThunk',
   async (formData, thunkAPI) => {
     try {
       const data = await updateAvatarApi(formData);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// auth
+export const updatePassworsThunk = createAsyncThunk(
+  'auth/updatePassworsThunk',
+  async (data, { rejectWithValue }) => {
+    try {
+      return await updatePassApi(data);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );
