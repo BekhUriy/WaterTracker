@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import Crossbar from '../../components/Home/Crossbar/Crossbar.jsx';
 import DailyNorma from '../../components/Home/DailyNorma/DailyNorma.jsx';
 import MonthStatsTable from '../../components/Home/MonthStatsTable/MonthStatsTable.jsx';
-import { AddWaterList } from '../../components/Home/AddWater/addWaterList.jsx';
+import { TodayWaterList } from '../../components/Home/AddWater/TodayWaterList.jsx';
 
 import {
   BubblesContainer,
@@ -17,17 +17,17 @@ import {
 
 import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
 import { userThunk } from '../../redux/user/thunk.js';
+import { useWater } from '../../hooks/useWater.js';
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userThunk());
-  }, []);
+  const forceRender = useWater().forceRender;
 
   useEffect(() => {
+    dispatch(userThunk());
     dispatch(getWaterPortionsThunk());
-  }, []);
+  }, [forceRender]);
 
   return (
     <BubblesContainer>
@@ -36,15 +36,11 @@ const HomePage = () => {
           <DailyNormaContainer>
             {<DailyNorma />}
             <DailyNormaBackground />
-            {/* DailyNorma */}
-            {/* <Crossbar /> */}
-            {/* //WaterRatioPanel */}
+            <Crossbar />
           </DailyNormaContainer>
           <StatisticsContainer>
-            {/* {water && <AddWaterList water={water} />} */}
-            {/* //TodayWaterList  */}
+            <TodayWaterList />
             {/* <MonthStatsTable /> */}
-            {/* //MonthStatsTable */}
           </StatisticsContainer>
         </HomeContainer>
       </HomeSection>
