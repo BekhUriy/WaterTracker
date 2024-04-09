@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import {
+    DailyNormaBackground,
   DailyNormaBtn,
+  DailyNormaContainer,
   MyDailyNormaContainer,
   Title,
   WaterNorma,
@@ -23,13 +25,16 @@ const DailyNorma = () => {
   };
 
   return (
-    <MyDailyNormaContainer>
-      <Title>My daily norma</Title>
-      <WaterNormaContainer>
-        <WaterNorma>{`${dailyNorma}`}</WaterNorma>
-        <DailyNormaBtn onClick={openDailyNormalModal}>Edit</DailyNormaBtn>
-      </WaterNormaContainer>
-    </MyDailyNormaContainer>
+     <DailyNormaContainer>
+      <MyDailyNormaContainer>
+        <Title>My daily norma</Title>
+        <WaterNormaContainer>
+          <WaterNorma>{`${dailyNorma}`}</WaterNorma>
+          <DailyNormaBtn onClick={openDailyNormalModal}>Edit</DailyNormaBtn>
+        </WaterNormaContainer>
+      </MyDailyNormaContainer>
+      <DailyNormaBackground/>
+    </DailyNormaContainer>
   );
 };
 
