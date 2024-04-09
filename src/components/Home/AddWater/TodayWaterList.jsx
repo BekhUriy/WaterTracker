@@ -82,7 +82,7 @@ export const TodayWaterList = () => {
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater} ml</StyledWater>
               <StyledTime>
-                {formattedHours}:{formattedMinutes} {amOrPm}
+                {formattedHours}:{formattedMinutes}
               </StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>

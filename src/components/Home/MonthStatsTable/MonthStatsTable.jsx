@@ -99,7 +99,7 @@ const MonthStatsTable = () => {
 
   useEffect(() => {
     dispatch(monthStatsThunk(format(currentDate, 'yyyy-MM-dd')));
-  }, [dispatch, currentDate, waterRecords]);
+  }, [dispatch, currentDate]);
 
   const getInfoForDay = (monthStats, d) => {
     const [res] = monthStats.filter((el) => el.date === d);
