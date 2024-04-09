@@ -43,14 +43,17 @@ const handleFulfilledDelete = (state, action) => {
 const handleFulfilledEdit = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  console.log(action.payload)
+  console.log(action.payload);
+  console.log('@marianadov913 !!!!!!!!!!!!!!!!');
   const editedRecord = action.payload;
-  state.waterRecords.waterRecords = state.waterRecords.waterRecords.map((water) => {
-    if (water._id === editedRecord) {
-      return editedRecord;
+  state.waterRecords.waterRecords = state.waterRecords.waterRecords.map(
+    (water) => {
+      if (water._id === editedRecord._id) {
+        return editedRecord;
+      }
+      return water;
     }
-    return water;
-  });
+  );
 };
 
 const handleRejected = (state, action) => {

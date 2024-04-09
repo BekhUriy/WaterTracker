@@ -37,18 +37,19 @@ import {
   EditPortionThunk,
   getWaterPortionByIdThunk,
 } from '../../../redux/water/waterThunk';
-// import { useWater } from '../../../hooks/useWater';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
+import { forceRender } from '../../../redux/water/waterSlice';
 
 export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
+  const { amountWater: amW, date: dFromDate, _id } = recordData;
   const dispatch = useDispatch();
- 
-  const [amountWater, setAmountWater] = useState(0);
+
+  const [amountWater, setAmountWater] = useState(amW);
+
+  // time
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-  const curruntDate = new Date();
-  const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-  
+
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
@@ -60,9 +61,14 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   };
 
   const handleSaveButtonClick = () => {
-    dispatch(EditPortionThunk({ amountWater, date: formatedDate }));
+    const [hours, minutes] = currentTime.split(':');
+    const currentDate = new Date();
+    currentDate.setUTCHours(hours, minutes);
+    const isoDate = currentDate.toISOString();
+
+    dispatch(EditPortionThunk({ id: _id, amountWater, date: isoDate }));
+    dispatch(forceRender());
     onClose();
-    // onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 
@@ -78,6 +84,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
     return `${hours}:${minutes}`;
   }
 
+  // close/open modal
   useEffect(() => {
     const handleEscKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -95,18 +102,14 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   }, [isOpen, onClose]);
 
   if (isOpen === false) return null;
-  const baseWaterAmount = recordData.amountWater;
-  console.log(baseWaterAmount)
-   const id = recordData._id;
-   const time=recordData.date
-        const localDate = time.toLocaleString(); 
-      const dateStr = localDate;
-const date = new Date(dateStr);
-const hours = date.getUTCHours();
-const minutes = date.getUTCMinutes();
-const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-  //  dispatch(getWaterPortionByIdThunk(id));
-  dispatch(getWaterPortionByIdThunk(id));
+
+  const time = recordData.date;
+  const localDate = time.toLocaleString();
+  const dateStr = localDate;
+  const date = new Date(dateStr);
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
 
   return (
     <Overlay>
@@ -128,8 +131,10 @@ const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
               </IconFramTwo>
             </Icon>
             <StyledDataContainer>
-              <StyledWater>{recordData.amountWater}</StyledWater>
-              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
+              <StyledWater>{amW}</StyledWater>
+              <StyledTime>
+                {hours}:{formattedMinutes}
+              </StyledTime>
             </StyledDataContainer>
           </StyledDataBar>
           <div>
@@ -153,6 +158,7 @@ const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
               type="time"
               step={300}
               value={currentTime}
+              onChange={(e) => setCurrentTime(e.target.value)}
             ></RecordingTimeInput>
           </div>
           <div>
