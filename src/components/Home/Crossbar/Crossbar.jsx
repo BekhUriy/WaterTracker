@@ -21,15 +21,16 @@ const Crossbar = () => {
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
   const authUser = useAuth().authUser;
-  const waterRecords = useWater().waterRecords;
+  const {percentageOfWaterConsumption} = useWater().waterRecords;
 
-  useEffect(() => {
-    const percentage = Math.round(
-      (waterAmount / authUser?.waterRate) * 100 +
-        waterRecords?.percentageOfWaterConsumption
-    );
-    setWaterIntakePercentage(percentage);
-  }, [waterAmount, waterRecords]);
+
+  // useEffect(() => {
+  //   const percentage = Math.round(
+  //     (waterAmount / authUser?.waterRate) * 100 +
+  //       waterRecords?.percentageOfWaterConsumption
+  //   );
+  //   setWaterIntakePercentage(percentage);
+  // }, [waterAmount, waterRecords]);
 
   const handleSaveWaterAmount = (newWaterAmount) => {
     setWaterAmount((prevWaterAmount) => prevWaterAmount + newWaterAmount);
@@ -52,18 +53,19 @@ const Crossbar = () => {
           type="range"
           min={0}
           max={100}
-          value={waterIntakePercentage}
-          style={{ backgroundSize: `${waterIntakePercentage}% 100%` }}
+          value={percentageOfWaterConsumption? percentageOfWaterConsumption : 0} 
+          style={{ backgroundSize: `${percentageOfWaterConsumption}% 100%` }}
+          readOnly
         />
 
         <CrossbarProcentSpan>
           <CrossbarSpanStart>0%</CrossbarSpanStart>
-          {waterIntakePercentage > 1 && waterIntakePercentage < 99 && (
+          {percentageOfWaterConsumption > 1 && percentageOfWaterConsumption < 99 && (
             <CrossbarSpanMiddle
-              style={{ left: `calc(${waterIntakePercentage}% + 2px)` }}
+              style={{ left: `calc(${percentageOfWaterConsumption}% + 2px)` }}
               id="WaterMark"
             >
-              {waterIntakePercentage}%
+              {percentageOfWaterConsumption}%
             </CrossbarSpanMiddle>
           )}
           <CrossbarSpanEnd>100%</CrossbarSpanEnd>
