@@ -11,9 +11,9 @@ import {
 
 export const getWaterPortionsThunk = createAsyncThunk(
   'water/fetchAll',
-  async (date, { rejectWithValue }) => {
+  async (body, { rejectWithValue }) => {
     try {
-      return await getWaterPortionsList(date);
+      return await getWaterPortionsList(body);
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -2,7 +2,7 @@ const baseURL = 'https://watertrackerbackend-uo3w.onrender.com/api/';
 
 const urls = {
   waters: {
-    today: 'today',
+    today: (date)=> `today?date=${date}`,
     water: 'water',
     waterById: (id) => `water/${id}`,
     waterRate: 'waterrate',
