@@ -7,7 +7,7 @@ export const UserAuth = () => {
   return (
     <Link to="/login">
     <SignInStyled type="button">
-      Sign In <UserLogoSvg />
+      Sign In <UserLogoSvg color={'#fff'} />
     </SignInStyled>
     </Link>
   );

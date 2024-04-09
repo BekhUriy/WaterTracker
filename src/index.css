@@ -152,3 +152,7 @@ img {
   font-weight: bold;
   font-style: normal;
 }
+
+#root{
+  margin-top: 12px;
+}

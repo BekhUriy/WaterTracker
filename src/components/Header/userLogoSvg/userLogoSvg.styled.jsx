@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const ArrowSvg = styled.svg`
-    fill: var(--text-blue);
+export const UserSvgStyled = styled.svg`
     stroke: var(--text-blue);
+    fill: var(--text-blue);
 `
+
