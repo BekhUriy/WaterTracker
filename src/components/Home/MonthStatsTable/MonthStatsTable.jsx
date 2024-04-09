@@ -38,7 +38,7 @@ const MonthStatsTable = () => {
   const [isCurrentMonth, setIsCurrentMonth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverValue, setPopoverValue] = useState(null);
-  const monthStats = useWater().monthStats;
+  const { monthStats, waterRecords } = useWater();
 
   const open = Boolean(anchorEl);
 
@@ -97,7 +97,7 @@ const MonthStatsTable = () => {
 
   useEffect(() => {
     dispatch(monthStatsThunk(format(currentDate, 'yyyy-MM-dd')));
-  }, [dispatch, currentDate]);
+  }, [dispatch, currentDate, waterRecords]);
 
   const getInfoForDay = (monthStats, currentDate) => {
     const [res] = monthStats.filter((el) => el.date === currentDate);

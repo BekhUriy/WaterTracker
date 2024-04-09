@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux';
 import { currentThunk } from '../../redux/auth/thunk.js';
 import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
 import { AddWaterList } from '../../components/Home/AddWater/addWaterList.jsx';
-
 const HomePage = () => {
   const dispatch = useDispatch();
 
@@ -30,14 +29,14 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getWaterPortionsThunk());
-  }, []);
+  }, [user]);
 
   return (
     <BubblesContainer>
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            <DailyNorma user={user} />
+            {user && <DailyNorma user={user} />}
             <DailyNormaBackground />
             {/* DailyNorma */}
             <Crossbar />

@@ -8,13 +8,12 @@ import {
   getWaterPortion,
   getMonthStateApi,
 } from '../../API/waterApi.js';
-// import { getMonthStateApi } from '../../API/ApiMonthStats.js';
 
 export const getWaterPortionsThunk = createAsyncThunk(
   'water/fetchAll',
-  async (_, { rejectWithValue }) => {
+  async (date, { rejectWithValue }) => {
     try {
-      return await getWaterPortionsList();
+      return await getWaterPortionsList(date);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -43,9 +42,9 @@ export const addPortionThunk = createAsyncThunk(
 
 export const EditPortionThunk = createAsyncThunk(
   'water/editPortion',
-  async ({ id, data }, { rejectWithValue }) => {
+  async (body, { rejectWithValue }) => {
     try {
-      return await editWaterPortion(id, data);
+      return await editWaterPortion(body);
     } catch (error) {
       return rejectWithValue(error.message);
     }

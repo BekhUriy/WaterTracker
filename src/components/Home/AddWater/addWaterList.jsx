@@ -3,8 +3,7 @@ import { format } from 'date-fns';
 
 import {
   IconButtonFrameTwo,
-  IconFramTwo,
-  ListItem,
+   ListItem,
   StyledAddWaterButton,
   StyledAddWaterListContainer,
   StyledAddWaterListFrame,
@@ -35,9 +34,7 @@ export const AddWaterList = ({ water }) => {
   const [selectedWaterRecord, setSelectedWaterRecord] = useState(null);
   const { waterRecords } = water;
   const dispatch = useDispatch();
-  console.log(waterRecords);
 
- 
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -54,10 +51,10 @@ export const AddWaterList = ({ water }) => {
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
+
   const handleOpenDeleteModal = (waterRecord) => {
     setIsDeleteModalOpen(true);
     setSelectedWaterRecord(waterRecord);
-    
   };
 
   const closeDeleteModal = () => {
@@ -68,29 +65,32 @@ export const AddWaterList = ({ water }) => {
     if (!waterRecords || waterRecords.length === 0) return;
 
     return waterRecords.map((waterRecord) => {
-      const time=waterRecord.date
-        const localDate = time.toLocaleString(); 
+      const time = waterRecord.date;
+      const localDate = time.toLocaleString();
       const dateStr = localDate;
-const date = new Date(dateStr);
-const hours = date.getUTCHours();
-const minutes = date.getUTCMinutes();
-const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-     return (
+      const date = new Date(dateStr);
+      const hours = date.getUTCHours();
+      const minutes = date.getUTCMinutes();
+      const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+      const formattedHours = hours < 10 ? '0' + hours : hours;
+      const amOrPm = hours >= 12 ? 'PM' : 'AM'
+      return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
             <Icon>
-              <IconFramTwo>
-                <GlassIcon />
-              </IconFramTwo>
+                        <GlassIcon />
+  
             </Icon>
             <StyledDataContainer>
-              <StyledWater>{waterRecord.amountWater}</StyledWater>
-              <StyledTime>{hours}:{formattedMinutes}</StyledTime>
+              <StyledWater>{waterRecord.amountWater} ml</StyledWater>
+              <StyledTime>
+                {formattedHours}:{formattedMinutes} {amOrPm}
+              </StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
             <IconButton>
-              <EditIcon onClick={()=>handleOpenEditModal(waterRecord)} />
+              <EditIcon onClick={() => handleOpenEditModal(waterRecord)} />
             </IconButton>
             <IconButton>
               <TrashIcon onClick={() => handleOpenDeleteModal(waterRecord)} />
@@ -102,16 +102,18 @@ const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
   };
 
   const PortionsList = () => {
-    return <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>;
+    return (  <StyledAddWaterListFrame>
+    <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>
+    </StyledAddWaterListFrame>)
   };
 
   return (
     <div>
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
-        <StyledAddWaterListFrame>
+        {/* <StyledAddWaterListFrame> */}
           <PortionsList />
-        </StyledAddWaterListFrame>
+        {/* </StyledAddWaterListFrame> */}
         <StyledAddWaterButton onClick={handleCrossbarButtonClick}>
           <IconButtonFrameTwo>
             <PlusIconSmall />
@@ -119,9 +121,21 @@ const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
           <StyledButtonText>Add water</StyledButtonText>
         </StyledAddWaterButton>
       </StyledAddWaterListContainer>
-      <EditWaterModal isOpen={isEditModalOpen} onClose={closeEditModal} recordData={selectedWaterRecord}/>
+      {isEditModalOpen && (
+        <EditWaterModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          recordData={selectedWaterRecord}
+        />
+      )}
       <CrossbarModal isOpen={isModalOpen} onClose={closeModal} />
-      <DeleteModal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} recordData={selectedWaterRecord}/>
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          recordData={selectedWaterRecord}
+        />
+      )}
     </div>
   );
 };

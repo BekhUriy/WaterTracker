@@ -16,14 +16,17 @@ export const addWaterPortion = async (body) => {
   return data;
 };
 
-export const editWaterPortion = async (id, body) => {
-  const { data } = await apiServices.patch(urls.waters.waterById(id), body);
+export const editWaterPortion = async (body) => {
+  const { id, amountWater, date } = body;
+  const { data } = await apiServices.patch(urls.waters.waterById(id), {
+    amountWater,
+    date,
+  });
   return data;
-
 };
 
 export const deletePortion = async (id) => {
- await apiServices.delete(urls.waters.waterById(id));
+  await apiServices.delete(urls.waters.waterById(id));
   return id;
 };
 
