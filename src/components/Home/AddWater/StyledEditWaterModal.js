@@ -2,18 +2,31 @@ import styled from 'styled-components';
 
 
 export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  max-height: 700vh
-  z-index: 1300;
-`;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1200;
+
+width: 100%;
+height: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: rgba(0, 0, 0, 0.8);
+position: fixed;
+top: 0;
+left: 0;
+
+width: 100vw;
+height: 100vh;
+
+display: flex;
+justify-content: center;
+align-items: center;
+ovrflow:auto;
+`
 
 export const StyledModal = styled.div`
 width: 280px;
@@ -22,7 +35,7 @@ padding: 24px 12px 24px 12px;
 border-radius: 10px;
 z-index: 100;
 box-shadow: 0px 4px 8px 0px #407BFF33;
-position: absolute;
+position: fixed;
 background-color: #fff;
 top: 40px;
 @media (min-width: 768px){
