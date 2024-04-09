@@ -3,8 +3,7 @@ import { format } from 'date-fns';
 
 import {
   IconButtonFrameTwo,
-  IconFramTwo,
-  ListItem,
+   ListItem,
   StyledAddWaterButton,
   StyledAddWaterListContainer,
   StyledAddWaterListFrame,
@@ -73,18 +72,19 @@ export const AddWaterList = ({ water }) => {
       const hours = date.getUTCHours();
       const minutes = date.getUTCMinutes();
       const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+      const formattedHours = hours < 10 ? '0' + hours : hours;
+      const amOrPm = hours >= 12 ? 'PM' : 'AM'
       return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
             <Icon>
-              <IconFramTwo>
-                <GlassIcon />
-              </IconFramTwo>
+                        <GlassIcon />
+  
             </Icon>
             <StyledDataContainer>
-              <StyledWater>{waterRecord.amountWater}</StyledWater>
+              <StyledWater>{waterRecord.amountWater} ml</StyledWater>
               <StyledTime>
-                {hours}:{formattedMinutes}
+                {formattedHours}:{formattedMinutes} {amOrPm}
               </StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
@@ -102,16 +102,18 @@ export const AddWaterList = ({ water }) => {
   };
 
   const PortionsList = () => {
-    return <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>;
+    return (  <StyledAddWaterListFrame>
+    <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>
+    </StyledAddWaterListFrame>)
   };
 
   return (
     <div>
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
-        <StyledAddWaterListFrame>
+        {/* <StyledAddWaterListFrame> */}
           <PortionsList />
-        </StyledAddWaterListFrame>
+        {/* </StyledAddWaterListFrame> */}
         <StyledAddWaterButton onClick={handleCrossbarButtonClick}>
           <IconButtonFrameTwo>
             <PlusIconSmall />
