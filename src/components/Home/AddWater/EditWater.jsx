@@ -110,11 +110,11 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const localDate = time.toLocaleString();
   const dateStr = localDate;
   const date = new Date(dateStr);
-  console.log(date)
   const hours = date.getUTCHours();
   const minutes = date.getUTCMinutes();
   const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
   const formattedHours = hours < 10 ? '0' + hours : hours;
+  const amOrPm = hours >= 12 ? 'PM' : 'AM'
   return (
     <Overlay>
       <StyledModal>
@@ -136,7 +136,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
             <StyledDataContainer>
               <PrevData>{amW} ml</PrevData>
               <PrevTime>
-                {formattedHours}:{formattedMinutes}
+                {formattedHours}:{formattedMinutes} {amOrPm}
               </PrevTime>
             </StyledDataContainer>
           </StyledDataBar>

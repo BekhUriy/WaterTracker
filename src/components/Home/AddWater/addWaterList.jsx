@@ -73,6 +73,7 @@ export const AddWaterList = ({ water }) => {
       const minutes = date.getUTCMinutes();
       const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
       const formattedHours = hours < 10 ? '0' + hours : hours;
+      const amOrPm = hours >= 12 ? 'PM' : 'AM'
       return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
@@ -83,7 +84,7 @@ export const AddWaterList = ({ water }) => {
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater} ml</StyledWater>
               <StyledTime>
-                {formattedHours}:{formattedMinutes}
+                {formattedHours}:{formattedMinutes} {amOrPm}
               </StyledTime>
             </StyledDataContainer>
           </StyledLeftContainer>
