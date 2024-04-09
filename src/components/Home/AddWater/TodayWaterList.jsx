@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { format } from 'date-fns';
 
 import {
   IconButtonFrameTwo,
@@ -16,6 +15,7 @@ import {
   StyledTime,
   StyledWater,
 } from './StyledaddWaterList';
+
 import EditIcon from './Icons/EditIcon';
 import TrashIcon from './Icons/TrashIcon';
 import { Icon, IconButton } from './IconButtons';
@@ -23,16 +23,16 @@ import { GlassIcon } from './Icons/GlassIcon';
 import { PlusIconSmall } from './Icons/PlusIcon';
 import { EditWaterModal } from './EditWater';
 import { DeleteModal } from './DeleteModal';
-import { useDispatch } from 'react-redux';
 import CrossbarModal from '../Crossbar/CrossbarModal';
 
-export const AddWaterList = ({ water }) => {
+import { useWater } from '../../../hooks/useWater';
+
+export const TodayWaterList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedWaterRecord, setSelectedWaterRecord] = useState(null);
-  const { waterRecords } = water;
-  const dispatch = useDispatch();
+  const { waterRecords } = useWater().waterRecords;
 
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
