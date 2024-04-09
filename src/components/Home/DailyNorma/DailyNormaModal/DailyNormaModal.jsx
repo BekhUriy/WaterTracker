@@ -68,7 +68,7 @@ const DailyNormaModal = () => {
     if (amountWater >= 0 && amountWater <= 10000) {
       dispatch(editDailyNormaThunk({ waterRate: amountWater }));
 
-      dispatch(forceRender());
+      dispatch(forceRender(true));
 
       toast.success('Daily norma successfully updated');
     } else {

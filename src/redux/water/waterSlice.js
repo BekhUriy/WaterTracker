@@ -53,8 +53,8 @@ const waterSlice = createSlice({
   name: 'waterSlice',
   initialState,
   reducers: {
-    forceRender: (state) => {
-      state.forceRender = !state.forceRender;
+    forceRender: (state, { payload }) => {
+      state.forceRender = payload;
     },
   },
 
