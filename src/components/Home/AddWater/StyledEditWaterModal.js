@@ -25,6 +25,15 @@ box-shadow: 0px 4px 8px 0px #407BFF33;
 position: absolute;
 background-color: #fff;
 top: 40px;
+@media (min-width: 768px){
+  max-height: 580px;
+  width: 704px;
+  padding: 32px 24px 32px 24px;
+  }
+  @media (min-width: 1158px){
+    width: 592px;
+    top:110px;
+}
 `;
 
 export const StyledModalHeader = styled.div`
@@ -42,16 +51,39 @@ color: rgb(47, 47, 47);
 
 gap:24px;
 margin-top:24px;
+@media (min-width: 768px){
+  max-height: 580px;
+  width: 704px;
+  padding: 32px 24px 32px 24px;
+  }
+  @media (min-width: 1158px){
+    width: 592px;
+    top:110px;
 `
 export const StyledDataBar=styled.div`
 width: 256px;
 height: 52px;
 padding: 8px 24px 8px 24px;
 border-radius: 10px;
-opacity: 0px;
+align-items: center;
 background-color:#ECF2FF;
 display:flex;
-gap:2px;
+gap:12px;
+`
+export const PrevData=styled.p`
+font-size: 18px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color:#407BFF;
+`
+export const PrevTime=styled.p`
+
+font-size: 12px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+
 `
 export const StyledDataContainer = styled.div`
 display:flex;
@@ -76,9 +108,33 @@ line-height: 20px;
 text-align: left;
 margin-bottom:12px;
 `
-export const StyledCounter = styled.div`
-  display: flex;
-`;
+
+export const EditButtonAndValueBox=styled.div`
+display:flex;
+flex-direction:column;
+gap:24px;
+align-items: center`
+export const EditButttonSubmit=styled.button`
+width: 256px;
+height: 36px;
+padding: 8px 30px 8px 30px;
+border-radius: 10px;
+opacity: 0px;
+background-color: rgb(64, 123, 255);
+box-shadow: 0px 4px 8px 0px #407BFF57;
+border:none;
+color:white;
+&:hover {
+  background: rgba(64, 123, 255, 0.8);
+  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+  cursor: pointer;
+}
+
+&:active {
+  background: #407bff;
+  cursor: pointer;
+}
+`
 // DeleteModalStyles
 
 export const DeleteModalStyled = styled.div`

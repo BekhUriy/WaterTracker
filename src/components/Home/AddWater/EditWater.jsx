@@ -14,28 +14,31 @@ import {
   RecordingTimeInput,
 } from '../Crossbar/CrossbarModal.styled';
 import { Icon } from './IconButtons';
-import { GlassIcon } from './Icons/GlassIcon';
+import { GlassBigger, GlassIcon } from './Icons/GlassIcon';
 import {
   AmountWaterText,
   CorrectDataText,
   DeleteModalHeaderText,
+  EditButtonAndValueBox,
+  EditButttonSubmit,
   Overlay,
+  PrevData,
+  PrevTime,
   StyledDataBar,
   StyledEditWaterBox,
   StyledModal,
   StyledModalHeader,
 } from './StyledEditWaterModal';
 import {
-  IconFramTwo,
+
   StyledDataContainer,
   StyledTime,
   StyledWater,
 } from './StyledaddWaterList';
 import { useDispatch } from 'react-redux';
-import { format } from 'date-fns';
+
 import {
   EditPortionThunk,
-  getWaterPortionByIdThunk,
 } from '../../../redux/water/waterThunk';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
@@ -78,9 +81,9 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   };
 
   function getCurrentTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const recordTime = new Date(dFromDate);
+    const hours = recordTime.getUTCHours().toString().padStart(2, '0');
+    const minutes = recordTime.getUTCMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
 
@@ -107,10 +110,11 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const localDate = time.toLocaleString();
   const dateStr = localDate;
   const date = new Date(dateStr);
+  console.log(date)
   const hours = date.getUTCHours();
   const minutes = date.getUTCMinutes();
   const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
+  const formattedHours = hours < 10 ? '0' + hours : hours;
   return (
     <Overlay>
       <StyledModal>
@@ -122,19 +126,18 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
             <XMarkOutlineIcon />
           </CrossbarAddWaterButton>
         </StyledModalHeader>
-
         <StyledEditWaterBox>
           <StyledDataBar>
             <Icon>
-              <IconFramTwo>
-                <GlassIcon />
-              </IconFramTwo>
+         
+                <GlassBigger />
+      
             </Icon>
             <StyledDataContainer>
-              <StyledWater>{amW}</StyledWater>
-              <StyledTime>
-                {hours}:{formattedMinutes}
-              </StyledTime>
+              <PrevData>{amW} ml</PrevData>
+              <PrevTime>
+                {formattedHours}:{formattedMinutes}
+              </PrevTime>
             </StyledDataContainer>
           </StyledDataBar>
           <div>
@@ -171,12 +174,12 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
               onChange={handleEnterValueChange}
             ></EnterValueInput>
           </div>
-          <CrossbarChooseValueSaveDiv>
+          <EditButtonAndValueBox>
             <ChooseValueSaveSpan>{amountWater} ml</ChooseValueSaveSpan>
-            <ChooseValueSaveButton onClick={handleSaveButtonClick}>
+            <EditButttonSubmit onClick={handleSaveButtonClick}>
               Save
-            </ChooseValueSaveButton>
-          </CrossbarChooseValueSaveDiv>
+            </EditButttonSubmit>
+          </EditButtonAndValueBox>
         </StyledEditWaterBox>
       </StyledModal>
     </Overlay>

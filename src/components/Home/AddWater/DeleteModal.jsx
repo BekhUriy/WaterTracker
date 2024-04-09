@@ -17,14 +17,14 @@ import { deletePortionThunk, getWaterPortionByIdThunk } from '../../../redux/wat
 
 export const DeleteModal = ({ isOpen, onClose, recordData}) => {
   const dispatch = useDispatch();
-console.log(recordData)
+
 
   if (isOpen === false) return null;
  
 
   const handleDeleteClick=()=>{
     const id = recordData._id
-    // dispatch(getWaterPortionByIdThunk(id));
+
     dispatch(deletePortionThunk(id));
       onClose();
   }

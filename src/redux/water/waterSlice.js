@@ -43,8 +43,6 @@ const handleFulfilledDelete = (state, action) => {
 const handleFulfilledEdit = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  console.log(action.payload);
-  console.log('@marianadov913 !!!!!!!!!!!!!!!!');
   const editedRecord = action.payload;
   state.waterRecords.waterRecords = state.waterRecords.waterRecords.map(
     (water) => {
