@@ -18,16 +18,19 @@ import {
 import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
 import { userThunk } from '../../redux/user/thunk.js';
 import { useWater } from '../../hooks/useWater.js';
+import { forceRender } from '../../redux/water/waterSlice.js';
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const forceRender = useWater().forceRender;
+  const isForceRender = useWater().forceRender;
 
   useEffect(() => {
     dispatch(userThunk());
     dispatch(getWaterPortionsThunk());
-  }, [forceRender]);
+
+    isForceRender && dispatch(forceRender(false));
+  }, [isForceRender]);
 
   return (
     <BubblesContainer>
@@ -40,7 +43,7 @@ const HomePage = () => {
           </DailyNormaContainer>
           <StatisticsContainer>
             <TodayWaterList />
-            {/* <MonthStatsTable /> */}
+            <MonthStatsTable />
           </StatisticsContainer>
         </HomeContainer>
       </HomeSection>

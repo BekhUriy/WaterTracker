@@ -21,7 +21,6 @@ export const updateNameGenderThunk = createAsyncThunk(
   'user/updateNameGenderThunk',
   async (formData, { rejectWithValue }) => {
     try {
-      console.log(formData);
       return await updateNameGenderApi(formData);
     } catch (error) {
       return rejectWithValue(error);
