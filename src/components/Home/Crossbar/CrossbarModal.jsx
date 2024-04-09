@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import MinusSmallSolidIcon from './CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from './CrossbarIcons/PlusSmallSolidIcon';
 import XMarkOutlineIcon from './CrossbarIcons/XMarkOutlineIcon';
@@ -21,13 +23,14 @@ import {
   RecordingTimeInput,
   RecordingTimeTitle,
 } from './CrossbarModal.styled';
-import { useDispatch } from 'react-redux';
+
 import { addPortionThunk } from '../../../redux/water/waterThunk.js';
+import { forceRender } from '../../../redux/water/waterSlice.js';
 
 const CrossbarModal = ({ isOpen, onClose, onSave }) => {
+  const dispatch = useDispatch();
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-  const dispatch = useDispatch();
 
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
@@ -45,9 +48,8 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
     currentDate.setUTCHours(hours, minutes);
     const isoDate = currentDate.toISOString();
     dispatch(addPortionThunk({ amountWater, date: isoDate }));
-
+    dispatch(forceRender(true));
     onClose();
-    onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 
@@ -91,6 +93,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
   return (
     <CrossbarRootDiv>
       <CrossbarAddWaterDiv>

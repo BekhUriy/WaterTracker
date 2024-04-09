@@ -20,6 +20,7 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
+    "default-avatar-helper": "^2.0.138",
     "formik": "^2.4.5",
     "modern-normalize": "^2.0.0",
     "normalize.css": "^8.0.1",

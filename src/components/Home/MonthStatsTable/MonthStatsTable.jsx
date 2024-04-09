@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   startOfMonth,
   endOfMonth,
@@ -28,17 +29,18 @@ import {
   IconWrapper,
   Percentage,
 } from './MonthStatsTable.styled.jsx';
-import { useDispatch } from 'react-redux';
+
 import { monthStatsThunk } from '../../../redux/water/waterThunk.js';
 import { useWater } from '../../../hooks/useWater.js';
 
 const MonthStatsTable = () => {
   const dispatch = useDispatch();
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isCurrentMonth, setIsCurrentMonth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverValue, setPopoverValue] = useState(null);
-  const monthStats = useWater().monthStats;
+  const { monthStats, waterRecords } = useWater();
 
   const open = Boolean(anchorEl);
 
@@ -91,7 +93,7 @@ const MonthStatsTable = () => {
       isWithinInterval(currentDate, {
         start: startOfCurrentMonth,
         end: endOfCurrentMonth,
-      }),
+      })
     );
   }, [currentDate]);
 
@@ -99,18 +101,22 @@ const MonthStatsTable = () => {
     dispatch(monthStatsThunk(format(currentDate, 'yyyy-MM-dd')));
   }, [dispatch, currentDate]);
 
-  const getInfoForDay = (monthStats, currentDate) => {
-    const [res] = monthStats.filter((el) => el.date === currentDate);
+  const getInfoForDay = (monthStats, d) => {
+    const [res] = monthStats.filter((el) => el.date === d);
+
     if (res) {
       const percentage =
-        Math.ceil(res.percentage / 10) * 10 > 100
+        (res.percentage / 10).toFixed(1) * 10 > 100
           ? 100
-          : Math.ceil(res.percentage / 10) * 10;
+          : (res.percentage / 10).toFixed(1) * 10;
 
       return {
         data: currentDate,
-        dailyNorma: res.dailyNorma / 1000,
-        percentage,
+        dailyNorma: percentage === 0 ? 1.5 : res.dailyNorma / 1000,
+        percentage:
+          format(currentDate, 'yyyy-MM-dd') === d
+            ? waterRecords.percentageOfWaterConsumption
+            : percentage,
         totalRecords: res.totalRecords,
       };
     } else {
@@ -134,9 +140,7 @@ const MonthStatsTable = () => {
             </IconWrapper>
           </ButtonPagination>
           <span>{format(currentDate, 'MMMM yyyy')}</span>
-          <ButtonPagination onClick={handleNextMonth}
-                            disabled={isCurrentMonth}
-          >
+          <ButtonPagination onClick={handleNextMonth} disabled={isCurrentMonth}>
             <IconWrapper isCurrentMonth={isCurrentMonth}>
               <ArrowForwardIosIcon />
             </IconWrapper>

@@ -14,50 +14,41 @@ import {
   RecordingTimeInput,
 } from '../Crossbar/CrossbarModal.styled';
 import { Icon } from './IconButtons';
-import { GlassIcon } from './Icons/GlassIcon';
+import { GlassBigger, GlassIcon } from './Icons/GlassIcon';
 import {
   AmountWaterText,
   CorrectDataText,
   DeleteModalHeaderText,
+  EditButtonAndValueBox,
+  EditButttonSubmit,
   Overlay,
+  PrevData,
+  PrevTime,
   StyledDataBar,
   StyledEditWaterBox,
   StyledModal,
   StyledModalHeader,
 } from './StyledEditWaterModal';
 import {
-  IconFramTwo,
   StyledDataContainer,
   StyledTime,
   StyledWater,
 } from './StyledaddWaterList';
 import { useDispatch } from 'react-redux';
-import { format } from 'date-fns';
-import {
-  EditPortionThunk,
-  getWaterPortionByIdThunk,
-} from '../../../redux/water/waterThunk';
-import { useWater } from '../../../hooks/useWater';
+
+import { EditPortionThunk } from '../../../redux/water/waterThunk';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
+import { forceRender } from '../../../redux/water/waterSlice';
 
-export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
+export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
+  const { amountWater: amW, date: dFromDate, _id } = recordData;
   const dispatch = useDispatch();
-  const [amountWater, setAmountWater] = useState(0);
+
+  const [amountWater, setAmountWater] = useState(amW);
+
+  // time
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-
-  const curruntDate = new Date();
-  const formatedDate = format(curruntDate, 'yyyy-MM-dd-HH:m:ss');
-
-  // console.log(id); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // id - undefined
-  // WARNING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  // const waterRecords = useWater().waterRecords;
-
-  // useEffect(() => {
-  //   dispatch(getWaterPortionByIdThunk(id));
-  // }, []);
 
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
@@ -70,9 +61,14 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   };
 
   const handleSaveButtonClick = () => {
-    dispatch(EditPortionThunk({ amountWater, date: formatedDate }));
+    const [hours, minutes] = currentTime.split(':');
+    const currentDate = new Date();
+    currentDate.setUTCHours(hours, minutes);
+    const isoDate = currentDate.toISOString();
+
+    dispatch(EditPortionThunk({ id: _id, amountWater, date: isoDate }));
+    dispatch(forceRender(true));
     onClose();
-    onSave(amountWater);
     setCurrentTime(getCurrentTime());
   };
 
@@ -82,12 +78,13 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
   };
 
   function getCurrentTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const recordTime = new Date(dFromDate);
+    const hours = recordTime.getUTCHours().toString().padStart(2, '0');
+    const minutes = recordTime.getUTCMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
 
+  // close/open modal
   useEffect(() => {
     const handleEscKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -106,6 +103,15 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
 
   if (isOpen === false) return null;
 
+  const time = recordData.date;
+  const localDate = time.toLocaleString();
+  const dateStr = localDate;
+  const date = new Date(dateStr);
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  const formattedHours = hours < 10 ? '0' + hours : hours;
+  const amOrPm = hours >= 12 ? 'PM' : 'AM';
   return (
     <Overlay>
       <StyledModal>
@@ -117,17 +123,16 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
             <XMarkOutlineIcon />
           </CrossbarAddWaterButton>
         </StyledModalHeader>
-
         <StyledEditWaterBox>
           <StyledDataBar>
             <Icon>
-              <IconFramTwo>
-                <GlassIcon />
-              </IconFramTwo>
+              <GlassBigger />
             </Icon>
             <StyledDataContainer>
-              <StyledWater>200ml</StyledWater>
-              <StyledTime>11:00 AM</StyledTime>
+              <PrevData>{amW} ml</PrevData>
+              <PrevTime>
+                {formattedHours}:{formattedMinutes} {amOrPm}
+              </PrevTime>
             </StyledDataContainer>
           </StyledDataBar>
           <div>
@@ -151,6 +156,7 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
               type="time"
               step={300}
               value={currentTime}
+              onChange={(e) => setCurrentTime(e.target.value)}
             ></RecordingTimeInput>
           </div>
           <div>
@@ -163,12 +169,12 @@ export const EditWaterModal = ({ isOpen, onClose, onSave, id }) => {
               onChange={handleEnterValueChange}
             ></EnterValueInput>
           </div>
-          <CrossbarChooseValueSaveDiv>
+          <EditButtonAndValueBox>
             <ChooseValueSaveSpan>{amountWater} ml</ChooseValueSaveSpan>
-            <ChooseValueSaveButton onClick={handleSaveButtonClick}>
+            <EditButttonSubmit onClick={handleSaveButtonClick}>
               Save
-            </ChooseValueSaveButton>
-          </CrossbarChooseValueSaveDiv>
+            </EditButttonSubmit>
+          </EditButtonAndValueBox>
         </StyledEditWaterBox>
       </StyledModal>
     </Overlay>

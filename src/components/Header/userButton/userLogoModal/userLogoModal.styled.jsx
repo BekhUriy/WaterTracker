@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const LiStyled = styled.li`
-    color: #407BFF;
+    color: var(--text-blue);
     display: flex;
     align-items: center;
     gap: 8px;

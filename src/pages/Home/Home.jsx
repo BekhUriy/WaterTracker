@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import Crossbar from '../../components/Home/Crossbar/Crossbar.jsx';
 import DailyNorma from '../../components/Home/DailyNorma/DailyNorma.jsx';
 import MonthStatsTable from '../../components/Home/MonthStatsTable/MonthStatsTable.jsx';
+import { TodayWaterList } from '../../components/Home/AddWater/TodayWaterList.jsx';
+
 import {
   BubblesContainer,
   DailyNormaContainer,
@@ -8,28 +13,23 @@ import {
   HomeSection,
   StatisticsContainer,
 } from './Home.styled.js';
-import { useAuth } from '../../hooks/useAuth.js';
-import { useEffect } from 'react';
-import { useWater } from '../../hooks/useWater.js';
-import { useDispatch } from 'react-redux';
-import { currentThunk } from '../../redux/auth/thunk.js';
+
 import { getWaterPortionsThunk } from '../../redux/water/waterThunk.js';
-import { AddWaterList } from '../../components/Home/AddWater/addWaterList.jsx';
+import { userThunk } from '../../redux/user/thunk.js';
+import { useWater } from '../../hooks/useWater.js';
+import { forceRender } from '../../redux/water/waterSlice.js';
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const user = useAuth().authUser;
-  const forceRender = useWater().forceRender;
-  const water = useWater().waterRecords;
+  const isForceRender = useWater().forceRender;
 
   useEffect(() => {
-    dispatch(currentThunk());
-  }, [forceRender]);
-
-  useEffect(() => {
+    dispatch(userThunk());
     dispatch(getWaterPortionsThunk());
-  }, []);
+
+    isForceRender && dispatch(forceRender(false));
+  }, [isForceRender]);
 
   return (
     <BubblesContainer>
@@ -38,13 +38,10 @@ const HomePage = () => {
           <DailyNormaContainer>
             <DailyNorma user={user} />
             <Crossbar />
-            {/* //WaterRatioPanel */}
           </DailyNormaContainer>
           <StatisticsContainer>
-            {water && <AddWaterList water={water} />}
-            {/* //TodayWaterList  */}
+            <TodayWaterList />
             <MonthStatsTable />
-            {/* //MonthStatsTable */}
           </StatisticsContainer>
         </HomeContainer>
       </HomeSection>
