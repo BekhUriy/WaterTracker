@@ -91,6 +91,7 @@ const CrossbarModal = ({ isOpen, onClose, onSave }) => {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
   return (
     <CrossbarRootDiv>
       <CrossbarAddWaterDiv>
