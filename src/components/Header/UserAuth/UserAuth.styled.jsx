@@ -3,7 +3,7 @@ import styled, { css } from "styled-components"
 export const SignInStyled = styled.button`
     background-color: transparent;
     border: none;
-    color: #407BFF;
+    color: var(--text-blue);
     font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
@@ -12,6 +12,7 @@ export const SignInStyled = styled.button`
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 
     ${props =>
     props.media &&
