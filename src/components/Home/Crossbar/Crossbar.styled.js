@@ -23,10 +23,12 @@ export const CrossbarBox = styled.div`
     flex-direction: row;
     gap: 24px;
     align-items: center;
+    display: flex;
+    justify-content: space-around;
   }
 
   @media screen and (min-width: 1440px) {
-    width: 592px;
+    // width: 592px;
     gap: 32px;
   }
 `;
@@ -57,7 +59,7 @@ export const CrossbarInput = styled.input`
   height: 8px;
 
   @media screen and (min-width: 768px) {
-    width: 315px;
+    width: 325px;
   }
 
   @media screen and (min-width: 1440px) {

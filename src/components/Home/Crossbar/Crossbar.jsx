@@ -20,6 +20,7 @@ const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [waterAmount, setWaterAmount] = useState(0);
   const [waterIntakePercentage, setWaterIntakePercentage] = useState(0);
+  // const roundedWaterPercentage = useSelector(selectWaterPercentage)
   const authUser = useAuth().authUser;
   const waterRecords = useWater().waterRecords;
 
