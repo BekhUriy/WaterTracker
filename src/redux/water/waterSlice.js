@@ -1,49 +1,31 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import {
   getWaterPortionsThunk,
   EditPortionThunk,
   addPortionThunk,
   deletePortionThunk,
-  editDailyNormaThunk,
   monthStatsThunk,
-  getWaterPortionByIdThunk,
 } from './waterThunk.js';
 
-const handlePending = (state) => {
-  state.isLoading = true;
+const handleFulfilled = (state, { payload }) => {
+  state.waterRecords.percentageOfWaterConsumption =
+    payload.percentageOfWaterConsumption;
+  state.waterRecords.waterRecords = payload.waterRecords;
 };
 
-const handleFulfilled = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  state.waterRecords = action.payload;
+const handleFulfilledAdd = (state, { payload }) => {
+  state.waterRecords.waterRecords.push(payload);
 };
 
-const handleFulfilledGetById = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  state.waterRecord = action.payload;
-};
-
-const handleFulfilledAdd = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  state.waterRecords.waterRecords.push(action.payload);
-};
-
-const handleFulfilledDelete = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
+const handleFulfilledDelete = (state, { payload }) => {
   state.waterRecords.waterRecords = state.waterRecords.waterRecords.filter(
-    (el) => el._id !== action.payload
+    (el) => el._id !== payload
   );
 };
 
-const handleFulfilledEdit = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  const editedRecord = action.payload;
+const handleFulfilledEdit = (state, { payload }) => {
+  const editedRecord = payload;
   state.waterRecords.waterRecords = state.waterRecords.waterRecords.map(
     (water) => {
       if (water._id === editedRecord._id) {
@@ -54,30 +36,16 @@ const handleFulfilledEdit = (state, action) => {
   );
 };
 
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const handleFulfilledEditDailyNorma = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  state.waterRate = action.payload;
-};
-
-const handleFulfilledMonthGet = (state, action) => {
-  state.isLoading = false;
-  state.error = null;
-  state.monthStats = action.payload;
+const handleFulfilledMonthGet = (state, { payload }) => {
+  state.monthStats = payload;
 };
 
 const initialState = {
-  waterRecords: null,
+  waterRecords: {
+    percentageOfWaterConsumption: 0,
+    waterRecords: [],
+  },
   monthStats: [],
-  waterRate: '',
-  isLoading: false,
-  error: null,
-  waterRecord: null,
   forceRender: false,
 };
 
@@ -96,35 +64,9 @@ const waterSlice = createSlice({
       .addCase(addPortionThunk.fulfilled, handleFulfilledAdd)
       .addCase(deletePortionThunk.fulfilled, handleFulfilledDelete)
       .addCase(EditPortionThunk.fulfilled, handleFulfilledEdit)
-      .addCase(getWaterPortionByIdThunk.fulfilled, handleFulfilledGetById)
-      .addCase(editDailyNormaThunk.fulfilled, handleFulfilledEditDailyNorma)
-      .addCase(monthStatsThunk.fulfilled, handleFulfilledMonthGet)
-      .addMatcher(
-        isAnyOf(
-          getWaterPortionsThunk.pending,
-          addPortionThunk.pending,
-          EditPortionThunk.pending,
-          deletePortionThunk.pending,
-          getWaterPortionByIdThunk.pending,
-          editDailyNormaThunk.pending,
-          monthStatsThunk.pending
-        ),
-        handlePending
-      )
-      .addMatcher(
-        isAnyOf(
-          getWaterPortionsThunk.rejected,
-          addPortionThunk.rejected,
-          EditPortionThunk.rejected,
-          deletePortionThunk.rejected,
-          getWaterPortionByIdThunk.rejected,
-          editDailyNormaThunk.rejected,
-          monthStatsThunk.rejected
-        ),
-        handleRejected
-      );
+      .addCase(monthStatsThunk.fulfilled, handleFulfilledMonthGet);
   },
 });
 
-export const waterReducer = waterSlice.reducer;
 export const { forceRender } = waterSlice.actions;
+export const waterReducer = waterSlice.reducer;

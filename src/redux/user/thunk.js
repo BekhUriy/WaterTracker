@@ -3,7 +3,19 @@ import {
   updateNameGenderApi,
   updateAvatarApi,
   updatePassApi,
+  userApi,
 } from '../../API/ApiUser';
+
+export const userThunk = createAsyncThunk(
+  'user/current',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await userApi();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const updateNameGenderThunk = createAsyncThunk(
   'user/updateNameGenderThunk',
@@ -29,7 +41,7 @@ export const updateAvatarThunk = createAsyncThunk(
   }
 );
 
-// auth
+// auth todo
 export const updatePassworsThunk = createAsyncThunk(
   'auth/updatePassworsThunk',
   async (data, { rejectWithValue }) => {

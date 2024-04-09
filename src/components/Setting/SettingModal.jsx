@@ -79,15 +79,6 @@ export const SettingModal = () => {
     setPassword((prev) => ({ ...prev, [name]: value }));
   };
 
-  // useEffect(() => {
-  //   const handleKeyDown = handleKeyPress(dispatch);
-  //   window.addEventListener('keydown', handleKeyDown);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //   };
-  // }, [dispatch]);
-
   const togglePasswordVisibility = (setState) => {
     setState((prevState) => !prevState);
   };
@@ -97,8 +88,6 @@ export const SettingModal = () => {
   };
 
   const onSave = async () => {
-    console.log(data.name.length > 0);
-
     if (password.newPass.length > 0) {
       dispatch(
         updatePassworsThunk({
@@ -113,17 +102,6 @@ export const SettingModal = () => {
     }
 
     modalClose();
-    // if (!isValid) {
-    //   notify();
-    //   toast.error('Enter valid data, please!');
-    // }
-    // try {
-
-    // } catch (error) {
-    //   notify();
-    //   toast.error('An error occurred while saving data.');
-    // }
-    // return;
   };
 
   const validate = () => {

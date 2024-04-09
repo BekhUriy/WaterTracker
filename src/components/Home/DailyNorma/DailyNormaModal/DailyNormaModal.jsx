@@ -28,9 +28,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { editDailyNormaThunk } from '../../../../redux/water/waterThunk';
 import { forceRender } from '../../../../redux/water/waterSlice';
+import { useUser } from '../../../../hooks/useUser';
+import { userThunk } from '../../../../redux/user/thunk';
 
-const DailyNormaModal = ({ user }) => {
+const DailyNormaModal = () => {
   const toggleModal = useContext(ModalContext);
+  const user = useUser();
 
   const dispatch = useDispatch();
 
@@ -62,7 +65,9 @@ const DailyNormaModal = ({ user }) => {
 
     if (amountWater >= 0 && amountWater <= 10000) {
       dispatch(editDailyNormaThunk({ waterRate: amountWater }));
-      dispatch(forceRender());
+
+      dispatch(userThunk());
+
       toast.success('Daily norma successfully updated');
     } else {
       toast.warning(

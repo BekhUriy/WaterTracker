@@ -5,12 +5,11 @@ import {
   addWaterPortion,
   deletePortion,
   editDailyNorma,
-  getWaterPortion,
   getMonthStateApi,
 } from '../../API/waterApi.js';
 
 export const getWaterPortionsThunk = createAsyncThunk(
-  'water/fetchAll',
+  'water/getDayPortions',
   async (body, { rejectWithValue }) => {
     try {
       return await getWaterPortionsList(body);
@@ -19,16 +18,7 @@ export const getWaterPortionsThunk = createAsyncThunk(
     }
   }
 );
-export const getWaterPortionByIdThunk = createAsyncThunk(
-  'water/fetchPortionById',
-  async (id, { rejectWithValue }) => {
-    try {
-      return await getWaterPortion(id);
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+
 export const addPortionThunk = createAsyncThunk(
   'water/addPortion',
   async (data, { rejectWithValue }) => {
@@ -50,6 +40,7 @@ export const EditPortionThunk = createAsyncThunk(
     }
   }
 );
+
 export const deletePortionThunk = createAsyncThunk(
   'water/deletePortion',
   async (id, { rejectWithValue }) => {
@@ -60,17 +51,6 @@ export const deletePortionThunk = createAsyncThunk(
     }
   }
 );
-/////////////////////DailyNorma
-// export const getDailyNormaThunk = createAsyncThunk(
-//   'user/getDailyNorma',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       return await getDailyNorma();
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   },
-// );
 
 export const editDailyNormaThunk = createAsyncThunk(
   'waterRate/editDailyNorma',

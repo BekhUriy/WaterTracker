@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 import {
   IconButtonFrameTwo,
-   ListItem,
+  ListItem,
   StyledAddWaterButton,
   StyledAddWaterListContainer,
   StyledAddWaterListFrame,
@@ -25,7 +25,6 @@ import { EditWaterModal } from './EditWater';
 import { DeleteModal } from './DeleteModal';
 import { useDispatch } from 'react-redux';
 import CrossbarModal from '../Crossbar/CrossbarModal';
-import { getWaterPortionByIdThunk } from '../../../redux/water/waterThunk';
 
 export const AddWaterList = ({ water }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -73,13 +72,12 @@ export const AddWaterList = ({ water }) => {
       const minutes = date.getUTCMinutes();
       const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
       const formattedHours = hours < 10 ? '0' + hours : hours;
-      const amOrPm = hours >= 12 ? 'PM' : 'AM'
+      const amOrPm = hours >= 12 ? 'PM' : 'AM';
       return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
             <Icon>
-                        <GlassIcon />
-  
+              <GlassIcon />
             </Icon>
             <StyledDataContainer>
               <StyledWater>{waterRecord.amountWater} ml</StyledWater>
@@ -102,9 +100,11 @@ export const AddWaterList = ({ water }) => {
   };
 
   const PortionsList = () => {
-    return (  <StyledAddWaterListFrame>
-    <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>
-    </StyledAddWaterListFrame>)
+    return (
+      <StyledAddWaterListFrame>
+        <StyledListAddWater>{<WaterRecordsListItems />}</StyledListAddWater>
+      </StyledAddWaterListFrame>
+    );
   };
 
   return (
@@ -112,7 +112,7 @@ export const AddWaterList = ({ water }) => {
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
         {/* <StyledAddWaterListFrame> */}
-          <PortionsList />
+        <PortionsList />
         {/* </StyledAddWaterListFrame> */}
         <StyledAddWaterButton onClick={handleCrossbarButtonClick}>
           <IconButtonFrameTwo>
@@ -139,4 +139,3 @@ export const AddWaterList = ({ water }) => {
     </div>
   );
 };
-
