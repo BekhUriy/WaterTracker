@@ -9,7 +9,6 @@ import {
   DeleteButtonsBox,
   DeleteModalHeaderText,
   DeleteModalStyled,
-  Overlay,
   StyledDeleteModalText,
   StyledModalHeader,
 } from './StyledEditWaterModal';
@@ -46,7 +45,7 @@ export const DeleteModal = ({ isOpen, onClose, recordData }) => {
 
   return (
     <div>
-      <Overlay >
+      {/* <Overlay > */}
         <DeleteModalStyled>
           <StyledModalHeader>
             <DeleteModalHeaderText>Delete entry</DeleteModalHeaderText>
@@ -68,7 +67,7 @@ export const DeleteModal = ({ isOpen, onClose, recordData }) => {
             </DeleteButtonCancel>
           </DeleteButtonsBox>
         </DeleteModalStyled>
-      </Overlay>
+      {/* </Overlay> */}
     </div>
   );
 };

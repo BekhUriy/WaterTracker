@@ -19,12 +19,12 @@ import { useWater } from '../../../hooks/useWater.js';
 
 const Crossbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [_, setWaterAmount] = useState(0);
+  // const [WaterAmount, setWaterAmount] = useState(0);
   const { percentageOfWaterConsumption } = useWater().waterRecords;
 
-  const handleSaveWaterAmount = (newWaterAmount) => {
-    setWaterAmount((prevWaterAmount) => prevWaterAmount + newWaterAmount);
-  };
+  // const handleSaveWaterAmount = (newWaterAmount) => {
+  //   setWaterAmount((prevWaterAmount) => prevWaterAmount + newWaterAmount);
+  // };
 
   const handleCrossbarButtonClick = () => {
     setIsModalOpen(true);
@@ -72,7 +72,7 @@ const Crossbar = () => {
         <CrossbarModal
           isOpen={isModalOpen}
           onClose={closeModal}
-          onSave={handleSaveWaterAmount}
+          // onSave={handleSaveWaterAmount}
         />
       )}
     </CrossbarBox>

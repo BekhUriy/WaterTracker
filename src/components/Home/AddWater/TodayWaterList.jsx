@@ -27,6 +27,7 @@ import { DeleteModal } from './DeleteModal';
 import CrossbarModal from '../Crossbar/CrossbarModal';
 
 import { useWater } from '../../../hooks/useWater';
+import { DarkOverlay } from '../Crossbar/Crossbar.styled';
 
 export const TodayWaterList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -114,6 +115,7 @@ export const TodayWaterList = () => {
 
   return (
     <div>
+        {isModalOpen && <DarkOverlay onClick={closeModal} />}
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
         {/* <StyledAddWaterListFrame> */}

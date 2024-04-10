@@ -37,7 +37,7 @@ background-color: #fff;
   width: 704px;
   padding: 32px 24px 32px 24px;
   }
-  @media (min-width: 1158px){
+  @media (min-width: 1440px){
     width: 592px;
 }
 `;
