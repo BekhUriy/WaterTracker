@@ -15,7 +15,7 @@ export const StyledAddWaterMainContainer = styled.div`
     width: 1000px;
     height: 688px;
   }
-  @media (min-width: 1158px) {
+  @media (min-width: 1440px) {
     width: 1000px;
     height: 688px;
     position: absolute;
@@ -32,7 +32,7 @@ export const StyledAddWaterListContainer = styled.div`
     width: 656px;
     height: 260px;
   }
-  @media (min-width: 1158px) {
+  @media (min-width: 1440px) {
     width: 544px;
     height: 260px;
     position: relative;
@@ -95,7 +95,7 @@ export const ListItem = styled.li`
 border-bottom:1px #d7e3ff solid;
   padding-right: 4px;
   line-height: 26px;
-  width: 254px;
+//   width: 254px;
   height:48px;
   gap: 38px;
 
@@ -108,7 +108,7 @@ border-bottom:1px #d7e3ff solid;
   }
   @media (min-width: 1158px) {
     gap: 278px;
-    width: 534px;
+    // width: 534px;
   }
 `;
 
