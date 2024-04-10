@@ -29,14 +29,14 @@ const HomePage = () => {
     dispatch(getWaterPortionsThunk());
 
     isForceRender && dispatch(forceRender(false));
-  }, [isForceRender]);
+  }, [isForceRender, dispatch]);
 
   return (
     <BubblesContainer>
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            <DailyNorma user={user} />
+            <DailyNorma />
             <Crossbar />
           </DailyNormaContainer>
           <StatisticsContainer>

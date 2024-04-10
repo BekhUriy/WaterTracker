@@ -63,7 +63,7 @@ const validationSchema = Yup.object().shape({
         }>
         {({ errors, touched }) => (
           <AuthForm>
-            <TitleForm>Sing Up</TitleForm>            
+            <TitleForm>Sign Up</TitleForm>            
             <Label htmlFor="email"><Title>Enter your email</Title>
               <Input name="email" placeholder="E-mail"  $error={errors.email && touched.email} />
               <ErrMessage name="email" component="div" $error={errors.email && touched.email}  />
@@ -86,11 +86,11 @@ const validationSchema = Yup.object().shape({
               </span>
               <ErrMessage name="repeatPassword" component="div" $error={errors.repeatPassword && touched.repeatPassword} />
             </Label>
-            <Btn type="submit">SingUp</Btn>
+            <Btn type="submit">Sign Up</Btn>
           </AuthForm>
         )}
       </Formik>
-      <NavForm to='/login'>SingIn</NavForm>
+      <NavForm to='/login'>Sign In</NavForm>
       </>
   )
   
