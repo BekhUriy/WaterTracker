@@ -72,7 +72,6 @@ export const SettingModal = () => {
   };
 
   const handlCloseModal = (e) => {
-    console.log(e.key);
     if (e.target === e.currentTarget) {
       dispatch(modalClose());
     }
