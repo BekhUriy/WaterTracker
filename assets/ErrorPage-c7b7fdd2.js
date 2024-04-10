@@ -1,4 +1,4 @@
-import{u as t,j as e}from"./index-8a4bbe5e.js";import{C as n,B as i}from"./Signup.styled-26e2ca07.js";import"./react-toastify.esm-7a7c669b.js";const o=t.h1`
+import{u as t,j as e}from"./index-664313d0.js";import{C as n,B as i}from"./Signup.styled-77220bc5.js";import"./react-toastify.esm-1c02db08.js";const o=t.h1`
 margin-top: 15px;
 font-size: 32px;
 font-weight: 400;
