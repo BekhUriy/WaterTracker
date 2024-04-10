@@ -8,6 +8,12 @@ export const LiStyled = styled.li`
     padding: 0;
     marging: 0;
     cursor: pointer;
+
+     &:hover {
+        transform: scale(1.1);
+        transition: transform 450ms ease-in-out;
+    }
+    
 `
 
 export const UlStyled = styled.ul`
@@ -23,13 +29,13 @@ export const UserLogoModalStyled = styled.div`
     padding: 16px;
     border-radius: 10px;
     z-index: 100;
-    box-shadow: 0px 4px 8px 0px #407BFF33;
     position: absolute;
     background-color: #fff;
     top: 48px;
+    box-shadow: 0px 4px 8px 0px #407BFF33;
 
       @media (min-width: 768px) {
         top: 56px;
       }
-   
+
 `
