@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const LiStyled = styled.li`
-    color: #407BFF;
+    color: var(--text-blue);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -27,5 +27,9 @@ export const UserLogoModalStyled = styled.div`
     position: absolute;
     background-color: #fff;
     top: 48px;
+
+      @media (min-width: 1440px) {
+        top: 56px;
+      }
    
 `

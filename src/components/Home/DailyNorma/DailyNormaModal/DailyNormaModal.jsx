@@ -1,3 +1,8 @@
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+
 import {
   CheckWrapper,
   CloseBtn,
@@ -17,25 +22,22 @@ import {
   WrapperForButton,
   ErrorMessage,
 } from './DailyNormaModal.styled';
-import { useFormik } from 'formik';
+
 import { validationSchema } from '../utils/schemas/validationSchema';
 import InputForm from '../utils/InputForm/InputForm';
-import { useCallback, useContext, useEffect, useState } from 'react';
 import { ModalContext } from './ModalProvider/ModalProvider';
 import Modal from '../utils/Modal/Modal';
 import SaveButton from '../utils/SaveButton/SaveButton';
-import { useAuth } from '../../../../hooks/useAuth';
-import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+
 import { editDailyNormaThunk } from '../../../../redux/water/waterThunk';
 import { forceRender } from '../../../../redux/water/waterSlice';
+import { useUser } from '../../../../hooks/useUser';
 
 const DailyNormaModal = () => {
   const toggleModal = useContext(ModalContext);
+  const user = useUser();
 
   const dispatch = useDispatch();
-
-  const user = useAuth().authUser;
 
   const onClickModalClose = () => {
     toggleModal();
@@ -65,7 +67,9 @@ const DailyNormaModal = () => {
 
     if (amountWater >= 0 && amountWater <= 10000) {
       dispatch(editDailyNormaThunk({ waterRate: amountWater }));
-      dispatch(forceRender());
+
+      dispatch(forceRender(true));
+
       toast.success('Daily norma successfully updated');
     } else {
       toast.warning(

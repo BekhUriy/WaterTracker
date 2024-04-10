@@ -61,7 +61,7 @@ width: 264px;
 position: relative;
 margin-bottom:12px;
 
-height: 180px; 
+max-height: 180px; 
 overflow-y: auto;
 overflow-x: hidden;
 ::-webkit-scrollbar {   
@@ -80,7 +80,7 @@ scrollbar-width: thin;
 scrollbar-color: #9EBBFF #D7E3FF;
 
 @media (min-width: 768px){
-    height: 176px;
+    max-height: 176px;
     width: 656px;
     }
     @media (min-width: 1440px){
@@ -97,6 +97,8 @@ export const ListItem = styled.li`
 display:flex;
 align-items: center;
 justify-content: space-between;
+
+padding-right:4px;
 line-height:26px;
 width:254px;
 gap:38px;
@@ -106,14 +108,14 @@ position: relative; /* Встановлення позиції для ::after */
 ::after {
     content: '';
     position: absolute;
-    top:42px;
+    top:38px;
   
     left: 0;
     width: 100%;
     height: 1px;
     background-color:#D7E3FF;
     @media (min-width: 768px){
-        top:42px;
+        top:48px;
               }
        
 }     
@@ -150,14 +152,7 @@ export const IconFrame = styled.div`
 display:flex;
 width: 26px;
   height: 26px;
-padding-left:4.52px;
-padding-top:2.26px;
-padding-right:4.52px;
-padding-bottom:2.26px;
-`
-export const IconFramTwo = styled.div`
-width: 26px;
-  height: 26px;
+
   display:flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +160,18 @@ width: 26px;
     width: 36px;
   height: 36px;
      }
-`
+// `
+// export const IconFramTwo = styled.div`
+// width: 26px;
+//   height: 26px;
+//   display:flex;
+//   align-items: center;
+//   justify-content: center;
+//   @media (min-width: 768px){
+//     width: 36px;
+//   height: 36px;
+//      }
+// `
 export const StyledButton=styled.button`
 display:flex;
 align-items:center;
@@ -179,7 +185,7 @@ cursor:pointer;
 outline:none;
 background-color: transparent`
 
-export const StyledWater= styled.span`
+export const StyledWater= styled.p`
 font-family: Roboto;
 font-size: 18px;
 font-weight: 400;

@@ -11,8 +11,18 @@ import  { useState } from 'react';
 const validationSchema = Yup.object().shape({
   email: Yup.string('Enter your email')
     .email('Enter a valid email')
-     .matches(/^[^\s@]+@[^\s@]+.[^\s@]+$/, 'Email is not valid')
-    .required('Email is required'),
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
+    .min(6, 'Email must be at least 6 characters')
+    .max(30, 'Email must not exceed 30 characters')
+    .trim()
+    .required('Email is required')
+    .test('valid-domain', 'Email domain is not valid', function(value) {
+      const validDomains = ['com', 'net', 'ua', 'uk', 'org', 'ca'];
+      const domain = value.split('@')[1];
+      if (!domain) return false;
+      const domainSegments = domain.split('.');
+      return domainSegments.length === 2 && validDomains.includes(domainSegments[1]);
+    }),
   password: Yup.string()
     .required('Password is required')
     .min(8, 'Your password is too short.'),
@@ -53,7 +63,7 @@ const validationSchema = Yup.object().shape({
         }>
         {({ errors, touched }) => (
           <AuthForm>
-            <TitleForm>Sing Up</TitleForm>            
+            <TitleForm>Sign Up</TitleForm>            
             <Label htmlFor="email"><Title>Enter your email</Title>
               <Input name="email" placeholder="E-mail"  $error={errors.email && touched.email} />
               <ErrMessage name="email" component="div" $error={errors.email && touched.email}  />
@@ -76,11 +86,11 @@ const validationSchema = Yup.object().shape({
               </span>
               <ErrMessage name="repeatPassword" component="div" $error={errors.repeatPassword && touched.repeatPassword} />
             </Label>
-            <Btn type="submit">SingUp</Btn>
+            <Btn type="submit">Sign Up</Btn>
           </AuthForm>
         )}
       </Formik>
-      <NavForm to='/login'>SingIn</NavForm>
+      <NavForm to='/login'>Sign In</NavForm>
       </>
   )
   

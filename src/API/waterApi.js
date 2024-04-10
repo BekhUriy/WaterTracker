@@ -2,7 +2,8 @@ import { apiServices } from './apiServices.js';
 import { urls } from '../constants/urls.js';
 
 export const getWaterPortionsList = async () => {
-  const { data } = await apiServices.get(urls.waters.today);
+  const date = new Date();
+  const { data } = await apiServices.get(urls.waters.today(date));
   return data;
 };
 
@@ -16,14 +17,18 @@ export const addWaterPortion = async (body) => {
   return data;
 };
 
-export const editWaterPortion = async (id, body) => {
-  const { data } = await apiServices.patch(urls.waters.waterById(id), body);
+export const editWaterPortion = async (body) => {
+  const { id, amountWater, date } = body;
+  const { data } = await apiServices.patch(urls.waters.waterById(id), {
+    amountWater,
+    date,
+  });
   return data;
 };
 
 export const deletePortion = async (id) => {
-  const { data } = await apiServices.delete(urls.waters.waterById(id));
-  return data;
+  await apiServices.delete(urls.waters.waterById(id));
+  return id;
 };
 
 export const editDailyNorma = async (body) => {

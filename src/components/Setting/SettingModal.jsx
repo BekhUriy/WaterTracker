@@ -1,9 +1,9 @@
-// src/components/Setting/SettingModal.jsx
 import { useEffect, useState } from 'react';
 import { CloseSvg } from './closeSvg';
-import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import {
   BlockGender,
   BlockPassword,
@@ -22,93 +22,105 @@ import {
   Scrollbar,
 } from './SettingModal.styled';
 import { Backdrop } from '../Logout/UserLogoutModal.styled';
+
 import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
-import * as Yup from 'yup';
+
 import { modalClose } from '../../redux/setingModalSlicer';
-import { updateApiThunk } from '../../redux/user/thunk';
 import {
-  handleBackdropClick,
-  handleCloseModal,
-  handleKeyPress,
-} from './HandlersSetting';
-const formSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Enter a valid email')
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid')
-    .required('Email is required'),
-  name: Yup.string()
-    .required('Name is required')
-    .min(2, 'Name must be at least 2 characters'),
-  password: Yup.string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
-});
+  updateNameGenderThunk,
+  updatePassworsThunk,
+} from '../../redux/user/thunk';
+
+import { useUser } from '../../hooks/useUser';
 
 export const SettingModal = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  const user = useUser().user;
 
+  const [updateData, setUpdateData] = useState({
+    name: '',
+    gender: '',
+  });
+  const [updatePass, setUpdatePass] = useState({
+    oldPass: '',
+    newPass: '',
+    repeatNewPass: '',
+  });
   const [showOldPassword, setShowOldPassword] = useState(false);
-  const [oldPassword, setOldPassword] = useState('');
-
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const [errPass, setErrPass] = useState(null);
 
-  const [isValid, setIsValid] = useState(true);
+  const getValue = (objValue) => {
+    setUpdateData((prev) => ({
+      ...prev,
+      ...objValue,
+    }));
+  };
 
-  useEffect(() => {
-    const handleKeyDown = handleKeyPress(dispatch);
-    window.addEventListener('keydown', handleKeyDown);
+  const handleChangePass = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [dispatch]);
+    setUpdatePass((prev) => ({ ...prev, [name]: value }));
+  };
 
   const togglePasswordVisibility = (setState) => {
     setState((prevState) => !prevState);
   };
 
-  const notify = () => {
-    toast('Default Notification!');
-  };
-  const onSave = async (name, email, password) => {
-    if (!isValid) {
-      notify();
-      toast.error('Enter valid data, please!');
+  const handlCloseModal = (e) => {
+    if (e.target === e.currentTarget) {
+      dispatch(modalClose());
     }
-    try {
-      await updateApiThunk({ name, email, password }).unwrap();
-      console.log('Data saved successfully');
-      modalClose();
-    } catch (error) {
-      notify();
-      toast.error('An error occurred while saving data.');
-    }
-    return;
   };
 
-  const validate = () => {
-    formSchema
-      .validate({ email: user.email, name: user.name, password: user.password })
-      .then(() => setIsValid(true))
-      .catch((error) => {
-        console.log(error);
-        setIsValid(false);
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (updateData.name.length > 0) {
+      dispatch(updateNameGenderThunk(updateData));
+    }
+
+    const oldP = updatePass.oldPass.length >= 8;
+    const newP = updatePass.newPass.length >= 8;
+    const repP = updatePass.repeatNewPass === updatePass.newPass;
+
+    if (oldP && newP) {
+      if (!repP) {
+        setErrPass({ message: 'Error password' });
+      }
+
+      dispatch(
+        updatePassworsThunk({
+          password: updatePass.oldPass,
+          newPassword: updatePass.newPass,
+        })
+      );
+    }
+
+    handlCloseModal(e);
   };
 
+  useEffect(() => {
+    const handleEscPress = (e) => {
+      if (e.key === 'Escape') {
+        dispatch(modalClose());
+      }
+    };
+    document.addEventListener('keydown', handleEscPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, [dispatch]);
   return (
     <>
-      <Backdrop onClick={handleBackdropClick(dispatch)} />
+      <Backdrop onClick={(e) => handlCloseModal(e)} />
       <Scrollbar>
-        <WrapperSetting>
+        <WrapperSetting onSubmit={handleSubmit}>
           <SettingAndIcon>
             <SettingTitle>Setting</SettingTitle>
             <button
@@ -116,7 +128,7 @@ export const SettingModal = () => {
                 border: 'none',
                 background: '#ffffff',
               }}
-              onClick={handleCloseModal(dispatch)}
+              onClick={(e) => handlCloseModal(e)}
             >
               <CloseSvg />
             </button>
@@ -124,10 +136,9 @@ export const SettingModal = () => {
           <UploadPhoto user={user} />
           <GeneralBlock>
             <BlockGender>
-              <GenderBlock user={user} onSave={onSave} />
-              <NameEmailBlock user={user} validate={validate} />
+              <GenderBlock getValue={getValue} />
+              <NameEmailBlock getValue={getValue} />
             </BlockGender>
-
             <BlockPassword>
               <InputTitle>Password</InputTitle>
               <InputWrapper>
@@ -137,10 +148,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showOldPassword ? 'text' : 'password'}
-                    name="oldPassword"
-                    value={showOldPassword ? oldPassword : ''}
+                    name="oldPass"
+                    value={updatePass.oldPass}
                     placeholder="Password"
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showOldPassword ? (
@@ -163,10 +174,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showNewPassword ? 'text' : 'password'}
-                    name="password"
-                    value={showNewPassword ? newPassword : ''}
+                    name="newPass"
+                    value={updatePass.newPass}
                     placeholder="Password"
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showNewPassword ? (
@@ -191,10 +202,10 @@ export const SettingModal = () => {
                 <div style={{ position: 'relative' }}>
                   <Input
                     type={showRepeatPassword ? 'text' : 'password'}
-                    name="password"
-                    value={showRepeatPassword ? repeatPassword : ''}
+                    name="repeatNewPass"
+                    value={updatePass.repeatNewPass}
                     placeholder="Password"
-                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    onChange={handleChangePass}
                     style={{ color: '#407bff' }}
                   />
                   {showRepeatPassword ? (
@@ -215,17 +226,26 @@ export const SettingModal = () => {
             </BlockPassword>
           </GeneralBlock>
           <Button>
-            <SaveButton
-              /*   disabled={!isValid} */
-              type="submit"
-              onClick={() => onSave(user.name, user.email)}
-            >
-              Save
-            </SaveButton>
-            <ToastContainer />
+            <SaveButton type="submit">Save</SaveButton>
+            {/* <ToastContainer /> */}
           </Button>
         </WrapperSetting>
       </Scrollbar>
     </>
   );
 };
+
+// import { ToastContainer, toast } from 'react-toastify';
+// import * as Yup from 'yup';
+
+// const notify = () => {
+//   toast('Default Notification!');
+// };
+
+// const formSchema = Yup.object().shape({
+//   email: Yup.string()
+//     .email('Enter a valid email')
+//     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid'),
+//   name: Yup.string().min(2, 'Name must be at least 2 characters'),
+//   password: Yup.string().min(8, 'Password must be at least 8 characters'),
+// });

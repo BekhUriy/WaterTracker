@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useUser } from '../../hooks/useUser';
 import { BlockInput, InputTitle, Inputs, Input } from './SettingModal.styled';
 
-export const NameEmailBlock = ({ user, validate }) => {
-  const [name, setName] = useState(user.name || '');
-  const [email, setEmail] = useState(user.email || '');
-  console.log(user.email);
+export const NameEmailBlock = ({ getValue }) => {
+  const { email, name } = useUser().user;
 
-  const handleEmailChange = (value) => {
-    setEmail(value);
-    validate();
+  const [value, setValue] = useState({ name });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setValue((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleNameChange = (value) => {
-    setName(value);
-    validate();
-  };
+  useEffect(() => {
+    getValue(value);
+  }, [value]);
 
   return (
     <Inputs>
@@ -23,10 +26,8 @@ export const NameEmailBlock = ({ user, validate }) => {
         <Input
           type="text"
           name="name"
-          value={name}
-          placeholder={user.name}
-          onChange={(e) => handleNameChange(e.target.value)}
-          required
+          value={value.name}
+          onChange={handleChange}
           style={{ color: '#407bff' }}
         />
       </BlockInput>
@@ -36,10 +37,8 @@ export const NameEmailBlock = ({ user, validate }) => {
           type="email"
           name="email"
           value={email}
-          placeholder={user.email}
-          onChange={(e) => handleEmailChange(e.target.value)}
-          required
           style={{ color: '#407bff' }}
+          readOnly
         />
       </BlockInput>
     </Inputs>

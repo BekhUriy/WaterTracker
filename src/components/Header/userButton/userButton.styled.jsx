@@ -4,7 +4,7 @@ export const UserPhoto = styled.img`
     width: 28px; 
     height: 28px; 
     border-radius: 50%;
-    background-color: #9EBBFF;
+    background-color: var(--text-passowrd);
     display: flex;
     flex-shrink: 0;
 `
@@ -16,6 +16,7 @@ export const UserButtonStyle = styled.button`
     display: flex;
     gap: 8px;
     align-items: center;
+    justify-content: space-between;
     font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
@@ -50,6 +51,10 @@ export const UserName = styled.div`
     white-space: nowrap;
     max-width: 66px;
     overflow: hidden;
+    color: var(--text);
+    text-align: center;
+    padding-left: 5px;
+  
 `
 
 export const Holder = styled.div`

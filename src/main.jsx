@@ -9,15 +9,15 @@ import App from './components/App';
 import ModalProvider from './components/Home/DailyNorma/DailyNormaModal/ModalProvider/ModalProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter basename="/WaterTracker">
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter basename="/WaterTracker">
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>
+  // </React.StrictMode>
 );

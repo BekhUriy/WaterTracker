@@ -5,30 +5,18 @@ import {
   addWaterPortion,
   deletePortion,
   editDailyNorma,
-  getWaterPortion,
   getMonthStateApi,
 } from '../../API/waterApi.js';
 
 export const getWaterPortionsThunk = createAsyncThunk(
-  'water/getAllPortion',
-  async (_, { rejectWithValue }) => {
+  'water/getDayPortions',
+  async (body, { rejectWithValue }) => {
     try {
-      return await getWaterPortionsList();
+      return await getWaterPortionsList(body);
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
-);
-
-export const getWaterPortionByIdThunk = createAsyncThunk(
-  'water/getPortionById',
-  async (id, { rejectWithValue }) => {
-    try {
-      return await getWaterPortion(id);
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  },
+  }
 );
 
 export const addPortionThunk = createAsyncThunk(
@@ -39,18 +27,18 @@ export const addPortionThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const EditPortionThunk = createAsyncThunk(
   'water/editPortion',
-  async ({ id, data }, { rejectWithValue }) => {
+  async (body, { rejectWithValue }) => {
     try {
-      return await editWaterPortion(id, data);
+      return await editWaterPortion(body);
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const deletePortionThunk = createAsyncThunk(
@@ -61,27 +49,27 @@ export const deletePortionThunk = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const editDailyNormaThunk = createAsyncThunk(
-  'water/editDailyNorma',
+  'waterRate/editDailyNorma',
   async (data, { rejectWithValue }) => {
     try {
       return await editDailyNorma(data);
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const monthStatsThunk = createAsyncThunk(
-  'water/getMonthStatsThunk',
+  'monthStatsThunk',
   async (date, thunkAPI) => {
     try {
       return await getMonthStateApi(date);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
