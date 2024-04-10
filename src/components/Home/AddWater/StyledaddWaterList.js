@@ -18,7 +18,7 @@ border-radius: 10px;
     width:1000px;
 height:688px;
 }
-@media (min-width: 1158px){
+@media (min-width: 1440px){
     width:1000px;
 height:688px;
 position: absolute;
@@ -36,10 +36,10 @@ flex-direction:column;
 width: 656px;
 height: 260px;
 }
-@media (min-width: 1158px){
+@media (min-width: 1440px){
     width: 544px;
     height: 260px;
-           position:relative;
+    position: relative;
 }
 `
 export const StyledListHeader = styled.p`
@@ -83,7 +83,7 @@ scrollbar-color: #9EBBFF #D7E3FF;
     max-height: 176px;
     width: 656px;
     }
-    @media (min-width: 1158px){
+    @media (min-width: 1440px){
         width: 544px;
     }
 `
@@ -124,7 +124,7 @@ position: relative; /* Встановлення позиції для ::after */
         gap:390px;
         width:646px;
         }
-        @media (min-width: 1158px){
+        @media (min-width: 1440px){
               gap:278px;
               width:534px;
         }
