@@ -30,16 +30,13 @@ import {
   StyledModalHeader,
 } from './StyledEditWaterModal';
 import {
-
   StyledDataContainer,
   StyledTime,
   StyledWater,
 } from './StyledaddWaterList';
 import { useDispatch } from 'react-redux';
 
-import {
-  EditPortionThunk,
-} from '../../../redux/water/waterThunk';
+import { EditPortionThunk } from '../../../redux/water/waterThunk';
 import MinusSmallSolidIcon from '../Crossbar/CrossbarIcons/MinusSmallSolidIcon';
 import PlusSmallSolidIcon from '../Crossbar/CrossbarIcons/PlusSmallSolidIcon';
 import { forceRender } from '../../../redux/water/waterSlice';
@@ -70,7 +67,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
     const isoDate = currentDate.toISOString();
 
     dispatch(EditPortionThunk({ id: _id, amountWater, date: isoDate }));
-    dispatch(forceRender());
+    dispatch(forceRender(true));
     onClose();
     setCurrentTime(getCurrentTime());
   };
@@ -114,7 +111,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const minutes = date.getUTCMinutes();
   const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
   const formattedHours = hours < 10 ? '0' + hours : hours;
-  const amOrPm = hours >= 12 ? 'PM' : 'AM'
+  const amOrPm = hours >= 12 ? 'PM' : 'AM';
   return (
     <Overlay>
       <StyledModal>
@@ -129,9 +126,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
         <StyledEditWaterBox>
           <StyledDataBar>
             <Icon>
-         
-                <GlassBigger />
-      
+              <GlassBigger />
             </Icon>
             <StyledDataContainer>
               <PrevData>{amW} ml</PrevData>

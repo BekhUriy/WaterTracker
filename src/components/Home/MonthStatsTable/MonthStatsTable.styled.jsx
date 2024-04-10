@@ -9,7 +9,7 @@ export const WrapperMonth = styled.div`
     }
 
     @media screen and (min-width: 1440px) {
-        min-width: 544px;
+        min-width: 538px;
     }
 `;
 
@@ -86,6 +86,9 @@ export const Days = styled.div`
         };
         gap: 20px;
     }
+    @media screen and (min-width: 1440px) {
+        gap: 20px;
+    }
 `;
 
 export const DayPercentage = styled.div`
@@ -138,7 +141,7 @@ export const Percentage = styled.p`
         line-height: 1.5;
     }
 
-    @media screen and (min-width: 1158px) {
+    @media screen and (min-width: 1440px) {
         font-size: 12px;
     }
 `;

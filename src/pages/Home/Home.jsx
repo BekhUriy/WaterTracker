@@ -8,7 +8,6 @@ import { TodayWaterList } from '../../components/Home/AddWater/TodayWaterList.js
 
 import {
   BubblesContainer,
-  DailyNormaBackground,
   DailyNormaContainer,
   HomeContainer,
   HomeSection,
@@ -37,8 +36,7 @@ const HomePage = () => {
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            {<DailyNorma />}
-            <DailyNormaBackground />
+            <DailyNorma user={user} />
             <Crossbar />
           </DailyNormaContainer>
           <StatisticsContainer>

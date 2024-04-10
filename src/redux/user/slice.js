@@ -28,6 +28,7 @@ const useSlice = createSlice({
         state.message = payload.message;
         state.user.name = payload.user.name;
         state.user.email = payload.user.email;
+        state.user.gender = payload.user.gender;
         state.user.avatarURL = payload.user.avatarURL;
         state.user.waterRate = payload.user.waterRate;
       })
@@ -37,8 +38,10 @@ const useSlice = createSlice({
       .addCase(updateAvatarThunk.fulfilled, (state, action) => {
         state.message = action.payload.message;
       })
-      .addCase(updateNameGenderThunk.fulfilled, (state, action) => {
+      .addCase(updateNameGenderThunk.fulfilled, (state, { payload }) => {
         state.message = action.payload.message;
+        state.user.name = payload.user.name;
+        state.user.gender = payload.user.gender;
       });
   },
 });

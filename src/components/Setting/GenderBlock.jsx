@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import {
   Gender,
   GenderTitle,
@@ -6,14 +7,22 @@ import {
   InputsRadio,
 } from './SettingModal.styled';
 
-export const GenderBlock = ({ user, setData }) => {
-  const [gender, setGender] = useState(user.gender || 'Prefer not to specify');
+import { useUser } from '../../hooks/useUser';
 
-  const handelChange = (e) => {
+export const GenderBlock = ({ getValue }) => {
+  const { gender } = useUser().user;
+  const [value, setValue] = useState({ gender: gender });
+
+  const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+    setValue((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    getValue(value);
+  }, [value]);
 
   return (
     <Gender>
@@ -25,8 +34,8 @@ export const GenderBlock = ({ user, setData }) => {
             id="Abstain"
             name="gender"
             value="Prefer not to specify"
-            checked={gender === 'Prefer not to specify'}
-            onChange={handelChange}
+            checked={value.gender === 'Prefer not to specify'}
+            onChange={handleChange}
           ></input>
           <label htmlFor="Abstain"> Abstain</label>
         </InputGender>
@@ -36,8 +45,8 @@ export const GenderBlock = ({ user, setData }) => {
             id="woman"
             name="gender"
             value="woman"
-            checked={gender === 'woman'}
-            onChange={handelChange}
+            checked={value.gender === 'woman'}
+            onChange={handleChange}
           ></input>
           <label htmlFor="woman">Woman</label>
         </InputGender>
@@ -47,8 +56,8 @@ export const GenderBlock = ({ user, setData }) => {
             id="man"
             name="gender"
             value="man"
-            checked={gender === 'man'}
-            onChange={handelChange}
+            checked={value.gender === 'man'}
+            onChange={handleChange}
           ></input>
           <label htmlFor="man">Man</label>
         </InputGender>

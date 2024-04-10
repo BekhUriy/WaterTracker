@@ -14,6 +14,7 @@ import {
   StyledModalHeader,
 } from './StyledEditWaterModal';
 import { deletePortionThunk } from '../../../redux/water/waterThunk';
+import { forceRender } from '../../../redux/water/waterSlice';
 
 export const DeleteModal = ({ isOpen, onClose, recordData }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export const DeleteModal = ({ isOpen, onClose, recordData }) => {
     const id = recordData._id;
 
     dispatch(deletePortionThunk(id));
+    dispatch(forceRender(true));
     onClose();
   };
 
