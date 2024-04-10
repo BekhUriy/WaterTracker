@@ -131,21 +131,22 @@ export const StyledRightContainer = styled.div`
   display: flex;
   gap: 18px;
   align-items: center;
+  ::after {
+    content: '';
+    position: absolute;
+bottom:-2px;
+
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: blue;
+ };
 `;
 export const IconFrame = styled.div`
   display: flex;
   width: 26px;
   height: 26px;
-  ::after {
-    content: '';
-    position: absolute;
-  top:15px;
-
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: red;
- };
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,7 +182,7 @@ export const StyledButton = styled.button`
   cursor: pointer;
   outline: none;
   background-color: transparent;
-  position:relative;
+
 
 
   &:hover {
