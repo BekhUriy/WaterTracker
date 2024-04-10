@@ -10,7 +10,7 @@ const SharedLayout = () => {
     <>
       <Header />
       <LayoutBox>
-        <Suspense fallback={null}>
+        <Suspense fallback={<h1 style={{color:'red'}}>LOADING.....</h1>}>
           <Outlet />
         </Suspense>
       </LayoutBox>

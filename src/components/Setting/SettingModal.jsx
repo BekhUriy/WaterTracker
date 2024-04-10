@@ -1,8 +1,7 @@
-// src/components/Setting/SettingModal.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CloseSvg } from './closeSvg';
 import { useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -23,48 +22,36 @@ import {
   Scrollbar,
 } from './SettingModal.styled';
 import { Backdrop } from '../Logout/UserLogoutModal.styled';
+
 import { GenderBlock } from 'components/Setting/GenderBlock';
 import { NameEmailBlock } from './NameEmailBlock';
 import { UploadPhoto } from './UploadPhoto';
-import * as Yup from 'yup';
+
 import { modalClose } from '../../redux/setingModalSlicer';
 import {
   updateNameGenderThunk,
   updatePassworsThunk,
 } from '../../redux/user/thunk';
-import {
-  handleBackdropClick,
-  handleCloseModal,
-  handleKeyPress,
-} from './HandlersSetting';
 
 import { useUser } from '../../hooks/useUser';
-import TestUpdateForn from './testUpdateForm';
-
-const formSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Enter a valid email')
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid'),
-  name: Yup.string().min(2, 'Name must be at least 2 characters'),
-  password: Yup.string().min(8, 'Password must be at least 8 characters'),
-});
 
 export const SettingModal = () => {
   const dispatch = useDispatch();
   const user = useUser().user;
 
-  const [errPass, setErrPass] = useState(null);
-
   const [updateData, setUpdateData] = useState({
     name: '',
     gender: '',
   });
-
   const [updatePass, setUpdatePass] = useState({
     oldPass: '',
     newPass: '',
     repeatNewPass: '',
   });
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const [errPass, setErrPass] = useState(null);
 
   const getValue = (objValue) => {
     setUpdateData((prev) => ({
@@ -80,6 +67,16 @@ export const SettingModal = () => {
     setUpdatePass((prev) => ({ ...prev, [name]: value }));
   };
 
+  const togglePasswordVisibility = (setState) => {
+    setState((prevState) => !prevState);
+  };
+
+  const handlCloseModal = (e) => {
+    if (e.target === e.currentTarget) {
+      dispatch(modalClose());
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -91,38 +88,37 @@ export const SettingModal = () => {
     const newP = updatePass.newPass.length >= 8;
     const repP = updatePass.repeatNewPass === updatePass.newPass;
 
-    if (oldP && newP && repP) {
+    if (oldP && newP) {
+      if (!repP) {
+        setErrPass({ message: 'Error password' });
+      }
+
       dispatch(
         updatePassworsThunk({
           password: updatePass.oldPass,
           newPassword: updatePass.newPass,
         })
       );
-    } else {
-      setErrPass({ message: 'Error password' });
     }
 
+    handlCloseModal(e);
   };
 
-  // --------------------------------------------------
+  useEffect(() => {
+    const handleEscPress = (e) => {
+      if (e.key === 'Escape') {
+        dispatch(modalClose());
+      }
+    };
+    document.addEventListener('keydown', handleEscPress);
 
-  const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-
-  const togglePasswordVisibility = (setState) => {
-    setState((prevState) => !prevState);
-  };
-
-  const notify = () => {
-    toast('Default Notification!');
-  };
-
-  console.log(errPass);
-
+    return () => {
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, [dispatch]);
   return (
     <>
-      <Backdrop onClick={handleBackdropClick(dispatch)} />
+      <Backdrop onClick={(e) => handlCloseModal(e)} />
       <Scrollbar>
         <WrapperSetting onSubmit={handleSubmit}>
           <SettingAndIcon>
@@ -132,7 +128,7 @@ export const SettingModal = () => {
                 border: 'none',
                 background: '#ffffff',
               }}
-              // onClick={handleCloseModal(dispatch)}
+              onClick={(e) => handlCloseModal(e)}
             >
               <CloseSvg />
             </button>
@@ -231,10 +227,25 @@ export const SettingModal = () => {
           </GeneralBlock>
           <Button>
             <SaveButton type="submit">Save</SaveButton>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </Button>
         </WrapperSetting>
       </Scrollbar>
     </>
   );
 };
+
+// import { ToastContainer, toast } from 'react-toastify';
+// import * as Yup from 'yup';
+
+// const notify = () => {
+//   toast('Default Notification!');
+// };
+
+// const formSchema = Yup.object().shape({
+//   email: Yup.string()
+//     .email('Enter a valid email')
+//     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid'),
+//   name: Yup.string().min(2, 'Name must be at least 2 characters'),
+//   password: Yup.string().min(8, 'Password must be at least 8 characters'),
+// });

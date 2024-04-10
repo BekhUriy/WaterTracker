@@ -34,7 +34,7 @@ export const UserLogoModal = () => {
 
     return (
         <UserLogoModalStyled className="user-logo-modal">
-            <UlStyled>
+            <UlStyled media>
                 <LiStyled onClick={() => dispatch(modalToggle())
                 }><SettingSvg color={'#407BFF'} /> Setting</LiStyled>
                 {isModalOpen && <SettingModal/>}
