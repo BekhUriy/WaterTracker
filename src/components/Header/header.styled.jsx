@@ -7,17 +7,18 @@ export const HeaderStyled = styled.header`
     width: 320px;
     justify-content: space-between;
     margin: 0 auto;
-    padding-top: 12px;
+    padding-top: 8px;
 
   
    
       @media (min-width: 768px) {
         min-width: 768px;
-        padding: 16px 32px 0px;
+        padding: 16px;
       }
 
       @media (min-width: 1440px) {
-        width: 1128px;
+        width: 1216px;
+        padding-top: 12px;
       }
     
 `
