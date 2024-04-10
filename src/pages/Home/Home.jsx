@@ -36,7 +36,7 @@ const HomePage = () => {
       <HomeSection>
         <HomeContainer>
           <DailyNormaContainer>
-            <DailyNorma user={user} />
+            <DailyNorma/>
             <Crossbar />
           </DailyNormaContainer>
           <StatisticsContainer>

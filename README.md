@@ -1,3 +1,18 @@
+WaterTracker
+
+WaterTracker is a web application that allows users to track their daily water intake, keeping track of their water portions throughout the day. The application includes a feature to calculate the daily water intake requirement based on the user's gender, weight, and hours of activity. Users can also manually set their daily water intake goal.
+
+Features
+
+Customizable Daily Norm: Users have the option to calculate their recommended daily water intake based on factors such as gender, weight, and activity level, or manually input their desired daily goal.
+
+Water Intake Tracking: Users can monitor the amount of water consumed each day by adding portions throughout the day. They can also edit portions if necessary.
+
+Crossbar Indicator: A special crossbar displays the percentage of water consumed for the day relative to the daily intake goal.
+
+Monthly Statistics: Users can view their water intake statistics for each day of the month, presented as percentages, in a calendar view.
+
+User Profile Editing: The application allows users to edit their profile information, including their name, password, and avatar.
 # React + Vite template
 
 Цей проєкт було створено за допомогою [Create Vite](https://vitejs.dev/). Для
