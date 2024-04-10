@@ -1,4 +1,4 @@
-import{u,j as i,b as xe,r as p,c as vn,f as Pe,d as He,e as Lt,M as It,g as $t,h as kn,i as En,k as jn,l as tt,R as Mn,m as Sn,n as Pn,T as Tn,o as ve,p as De,_ as G,q as Ne,s as _e,t as me,v as M,w as xt,x as Be,y as te,z as Ae,A as ae,B as K,C as mt,D as Me,E as gt,F as bt,G as Cn,H as Dn,I as zt,J as Ht,K as q,L as Fn,N as On,O as Rn,P as Wn,Q as Nn}from"./index-de2a1236.js";import{c as _n,a as Bn,b as Ye,u as An}from"./index.esm-5628d300.js";import{Q as Ln,B as qe}from"./react-toastify.esm-b1129a0b.js";function In(e){const t=e.documentElement.clientWidth;return Math.abs(window.innerWidth-t)}const $n=u.div`
+import{u,j as i,b as xe,r as p,c as vn,f as Pe,d as He,e as Lt,M as It,g as $t,h as kn,i as En,k as jn,l as tt,R as Mn,m as Sn,n as Pn,T as Tn,o as ve,p as De,_ as G,q as Ne,s as _e,t as me,v as M,w as xt,x as Be,y as te,z as Ae,A as ae,B as K,C as mt,D as Me,E as gt,F as bt,G as Cn,H as Dn,I as zt,J as Ht,K as q,L as Fn,N as On,O as Rn,P as Wn,Q as Nn}from"./index-8a4bbe5e.js";import{c as _n,a as Bn,b as Ye,u as An}from"./index.esm-d72630dc.js";import{Q as Ln,B as qe}from"./react-toastify.esm-7a7c669b.js";function In(e){const t=e.documentElement.clientWidth;return Math.abs(window.innerWidth-t)}const $n=u.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -24,8 +24,9 @@ import{u,j as i,b as xe,r as p,c as vn,f as Pe,d as He,e as Lt,M as It,g as $t,h
   }
 
   @media screen and (min-width: 1440px) {
-    // width: 592px;
+    width: 592px;
     gap: 32px;
+    padding-left: 5px;
   }
 `,Hn=u.div`
   position: relative;
@@ -115,6 +116,8 @@ import{u,j as i,b as xe,r as p,c as vn,f as Pe,d as He,e as Lt,M as It,g as $t,h
 
   &::before {
     content: '|';
+    font-size: 12px;
+
     display: flex;
     flex-direction: column;
     -webkit-box-pack: center;
@@ -942,7 +945,7 @@ border-radius: 10px;
     width:1000px;
 height:688px;
 }
-@media (min-width: 1158px){
+@media (min-width: 1440px){
     width:1000px;
 height:688px;
 position: absolute;
@@ -959,10 +962,10 @@ flex-direction:column;
 width: 656px;
 height: 260px;
 }
-@media (min-width: 1158px){
+@media (min-width: 1440px){
     width: 544px;
     height: 260px;
-           position:relative;
+    position: relative;
 }
 `,Ba=u.p`
 font-family: Roboto;
@@ -1003,7 +1006,7 @@ scrollbar-color: #9EBBFF #D7E3FF;
     max-height: 176px;
     width: 656px;
     }
-    @media (min-width: 1158px){
+    @media (min-width: 1440px){
         width: 544px;
     }
 `,La=u.ul`
@@ -1041,7 +1044,7 @@ position: relative; /* Встановлення позиції для ::after */
         gap:390px;
         width:646px;
         }
-        @media (min-width: 1158px){
+        @media (min-width: 1440px){
               gap:278px;
               width:534px;
         }
@@ -1393,6 +1396,8 @@ color:#407BFF;
   // background-size: contain;
   // background-repeat: no-repeat;
   // width: 100%;
+  // width: 1216px;
+
 `,js=u.div`
 display: flex;
 flex-direction: column;
@@ -1407,8 +1412,10 @@ gap: 40px;
 @media screen and (min-width: 1440px) {
   flex-direction: row;
   justify-content: center;
-  padding: 20px 112px 40px 38px;
+  padding: 20px 112px 40px;
   gap: 32px;
+  min-width: 1216px;
+
 
 
   // height: 92vh;
@@ -1417,9 +1424,10 @@ gap: 40px;
   
   @media screen and (min-width: 768px) {
     // padding: 0 24px;
-    min-width: 704px;
+    width: 704px;
     // width: 100%;
     // height: 688px;
+    overflow: hidden;
     
   }
 `,Ss=u.div`
@@ -1440,8 +1448,8 @@ gap: 40px;
     height: 688px;
   }
   @media only screen and (min-width: 1440px) {
-    // margin-bottom: 0;
-    width: 592px;
+    // margin: auto;
+    min-width: 592px;
     height: 680px;
     padding: 32px 24px;
     align-items: center;
