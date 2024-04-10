@@ -27,6 +27,7 @@ import {
   DayPercentage,
   IconWrapper,
   Percentage,
+  CurrentMonth,
 } from './MonthStatsTable.styled.jsx';
 import { useDispatch } from 'react-redux';
 import { monthStatsThunk } from '../../../redux/water/waterThunk.js';
@@ -133,10 +134,15 @@ const MonthStatsTable = () => {
               <ArrowBackIosIcon />
             </IconWrapper>
           </ButtonPagination>
+<<<<<<< Updated upstream
           <span>{format(currentDate, 'MMMM yyyy')}</span>
           <ButtonPagination onClick={handleNextMonth}
                             disabled={isCurrentMonth}
           >
+=======
+          <CurrentMonth>{format(currentDate, 'MMMM yyyy')}</CurrentMonth>
+          <ButtonPagination onClick={handleNextMonth} disabled={isCurrentMonth}>
+>>>>>>> Stashed changes
             <IconWrapper isCurrentMonth={isCurrentMonth}>
               <ArrowForwardIosIcon />
             </IconWrapper>
