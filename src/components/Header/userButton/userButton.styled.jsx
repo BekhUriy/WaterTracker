@@ -25,6 +25,10 @@ export const UserButtonStyle = styled.button`
     cursor: pointer;
     padding: 0;
 
+         &:hover {
+        transform: scale(1.1);
+        transition: transform 450ms ease-in-out;
+    }
 
     ${props =>
     props.media &&
