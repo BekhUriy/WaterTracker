@@ -28,8 +28,9 @@ export const CrossbarBox = styled.div`
   }
 
   @media screen and (min-width: 1440px) {
-    // width: 592px;
+    width: 592px;
     gap: 32px;
+    padding-left: 5px;
   }
 `;
 
@@ -133,6 +134,8 @@ export const CrossbarSpanMiddle = styled.span`
 
   &::before {
     content: '|';
+    font-size: 12px;
+
     display: flex;
     flex-direction: column;
     -webkit-box-pack: center;
