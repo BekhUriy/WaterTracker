@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import {
+
   IconButtonFrameTwo,
   ListItem,
   StyledAddWaterButton,
@@ -18,7 +19,7 @@ import {
 
 import EditIcon from './Icons/EditIcon';
 import TrashIcon from './Icons/TrashIcon';
-import { Icon, IconButton } from './IconButtons';
+import { Icon, IconButton, IconButtonBlue } from './IconButtons';
 import { GlassIcon } from './Icons/GlassIcon';
 import { PlusIconSmall } from './Icons/PlusIcon';
 import { EditWaterModal } from './EditWater';
@@ -26,6 +27,7 @@ import { DeleteModal } from './DeleteModal';
 import CrossbarModal from '../Crossbar/CrossbarModal';
 
 import { useWater } from '../../../hooks/useWater';
+import { DarkOverlay } from '../Crossbar/Crossbar.styled';
 
 export const TodayWaterList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,7 +74,7 @@ export const TodayWaterList = () => {
       const minutes = date.getUTCMinutes();
       const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
       const formattedHours = hours < 10 ? '0' + hours : hours;
-      const amOrPm = hours >= 12 ? 'PM' : 'AM';
+      // const amOrPm = hours >= 12 ? 'PM' : 'AM';
       return (
         <ListItem key={waterRecord._id}>
           <StyledLeftContainer>
@@ -87,12 +89,16 @@ export const TodayWaterList = () => {
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
+       
             <IconButton>
+    
               <EditIcon onClick={() => handleOpenEditModal(waterRecord)} />
+       
             </IconButton>
-            <IconButton>
+
+            <IconButtonBlue>
               <TrashIcon onClick={() => handleOpenDeleteModal(waterRecord)} />
-            </IconButton>
+            </IconButtonBlue>
           </StyledRightContainer>
         </ListItem>
       );
@@ -109,6 +115,7 @@ export const TodayWaterList = () => {
 
   return (
     <div>
+        {isModalOpen && <DarkOverlay onClick={closeModal} />}
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
         {/* <StyledAddWaterListFrame> */}

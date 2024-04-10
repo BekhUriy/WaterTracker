@@ -27,7 +27,7 @@ import {
 import { addPortionThunk } from '../../../redux/water/waterThunk.js';
 import { forceRender } from '../../../redux/water/waterSlice.js';
 
-const CrossbarModal = ({ isOpen, onClose, onSave }) => {
+const CrossbarModal = ({ isOpen, onClose, }) => {
   const dispatch = useDispatch();
   const [amountWater, setAmountWater] = useState(0);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());

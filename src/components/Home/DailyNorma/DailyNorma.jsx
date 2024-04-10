@@ -29,7 +29,7 @@ const DailyNorma = () => {
       <MyDailyNormaContainer>
         <Title>My daily norma</Title>
         <WaterNormaContainer>
-          <WaterNorma>{`${dailyNorma}`}</WaterNorma>
+          <WaterNorma>{`${dailyNorma}`} L</WaterNorma>
           <DailyNormaBtn onClick={openDailyNormalModal}>Edit</DailyNormaBtn>
         </WaterNormaContainer>
       </MyDailyNormaContainer>

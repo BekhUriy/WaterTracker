@@ -2,37 +2,43 @@ import styled from 'styled-components';
 
 
 export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  max-height: 700vh
-  z-index: 1300;
-`;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 90;
+
+width: 100%;
+height: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: rgba(0, 0, 0, 0.8);
+
+ovrflow:auto;
+`
 
 export const StyledModal = styled.div`
+position:fixed;
+top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 width: 280px;
 height: 648px;
 padding: 24px 12px 24px 12px;
 border-radius: 10px;
 z-index: 100;
 box-shadow: 0px 4px 8px 0px #407BFF33;
-position: absolute;
 background-color: #fff;
-top: 40px;
+
 @media (min-width: 768px){
   max-height: 580px;
   width: 704px;
   padding: 32px 24px 32px 24px;
   }
-  @media (min-width: 1158px){
+  @media (min-width: 1440px){
     width: 592px;
-    top:110px;
 }
 `;
 
@@ -131,8 +137,8 @@ box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
 color:white;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
+
   cursor: pointer;
 }
 
@@ -150,7 +156,10 @@ color:white;
 // DeleteModalStyles
 
 export const DeleteModalStyled = styled.div`
-
+position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 280px;
     height: 288px;
     padding: 32px 24px 32px 24px;
@@ -159,14 +168,12 @@ export const DeleteModalStyled = styled.div`
     box-shadow: 0px 4px 8px 0px #407BFF33;
     position: absolute;
     background-color: #fff;
-    top: 48px;
-    @media (min-width: 768px){
+      @media (min-width: 768px){
       width: 592px;
       height: 208px;
-      top: 200px;
-        }  
+          }  
         @media (min-width: 1158px){
-          top: 296px;
+       
         }
    
 `
@@ -207,8 +214,8 @@ background-color:#EF5050;
 box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
   cursor: pointer;
 }
 
@@ -230,15 +237,12 @@ opacity: 0px;
 background-color:#D7E3FF;
 border:none;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
+
   cursor: pointer;
 }
 
-&:active {
-  background: #407bff;
-  cursor: pointer;
-}
+
 @media (min-width: 768px){
   width: 160px;
   height: 44px;
@@ -258,4 +262,5 @@ font-weight: 500;
 line-height: 20px;
 text-align: center;
 color:#407BFF;
+
 `
