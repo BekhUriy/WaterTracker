@@ -77,11 +77,11 @@ export const StyledAddWaterListFrame = styled.div`
   @media (min-width: 768px) {
     max-height: 176px;
     width: 656px;
-  }
-  @media (min-width: 1158px) {
-    width: 544px;
-  }
-`;
+    }
+    @media (min-width: 1440px){
+        width: 544px;
+    }
+`
 
 export const StyledListAddWater = styled.ul`
   list-style: none;

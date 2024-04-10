@@ -29,6 +29,8 @@ export const HomeSection = styled.section`
   // background-size: contain;
   // background-repeat: no-repeat;
   // width: 100%;
+  // width: 1216px;
+
 `;
 
 export const HomeContainer = styled.div`
@@ -45,8 +47,10 @@ gap: 40px;
 @media screen and (min-width: 1440px) {
   flex-direction: row;
   justify-content: center;
-  padding: 20px 112px 40px 38px;
+  padding: 20px 112px 40px;
   gap: 32px;
+  min-width: 1216px;
+
 
 
   // height: 92vh;
@@ -57,9 +61,10 @@ export const DailyNormaContainer = styled.div`
   
   @media screen and (min-width: 768px) {
     // padding: 0 24px;
-    min-width: 704px;
+    width: 704px;
     // width: 100%;
     // height: 688px;
+    overflow: hidden;
     
   }
 `
@@ -82,8 +87,8 @@ export const StatisticsContainer = styled.div`
     height: 688px;
   }
   @media only screen and (min-width: 1440px) {
-    // margin-bottom: 0;
-    width: 592px;
+    // margin: auto;
+    min-width: 592px;
     height: 680px;
     padding: 32px 24px;
     align-items: center;
