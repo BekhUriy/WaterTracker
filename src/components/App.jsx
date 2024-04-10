@@ -1,26 +1,25 @@
-import { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import SharedLayout from './SharedLayout/SharedLayout';
 
-import WelcomePage from '../pages/Welcome/Welcome';
-import HomePage from '../pages/Home/Home';
-import SignInPage from '../pages/Singin/Singin';
-import SignUpPage from '../pages/Signup/Signup.jsx';
+const WelcomePage = lazy(() => import('../pages/Welcome/Welcome.jsx'));
+const HomePage = lazy(() => import('../pages/Home/Home.jsx'));
+const SignInPage = lazy(() => import('../pages/Singin/Singin.jsx'));
+const SignUpPage = lazy(() => import('../pages/Signup/Signup.jsx'));
+const NotFoundPage = lazy(() => import('../pages/ErrorPage/ErrorPage.jsx'));
 
 import PrivateRoute from '../guards/PrivateRoute';
 import PublicRoute from '../guards/PublicRoute';
 
 import { useAuth } from '../hooks/useAuth.js';
 import { currentThunk } from '../redux/auth/thunk.js';
-import NotFoundPage from '../pages/ErrorPage/ErrorPage.jsx';
 
 function App() {
   const dispatch = useDispatch();
   const token = useAuth().authToken;
   const isLogin = useAuth().authIsLogin;
-
 
   useEffect(() => {
     token && !isLogin && dispatch(currentThunk());
@@ -28,42 +27,30 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/"
-             element={<SharedLayout />}
-      >
+      <Route path="/" element={<SharedLayout />}>
         <Route
           index
           element={
-            <PublicRoute redirectTo="/home"
-                         component={<WelcomePage />}
-            />
+            <PublicRoute redirectTo="/home" component={<WelcomePage />} />
           }
         />
         <Route
           path="/signup"
           element={
-            <PublicRoute component={<SignUpPage />}
-                         redirectTo="/home"
-            />
+            <PublicRoute component={<SignUpPage />} redirectTo="/home" />
           }
         />
         <Route
           path="/login"
           element={
-            <PublicRoute component={<SignInPage />}
-                         redirectTo="/home"
-            />
+            <PublicRoute component={<SignInPage />} redirectTo="/home" />
           }
         />
         <Route
           path="/home"
-          element={<PrivateRoute redirectTo={'/'}
-                                 component={<HomePage />}
-          />}
+          element={<PrivateRoute redirectTo={'/'} component={<HomePage />} />}
         />
-        <Route path="*"
-               element={<NotFoundPage/>}
-        />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
