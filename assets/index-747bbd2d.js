@@ -118,7 +118,7 @@ Error generating stack: `+o.message+`
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
@@ -146,14 +146,14 @@ Error generating stack: `+o.message+`
     align-items: center;
 
 `,WA=N.div`
-    text-overflow: clip;
+    text-overflow: ellipsis;
     text-wrap: nowrap;
     white-space: nowrap;
     max-width: 66px;
     overflow: hidden;
     color: var(--text);
     text-align: center;
-    padding-left: 5px;
+    // padding-left: 5px;
   
 `,UA=N.div`
       display: flex;
@@ -721,7 +721,7 @@ to {
   animation: ${wH} 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) infinite;
 `;N.svg`
   transform-origin: 50% 65%;
-`;function OE(){return C.jsx(vH,{height:"60",width:"60",radius:"9",color:"#407BFF",wrapperStyle:{position:"fixed",top:0,left:0,width:"100%",height:"100%",background:"rgba(158, 187, 255, 0.8)",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center"},ariaLabel:"three-dots-loading",wrapperClassName:"",visible:!0})}const _H=()=>C.jsxs(C.Fragment,{children:[C.jsx(cH,{}),C.jsx(jA,{children:C.jsx(E.Suspense,{fallback:C.jsx(OE,{}),children:C.jsx(WR,{})})})]}),xH=({component:e,redirectTo:t="/"})=>Xo().authIsLogin?e:C.jsx(M2,{to:t}),zd=({component:e,redirectTo:t="/"})=>Xo().authIsLogin?C.jsx(M2,{to:t}):e,SH=E.lazy(()=>aa(()=>import("./Welcome-1302ab27.js"),[])),bH=E.lazy(()=>aa(()=>import("./Home-695711cf.js"),["assets/Home-695711cf.js","assets/index.esm-4c773de1.js","assets/react-toastify.esm-882b350d.js"])),CH=E.lazy(()=>aa(()=>import("./Singin-01af2eb6.js"),["assets/Singin-01af2eb6.js","assets/index.esm-4c773de1.js","assets/LoginForm.styled-a66ad758.js","assets/Signup.styled-7d1416a9.js","assets/react-toastify.esm-882b350d.js"])),EH=E.lazy(()=>aa(()=>import("./Signup-7d49285d.js"),["assets/Signup-7d49285d.js","assets/index.esm-4c773de1.js","assets/LoginForm.styled-a66ad758.js","assets/Signup.styled-7d1416a9.js","assets/react-toastify.esm-882b350d.js"])),RH=E.lazy(()=>aa(()=>import("./ErrorPage-3acd5c5e.js"),["assets/ErrorPage-3acd5c5e.js","assets/Signup.styled-7d1416a9.js","assets/react-toastify.esm-882b350d.js"]));function PH(){const e=ki(),t=Xo().authToken,r=Xo().authIsLogin;return E.useEffect(()=>{t&&!r&&e(Kp())},[e,t,r]),C.jsx(E.Suspense,{fallback:C.jsx(OE,{}),children:C.jsx(qR,{children:C.jsxs(ln,{path:"/",element:C.jsx(_H,{}),children:[C.jsx(ln,{index:!0,element:C.jsx(zd,{redirectTo:"/home",component:C.jsx(SH,{})})}),C.jsx(ln,{path:"/signup",element:C.jsx(zd,{component:C.jsx(EH,{}),redirectTo:"/home"})}),C.jsx(ln,{path:"/login",element:C.jsx(zd,{component:C.jsx(CH,{}),redirectTo:"/home"})}),C.jsx(ln,{path:"/home",element:C.jsx(xH,{redirectTo:"/",component:C.jsx(bH,{})})}),C.jsx(ln,{path:"*",element:C.jsx(RH,{})})]})})})}const $H=N.div`
+`;function OE(){return C.jsx(vH,{height:"60",width:"60",radius:"9",color:"#407BFF",wrapperStyle:{position:"fixed",top:0,left:0,width:"100%",height:"100%",background:"rgba(158, 187, 255, 0.8)",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center"},ariaLabel:"three-dots-loading",wrapperClassName:"",visible:!0})}const _H=()=>C.jsxs(C.Fragment,{children:[C.jsx(cH,{}),C.jsx(jA,{children:C.jsx(E.Suspense,{fallback:C.jsx(OE,{}),children:C.jsx(WR,{})})})]}),xH=({component:e,redirectTo:t="/"})=>Xo().authIsLogin?e:C.jsx(M2,{to:t}),zd=({component:e,redirectTo:t="/"})=>Xo().authIsLogin?C.jsx(M2,{to:t}):e,SH=E.lazy(()=>aa(()=>import("./Welcome-e217ae10.js"),[])),bH=E.lazy(()=>aa(()=>import("./Home-b92e2812.js"),["assets/Home-b92e2812.js","assets/index.esm-85ee162a.js","assets/react-toastify.esm-f27b92d1.js"])),CH=E.lazy(()=>aa(()=>import("./Singin-33826798.js"),["assets/Singin-33826798.js","assets/index.esm-85ee162a.js","assets/LoginForm.styled-4e1918e8.js","assets/Signup.styled-4bb43272.js","assets/react-toastify.esm-f27b92d1.js"])),EH=E.lazy(()=>aa(()=>import("./Signup-6b18989a.js"),["assets/Signup-6b18989a.js","assets/index.esm-85ee162a.js","assets/LoginForm.styled-4e1918e8.js","assets/Signup.styled-4bb43272.js","assets/react-toastify.esm-f27b92d1.js"])),RH=E.lazy(()=>aa(()=>import("./ErrorPage-3035d757.js"),["assets/ErrorPage-3035d757.js","assets/Signup.styled-4bb43272.js","assets/react-toastify.esm-f27b92d1.js"]));function PH(){const e=ki(),t=Xo().authToken,r=Xo().authIsLogin;return E.useEffect(()=>{t&&!r&&e(Kp())},[e,t,r]),C.jsx(E.Suspense,{fallback:C.jsx(OE,{}),children:C.jsx(qR,{children:C.jsxs(ln,{path:"/",element:C.jsx(_H,{}),children:[C.jsx(ln,{index:!0,element:C.jsx(zd,{redirectTo:"/home",component:C.jsx(SH,{})})}),C.jsx(ln,{path:"/signup",element:C.jsx(zd,{component:C.jsx(EH,{}),redirectTo:"/home"})}),C.jsx(ln,{path:"/login",element:C.jsx(zd,{component:C.jsx(CH,{}),redirectTo:"/home"})}),C.jsx(ln,{path:"/home",element:C.jsx(xH,{redirectTo:"/",component:C.jsx(bH,{})})}),C.jsx(ln,{path:"*",element:C.jsx(RH,{})})]})})})}const $H=N.div`
     position: fixed;
     top: 0;
     left: 0;
