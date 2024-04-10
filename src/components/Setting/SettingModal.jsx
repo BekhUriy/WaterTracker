@@ -102,7 +102,6 @@ export const SettingModal = () => {
       setErrPass({ message: 'Error password' });
     }
 
-    reset();
   };
 
   // --------------------------------------------------

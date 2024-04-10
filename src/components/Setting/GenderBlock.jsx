@@ -22,7 +22,7 @@ export const GenderBlock = ({ getValue }) => {
 
   useEffect(() => {
     getValue(value);
-  }, [value]);
+  }, [value, getValue]);
 
   return (
     <Gender>
@@ -37,7 +37,7 @@ export const GenderBlock = ({ getValue }) => {
             checked={value.gender === 'Prefer not to specify'}
             onChange={handleChange}
           ></input>
-          <label htmlFor="Abstain"> Abstain</label>
+          <label htmlFor="Abstain">Abstain</label>
         </InputGender>
         <InputGender>
           <input
