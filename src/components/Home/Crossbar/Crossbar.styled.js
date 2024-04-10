@@ -170,8 +170,7 @@ export const CrossbarButton = styled.button`
   }
 
   &:hover {
-    background: rgba(64, 123, 255, 0.8);
-    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+    box-shadow: 0px 4px 14px 0px #407BFF8A;
     cursor: pointer;
   }
 

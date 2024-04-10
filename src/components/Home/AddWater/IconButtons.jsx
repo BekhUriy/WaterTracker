@@ -1,4 +1,4 @@
-import { IconFrame, StyledAddWaterButton, StyledButton } from "./StyledaddWaterList"
+import { IconFrame, StyledAddWaterButton, StyledButton, StyledButtonBlue } from "./StyledaddWaterList"
 
 export const IconButton = (props)=>{
     return(
@@ -12,5 +12,10 @@ export const Icon = (props)=>{
 export const AddWaterButton = (props)=>{
     return(
         <StyledAddWaterButton type="button">{props.children}</StyledAddWaterButton>
+    )
+}
+export const IconButtonBlue = (props)=>{
+    return(
+        <StyledButtonBlue type="button">{props.children}</StyledButtonBlue>
     )
 }

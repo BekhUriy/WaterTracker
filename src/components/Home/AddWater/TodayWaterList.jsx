@@ -19,7 +19,7 @@ import {
 
 import EditIcon from './Icons/EditIcon';
 import TrashIcon from './Icons/TrashIcon';
-import { Icon, IconButton } from './IconButtons';
+import { Icon, IconButton, IconButtonBlue } from './IconButtons';
 import { GlassIcon } from './Icons/GlassIcon';
 import { PlusIconSmall } from './Icons/PlusIcon';
 import { EditWaterModal } from './EditWater';
@@ -95,9 +95,9 @@ export const TodayWaterList = () => {
        
             </IconButton>
 
-            <IconButton>
+            <IconButtonBlue>
               <TrashIcon onClick={() => handleOpenDeleteModal(waterRecord)} />
-            </IconButton>
+            </IconButtonBlue>
           </StyledRightContainer>
         </ListItem>
       );

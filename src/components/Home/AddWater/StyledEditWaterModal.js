@@ -137,8 +137,8 @@ box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
 color:white;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
+
   cursor: pointer;
 }
 
@@ -214,8 +214,8 @@ background-color:#EF5050;
 box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
   cursor: pointer;
 }
 
@@ -237,15 +237,12 @@ opacity: 0px;
 background-color:#D7E3FF;
 border:none;
 &:hover {
-  background: rgba(64, 123, 255, 0.8);
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+  box-shadow: 0px 4px 14px 0px #407BFF8A;
+
   cursor: pointer;
 }
 
-&:active {
-  background: #407bff;
-  cursor: pointer;
-}
+
 @media (min-width: 768px){
   width: 160px;
   height: 44px;
@@ -265,4 +262,5 @@ font-weight: 500;
 line-height: 20px;
 text-align: center;
 color:#407BFF;
+
 `

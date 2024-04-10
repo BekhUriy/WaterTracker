@@ -16,7 +16,7 @@ export const UserButtonStyle = styled.button`
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
@@ -46,14 +46,14 @@ export const PhotoBlock = styled.div`
 `
 
 export const UserName = styled.div`
-    text-overflow: clip;
+    text-overflow: ellipsis;
     text-wrap: nowrap;
     white-space: nowrap;
     max-width: 66px;
     overflow: hidden;
     color: var(--text);
     text-align: center;
-    padding-left: 5px;
+    // padding-left: 5px;
   
 `
 

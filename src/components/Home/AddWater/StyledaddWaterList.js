@@ -131,17 +131,7 @@ export const StyledRightContainer = styled.div`
   display: flex;
   gap: 18px;
   align-items: center;
-  ::after {
-    content: '';
-    position: absolute;
-bottom:-2px;
-
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: blue;
- };
-`;
+  `;
 export const IconFrame = styled.div`
   display: flex;
   width: 26px;
@@ -157,24 +147,14 @@ export const IconFrame = styled.div`
   }
   //
 `;
-// export const IconFramTwo = styled.div`
-// width: 26px;
-//   height: 26px;
-//   display:flex;
-//   align-items: center;
-//   justify-content: center;
-//   @media (min-width: 768px){
-//     width: 36px;
-//   height: 36px;
-//      }
-// `
+
 
 export const StyledButton = styled.button`
 
   display: flex;
   align-items: center;
-  widtn: 16px;
-  height: 16px;
+  width: 16px;
+  height: 19px;
   margin: 0;
   padding: 0;
   color: transparent;
@@ -182,14 +162,31 @@ export const StyledButton = styled.button`
   cursor: pointer;
   outline: none;
   background-color: transparent;
-
-
-
-  &:hover {
-
- position:relative;
+  justify-content: center;
+&:hover{
+    border-bottom:1px #9EBBFF solid;
+}
+  &:active {
+    cursor: pointer;
   }
+`;
+export const StyledButtonBlue = styled.button`
 
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 19px;
+  margin: 0;
+  padding: 0;
+  color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  justify-content: center;
+&:hover{
+    border-bottom:1px #EF5050 solid;
+}
   &:active {
     cursor: pointer;
   }
@@ -225,10 +222,12 @@ export const StyledAddWaterButton = styled.button`
   cursor: pointer;
   outline: none;
   background-color: transparent;
-
+stroke:#407BFF;
+color:#407BFF;
   &:hover {
-    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
-    cursor: pointer;
+   color:#FF9D43;
+   stroke:#FF9D43;
+ cursor: pointer;
   }
 
   &:active {
@@ -245,18 +244,20 @@ export const IconButtonFrameTwo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover{stroke:#FF9D43;}
   @media (min-width: 768px) {
     width: 24px;
     height: 24px;
   }
 `;
-export const StyledButtonText = styled.span`
+export const StyledButtonText = styled.p`
   font-family: Roboto;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   text-align: left;
-  color: #407bff;
+  color: current-color;
+  &:hover{color:#FF9D43;}
   @media (min-width: 768px) {
     font-size: 18px;
     line-height: 24px;
