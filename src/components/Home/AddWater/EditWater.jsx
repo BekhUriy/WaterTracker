@@ -6,15 +6,13 @@ import {
   AmountWaterIncrementButton,
   AmountWaterMlBox,
   AmountWaterMlDiv,
-  ChooseValueSaveButton,
   ChooseValueSaveSpan,
   CrossbarAddWaterButton,
-  CrossbarChooseValueSaveDiv,
   EnterValueInput,
   RecordingTimeInput,
 } from '../Crossbar/CrossbarModal.styled';
 import { Icon } from './IconButtons';
-import { GlassBigger, GlassIcon } from './Icons/GlassIcon';
+import { GlassBigger } from './Icons/GlassIcon';
 import {
   AmountWaterText,
   CorrectDataText,
@@ -29,11 +27,7 @@ import {
   StyledModal,
   StyledModalHeader,
 } from './StyledEditWaterModal';
-import {
-  StyledDataContainer,
-  StyledTime,
-  StyledWater,
-} from './StyledaddWaterList';
+import { StyledDataContainer } from './StyledaddWaterList';
 import { useDispatch } from 'react-redux';
 
 import { EditPortionThunk } from '../../../redux/water/waterThunk';
@@ -46,14 +40,11 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const dispatch = useDispatch();
 
   const [amountWater, setAmountWater] = useState(amW);
-
   // time
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-
   const incrementWaterAmount = () => {
     setAmountWater((prevAmount) => prevAmount + 50);
   };
-
   const decrementWaterAmount = () => {
     if (amountWater >= 50) {
       setAmountWater((prevAmount) => prevAmount - 50);
@@ -83,7 +74,6 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
     const minutes = recordTime.getUTCMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   }
-
   // close/open modal
   useEffect(() => {
     const handleEscKeyPress = (event) => {
@@ -91,11 +81,9 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
         onClose();
       }
     };
-
     if (isOpen) {
       document.addEventListener('keydown', handleEscKeyPress);
     }
-
     return () => {
       document.removeEventListener('keydown', handleEscKeyPress);
     };

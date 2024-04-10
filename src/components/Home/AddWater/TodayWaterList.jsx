@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import {
+
   IconButtonFrameTwo,
   ListItem,
   StyledAddWaterButton,
@@ -87,9 +88,13 @@ export const TodayWaterList = () => {
             </StyledDataContainer>
           </StyledLeftContainer>
           <StyledRightContainer>
+       
             <IconButton>
+    
               <EditIcon onClick={() => handleOpenEditModal(waterRecord)} />
+       
             </IconButton>
+
             <IconButton>
               <TrashIcon onClick={() => handleOpenDeleteModal(waterRecord)} />
             </IconButton>

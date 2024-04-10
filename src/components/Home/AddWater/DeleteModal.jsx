@@ -15,15 +15,30 @@ import {
 } from './StyledEditWaterModal';
 import { deletePortionThunk } from '../../../redux/water/waterThunk';
 import { forceRender } from '../../../redux/water/waterSlice';
+import { useEffect } from 'react';
 
 export const DeleteModal = ({ isOpen, onClose, recordData }) => {
+
   const dispatch = useDispatch();
+
+    useEffect(() => {
+  const handleEscKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscKeyPress);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscKeyPress);
+    };
+  }, [isOpen, onClose]);
 
   if (isOpen === false) return null;
 
   const handleDeleteClick = () => {
     const id = recordData._id;
-
     dispatch(deletePortionThunk(id));
     dispatch(forceRender(true));
     onClose();
@@ -31,7 +46,7 @@ export const DeleteModal = ({ isOpen, onClose, recordData }) => {
 
   return (
     <div>
-      <Overlay>
+      <Overlay >
         <DeleteModalStyled>
           <StyledModalHeader>
             <DeleteModalHeaderText>Delete entry</DeleteModalHeaderText>

@@ -5,7 +5,7 @@ export const Overlay = styled.div`
 position: fixed;
 top: 0;
 left: 0;
-z-index: 1200;
+z-index: 90;
 
 width: 100%;
 height: 100%;
@@ -15,29 +15,23 @@ justify-content: center;
 align-items: center;
 
 background: rgba(0, 0, 0, 0.8);
-position: fixed;
-top: 0;
-left: 0;
 
-width: 100vw;
-height: 100vh;
-
-display: flex;
-justify-content: center;
-align-items: center;
 ovrflow:auto;
 `
 
 export const StyledModal = styled.div`
+position:fixed;
+top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 width: 280px;
 height: 648px;
 padding: 24px 12px 24px 12px;
 border-radius: 10px;
 z-index: 100;
 box-shadow: 0px 4px 8px 0px #407BFF33;
-position: fixed;
 background-color: #fff;
-top: 40px;
+
 @media (min-width: 768px){
   max-height: 580px;
   width: 704px;
@@ -45,7 +39,6 @@ top: 40px;
   }
   @media (min-width: 1158px){
     width: 592px;
-    top:110px;
 }
 `;
 
@@ -163,7 +156,10 @@ color:white;
 // DeleteModalStyles
 
 export const DeleteModalStyled = styled.div`
-
+position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 280px;
     height: 288px;
     padding: 32px 24px 32px 24px;
@@ -172,14 +168,12 @@ export const DeleteModalStyled = styled.div`
     box-shadow: 0px 4px 8px 0px #407BFF33;
     position: absolute;
     background-color: #fff;
-    top: 48px;
-    @media (min-width: 768px){
+      @media (min-width: 768px){
       width: 592px;
       height: 208px;
-      top: 200px;
-        }  
+          }  
         @media (min-width: 1158px){
-          top: 296px;
+       
         }
    
 `
