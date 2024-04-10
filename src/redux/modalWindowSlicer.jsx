@@ -9,15 +9,15 @@ const modalWindowSlicer = createSlice({
         modalOpen: state => {
             state.isOpen = true;
         },
-        modalClose: state => {
+        modalWindowClose: state => {
             state.isOpen = false;
         },
         modalToggle: state => {
             state.isOpen = !state.isOpen;
-        },
+        }
     }
 });
 
-export const { modalOpen, modalClose, modalToggle } = modalWindowSlicer.actions;
+export const { modalWindowOpen, modalWindowClose, modalToggle} = modalWindowSlicer.actions;
 export const selectIsModalOpen = state => state.modalWindow.isOpen;
 export default modalWindowSlicer.reducer;

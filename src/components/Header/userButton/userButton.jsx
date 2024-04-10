@@ -14,8 +14,7 @@ export const UserButton = () => {
     const dispatch = useDispatch();
     const name = user ? (user.name || "User") : '';
     const avatar = user? user.avatarURL : ''
-
-
+    
     return (
         <Holder>
         <UserButtonStyle type="button" onClick={()=>dispatch(modalToggle())}>
