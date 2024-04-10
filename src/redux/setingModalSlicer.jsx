@@ -20,5 +20,5 @@ const settingModalSlicer = createSlice({
 
 export const { modalOpen, modalClose, modalToggle } =
   settingModalSlicer.actions;
-export const selectIsModalOpen = (state) => state.settingModal.isOpen;
+export const selectIsSettingOpen = (state) => state.settingModal.isOpen;
 export default settingModalSlicer.reducer;
