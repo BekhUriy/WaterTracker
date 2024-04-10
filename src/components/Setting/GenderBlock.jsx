@@ -22,7 +22,7 @@ export const GenderBlock = ({ getValue }) => {
 
   useEffect(() => {
     getValue(value);
-  }, [value, getValue]);
+  }, [value]);
 
   return (
     <Gender>
