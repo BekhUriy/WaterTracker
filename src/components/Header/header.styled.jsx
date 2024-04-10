@@ -13,7 +13,7 @@ export const HeaderStyled = styled.header`
    
       @media (min-width: 768px) {
         min-width: 768px;
-        padding: 16px;
+        padding-top: 16px;
       }
 
       @media (min-width: 1440px) {

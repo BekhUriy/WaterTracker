@@ -50,6 +50,10 @@ export const Pagination = styled.div`
     color: var(--text-blue);
 `;
 
+export const CurrentMonth = styled.span`
+min-width: 118px;
+    text-align: center;
+`
 export const ButtonPagination = styled.button`
     border: none;
     padding: 0;

@@ -28,6 +28,7 @@ import {
   DayPercentage,
   IconWrapper,
   Percentage,
+  CurrentMonth,
 } from './MonthStatsTable.styled.jsx';
 
 import { monthStatsThunk } from '../../../redux/water/waterThunk.js';
@@ -139,7 +140,7 @@ const MonthStatsTable = () => {
               <ArrowBackIosIcon />
             </IconWrapper>
           </ButtonPagination>
-          <span>{format(currentDate, 'MMMM yyyy')}</span>
+          <CurrentMonth>{format(currentDate, 'MMMM yyyy')}</CurrentMonth>
           <ButtonPagination onClick={handleNextMonth} disabled={isCurrentMonth}>
             <IconWrapper isCurrentMonth={isCurrentMonth}>
               <ArrowForwardIosIcon />
