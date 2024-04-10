@@ -39,7 +39,7 @@ const useSlice = createSlice({
         state.message = action.payload.message;
       })
       .addCase(updateNameGenderThunk.fulfilled, (state, { payload }) => {
-        state.message = action.payload.message;
+        state.message = payload.message;
         state.user.name = payload.user.name;
         state.user.gender = payload.user.gender;
       });
