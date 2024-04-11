@@ -89,9 +89,6 @@ export const Label = styled.label`
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  &:hover {
-  cursor:pointer;
-  }
 `;
 
 export const GeneralBlock = styled.div`
@@ -250,7 +247,7 @@ export const Button = styled.div`
   border-radius: 10px;
   padding: 8px 30px;
   background-color: #407bff;
-  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+ transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
     box-shadow: 0px 4px 14px 0px #407BFF8A;
   }
