@@ -60,6 +60,7 @@ export const ButtonPagination = styled.button`
 
     color: inherit;
     background-color: transparent;
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
         color: #7FAAFD; // todo
@@ -128,6 +129,7 @@ export const Day = styled.button`
         font-size: vat(font-size);
         line-height: var(line-height);
     }
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

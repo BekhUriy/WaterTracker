@@ -74,6 +74,7 @@ export const DailyNormaBtn = styled.button`
   border: none;
   background-color: transparent;
   color: var(--text-passowrd);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     color: var(--orange-color);
@@ -123,34 +124,3 @@ export const DailyNormaBackground = styled.div`
   }
 `;
 
-// export const DailySlider = styled.div`
-//   display: flex;
-//   height: 134px;
-//   outline: 1px solid green;
-//   margin-top: 16px;
-//   font-size: 24px;
-//   font-weight: 700;
-//   justify-content: space-around;
-//   align-items: center;
-//   animation: blink 1s infinite;
-
-//   @keyframes blink {
-//     0% {
-//       color: red;
-//     }
-//     50% {
-//       color: white;
-//     }
-//     100% {
-//       color: red;
-//     }
-//   }
-
-//   @media screen and (min-width: 768px) {
-//     width: 704px;
-//     height: 90px;
-//   }
-//   @media screen and (min-width: 1440px) {
-//     width: 592px;
-//   }
-// `;

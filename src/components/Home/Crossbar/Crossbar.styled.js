@@ -171,10 +171,10 @@ export const CrossbarButton = styled.button`
     height: 44px;
     padding: 10px 30px;
   }
-
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
     box-shadow: 0px 4px 14px 0px #407BFF8A;
-    cursor: pointer;
+
   }
 
   &:active {
