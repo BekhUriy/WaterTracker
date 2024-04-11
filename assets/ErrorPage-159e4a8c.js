@@ -1,4 +1,4 @@
-import{u as t,j as e}from"./index-747bbd2d.js";import{C as n,B as i}from"./Signup.styled-4bb43272.js";import"./react-toastify.esm-f27b92d1.js";const o=t.h1`
+import{u as t,j as e}from"./index-9c137092.js";import{C as n,B as i}from"./Signup.styled-32474c21.js";const o=t.h1`
 margin-top: 15px;
 font-size: 32px;
 font-weight: 400;
@@ -29,4 +29,4 @@ font-weight: 700;
 font-size: 46px;
 font-weight: 700;
     }
-`,h=()=>e.jsxs(n,{children:[e.jsx(o,{children:" So Sorry!  Page temporarily unavailable..."}),e.jsx(i,{}),e.jsx(a,{children:"Please, try again later"})]});export{h as default};
+`,x=()=>e.jsxs(n,{children:[e.jsx(o,{children:" So Sorry!  Page temporarily unavailable..."}),e.jsx(i,{}),e.jsx(a,{children:"Please, try again later"})]});export{x as default};
