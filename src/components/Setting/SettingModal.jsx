@@ -127,12 +127,15 @@ export const SettingModal = () => {
         updatePass.newPass &&
         updatePass.repeatNewPass
       ) {
-        dispatch(
+        const result = await dispatch(
           updatePassworsThunk({
             password: updatePass.oldPass,
             newPassword: updatePass.newPass,
           })
         );
+        if (!result.error) {
+          handlCloseModal();
+        }
         return;
       }
     }
