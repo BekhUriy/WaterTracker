@@ -94,7 +94,7 @@ export const SettingModal = () => {
     }
   };
 
-  const handlCloseModal = (e) => {
+  const handlCloseModal = () => {
     dispatch(modalClose());
   };
 

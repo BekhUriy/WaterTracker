@@ -38,6 +38,11 @@ export const CrossbarAddWaterButton = styled.button`
   border-block-style: none;
   border-right: none;
   background-color: transparent;
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover{
+      stroke: var(--orange-color);
+  }
 `;
 
 export const CrossbarChooseValueDiv = styled.div`
@@ -211,7 +216,8 @@ export const ChooseValueSaveButton = styled.button`
   width: 100%;
   height: 44px;
   box-shadow: rgba(64, 123, 255, 0.34) 0px 4px 8px;
-  transition: background-color 250ms cubic-bezier(0.165, 0.84, 0.44, 1.03) 0s;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   border: none;
 
   @media screen and (min-width: 768px) {

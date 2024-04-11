@@ -136,10 +136,9 @@ background-color: rgb(64, 123, 255);
 box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
 color:white;
+transition:  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 &:hover {
   box-shadow: 0px 4px 14px 0px #407BFF8A;
-
-  cursor: pointer;
 }
 
 &:active {
@@ -166,7 +165,7 @@ position: fixed;
     border-radius: 10px;
     z-index: 100;
     box-shadow: 0px 4px 8px 0px #407BFF33;
-    backdrop-filter: blur(20px);
+    background-color: #fff;
       @media (min-width: 768px){
       width: 592px;
       height: 208px;
@@ -212,15 +211,13 @@ opacity: 0px;
 background-color:#EF5050;
 box-shadow: 0px 4px 8px 0px #407BFF57;
 border:none;
+transition:  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 &:hover {
-
   box-shadow: 0px 4px 14px 0px #407BFF8A;
-  cursor: pointer;
 }
 
 &:active {
   background: #407bff;
-  cursor: pointer;
 }
 @media (min-width: 768px){
   width: 160px;
@@ -235,11 +232,10 @@ border-radius: 10px;
 opacity: 0px;
 background-color:#D7E3FF;
 border:none;
+transition:  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 &:hover {
   box-shadow: 0px 4px 14px 0px #407BFF8A;
-
-  cursor: pointer;
-}
+ }
 
 
 @media (min-width: 768px){

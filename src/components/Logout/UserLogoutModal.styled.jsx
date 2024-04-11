@@ -95,6 +95,7 @@ export const CancelButton = styled.button`
   border: 0;
   background-color: #d7e3ff;
 
+  
   @media (min-width: 768px) {
     flex-direction: row;
     max-width: 100px;
@@ -122,7 +123,12 @@ export const CancelLi = styled.li`
   gap: 10px;
   background-color: #d7e3ff;
   box-sizing: border-box;
+  transition:  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    box-shadow: 0px 4px 14px 0px #407BFF8A;
+   
 
+   }
   @media (min-width: 768px) {
     flex-direction: row;
     width: 160px;

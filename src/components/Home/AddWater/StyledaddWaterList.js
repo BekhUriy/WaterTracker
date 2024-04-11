@@ -95,7 +95,7 @@ export const ListItem = styled.li`
 border-bottom:1px #d7e3ff solid;
   padding-right: 4px;
   line-height: 26px;
-//   width: 254px;
+
   height:48px;
   gap: 38px;
 
@@ -104,11 +104,11 @@ border-bottom:1px #d7e3ff solid;
   @media (min-width: 768px) {
     line-height: 36px;
     gap: 390px;
-    width: 646px;
+
   }
   @media (min-width: 1158px) {
     gap: 278px;
-    // width: 534px;
+  
   }
 `;
 
@@ -163,6 +163,7 @@ export const StyledButton = styled.button`
   outline: none;
   background-color: transparent;
   justify-content: center;
+  transition: border-bottom 250ms cubic-bezier(0.4, 0, 0.2, 1);
 &:hover{
     border-bottom:1px #9EBBFF solid;
 }
@@ -184,6 +185,8 @@ export const StyledButtonBlue = styled.button`
   outline: none;
   background-color: transparent;
   justify-content: center;
+  transition: border-bottom 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 &:hover{
     border-bottom:1px #EF5050 solid;
 }
@@ -219,11 +222,12 @@ export const StyledAddWaterButton = styled.button`
   padding: 0;
   color: transparent;
   border: none;
-  cursor: pointer;
-  outline: none;
+   outline: none;
   background-color: transparent;
 stroke:#407BFF;
 color:#407BFF;
+
+transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
    color:#FF9D43;
    stroke:#FF9D43;
@@ -244,6 +248,8 @@ export const IconButtonFrameTwo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   &:hover{stroke:#FF9D43;}
   @media (min-width: 768px) {
     width: 24px;
@@ -257,6 +263,8 @@ export const StyledButtonText = styled.p`
   line-height: 20px;
   text-align: left;
   color: current-color;
+  transition: color cubic-bezier(0.4, 0, 0.2, 1);
+
   &:hover{color:#FF9D43;}
   @media (min-width: 768px) {
     font-size: 18px;

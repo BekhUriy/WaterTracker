@@ -116,6 +116,8 @@ export const TodayWaterList = () => {
   return (
     <div>
         {isModalOpen && <DarkOverlay onClick={closeModal} />}
+        {isEditModalOpen && <DarkOverlay onClick={closeEditModal} />}
+        {isDeleteModalOpen && <DarkOverlay onClick={closeDeleteModal} />}
       <StyledAddWaterListContainer>
         <StyledListHeader>Today</StyledListHeader>
         {/* <StyledAddWaterListFrame> */}

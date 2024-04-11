@@ -86,11 +86,16 @@ font-weight: 500;
   border-color: transparent;
   color:var( --background);
   background-color: var(--text-blue);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    box-shadow: 0px 4px 14px 0px #407BFF8A;
+
+   }
+  
   @media screen and (min-width:768px) {
     padding: 10px 30px 10px 30px;
   }
- 
-`;
+ `;
 
 export const AuthForm = styled(Form)`
 display: flex;

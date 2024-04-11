@@ -101,7 +101,7 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
   const formattedHours = hours < 10 ? '0' + hours : hours;
   const amOrPm = hours >= 12 ? 'PM' : 'AM';
   return (
-    <Overlay>
+    // <Overlay>
       <StyledModal>
         <StyledModalHeader>
           <DeleteModalHeaderText>
@@ -165,6 +165,6 @@ export const EditWaterModal = ({ isOpen, onClose, recordData }) => {
           </EditButtonAndValueBox>
         </StyledEditWaterBox>
       </StyledModal>
-    </Overlay>
+    // </Overlay>
   );
 };
