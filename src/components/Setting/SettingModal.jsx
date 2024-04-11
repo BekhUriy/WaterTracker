@@ -37,7 +37,7 @@ import { useUser } from '../../hooks/useUser';
 
 export const SettingModal = () => {
   const dispatch = useDispatch();
-  const user = useUser().user;
+  const { user, errPassMes } = useUser();
 
   const [updateData, setUpdateData] = useState({
     name: '',
@@ -132,13 +132,27 @@ export const SettingModal = () => {
           })
         );
 
-        toast.success("User's data updated successfully");
-        handlCloseModal();
+        toast.success("User's password updated successfully");
+        // handlCloseModal();
       }
     }
 
     toast.info('Please make changes');
   };
+
+  const notify = () => {
+    toast.error(errPassMes, {
+      position: 'bottom-right',
+      autoClose: 3000,
+      delay: 1000,
+    });
+  };
+
+  useEffect(() => {
+    if (errPassMes) {
+      notify();
+    }
+  }, [errPassMes]);
 
   useEffect(() => {
     const handleEscPress = (e) => {
