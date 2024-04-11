@@ -166,8 +166,7 @@ position: fixed;
     border-radius: 10px;
     z-index: 100;
     box-shadow: 0px 4px 8px 0px #407BFF33;
-    position: absolute;
-    background-color: #fff;
+    backdrop-filter: blur(20px);
       @media (min-width: 768px){
       width: 592px;
       height: 208px;
