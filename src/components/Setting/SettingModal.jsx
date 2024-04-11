@@ -34,10 +34,11 @@ import {
 } from '../../redux/user/thunk';
 
 import { useUser } from '../../hooks/useUser';
+import { clearMessage } from '../../redux/user/slice';
 
 export const SettingModal = () => {
   const dispatch = useDispatch();
-  const { user, errPassMes } = useUser();
+  const { user, isLoading, message, isError } = useUser();
 
   const [updateData, setUpdateData] = useState({
     name: '',
@@ -102,8 +103,9 @@ export const SettingModal = () => {
 
     if (updateData.name !== user.name || updateData.gender !== user.gender) {
       dispatch(updateNameGenderThunk(updateData));
-      handlCloseModal();
+      return;
     }
+
     if (updatePass.oldPass.length > 0) {
       if (updatePass.oldPass && !updatePass.newPass) {
         toast.error('Please enter new password');
@@ -131,28 +133,38 @@ export const SettingModal = () => {
             newPassword: updatePass.newPass,
           })
         );
-
-        toast.success("User's password updated successfully");
-        // handlCloseModal();
+        return;
       }
     }
 
     toast.info('Please make changes');
   };
 
-  const notify = () => {
-    toast.error(errPassMes, {
-      position: 'bottom-right',
-      autoClose: 3000,
-      delay: 1000,
-    });
+  const notify = (message) => {
+    if (isError) {
+      toast.error(message, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        delay: 1000,
+      });
+    } else {
+      toast.success(message, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        delay: 1000,
+      });
+    }
   };
 
   useEffect(() => {
-    if (errPassMes) {
-      notify();
+    if (!isLoading && message) {
+      notify(message);
     }
-  }, [errPassMes]);
+
+    return () => {
+      dispatch(clearMessage());
+    };
+  }, [isError, message, isLoading]);
 
   useEffect(() => {
     const handleEscPress = (e) => {
@@ -281,7 +293,9 @@ export const SettingModal = () => {
             </BlockPassword>
           </GeneralBlock>
           <Button>
-            <SaveButton type="submit">Save</SaveButton>
+            <SaveButton type="submit">
+              {isLoading ? 'Loading...' : ' Save'}
+            </SaveButton>
             <ToastContainer />
           </Button>
         </WrapperSetting>
@@ -289,18 +303,3 @@ export const SettingModal = () => {
     </>
   );
 };
-
-// import { ToastContainer, toast } from 'react-toastify';
-// import * as Yup from 'yup';
-
-// const notify = () => {
-//   toast('Default Notification!');
-// };
-
-// const formSchema = Yup.object().shape({
-//   email: Yup.string()
-//     .email('Enter a valid email')
-//     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email is not valid'),
-//   name: Yup.string().min(2, 'Name must be at least 2 characters'),
-//   password: Yup.string().min(8, 'Password must be at least 8 characters'),
-// });
