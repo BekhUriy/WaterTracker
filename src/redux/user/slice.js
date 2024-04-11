@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   message: '',
+  errPassMes: null,
   user: {
     name: '',
     email: '',
@@ -32,8 +33,9 @@ const useSlice = createSlice({
         state.user.avatarURL = payload.user.avatarURL;
         state.user.waterRate = payload.user.waterRate;
       })
-      .addCase(updatePassworsThunk.fulfilled, (state, action) => {
-        state.message = action.payload.message;
+      .addCase(updatePassworsThunk.fulfilled, (state, { payload }) => {
+        state.message = payload.message;
+        state.errPassMes = null;
       })
       .addCase(updateAvatarThunk.fulfilled, (state, { payload }) => {
         state.message = payload.message;
@@ -43,6 +45,9 @@ const useSlice = createSlice({
         state.message = payload.message;
         state.user.name = payload.user.name;
         state.user.gender = payload.user.gender;
+      })
+      .addCase(updatePassworsThunk.rejected, (state, { payload }) => {
+        state.errPassMes = payload.message;
       });
   },
 });
