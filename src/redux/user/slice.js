@@ -35,8 +35,9 @@ const useSlice = createSlice({
       .addCase(updatePassworsThunk.fulfilled, (state, action) => {
         state.message = action.payload.message;
       })
-      .addCase(updateAvatarThunk.fulfilled, (state, action) => {
-        state.message = action.payload.message;
+      .addCase(updateAvatarThunk.fulfilled, (state, { payload }) => {
+        state.message = payload.message;
+        state.user.avatarURL = payload.user.avatarURL;
       })
       .addCase(updateNameGenderThunk.fulfilled, (state, { payload }) => {
         state.message = payload.message;

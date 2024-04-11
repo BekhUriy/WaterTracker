@@ -32,8 +32,7 @@ export const updateAvatarThunk = createAsyncThunk(
   'user/updateAvatarThunk',
   async (formData, thunkAPI) => {
     try {
-      const data = await updateAvatarApi(formData);
-      return data;
+      return await updateAvatarApi(formData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

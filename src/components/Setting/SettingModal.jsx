@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CloseSvg } from './closeSvg';
 import { useDispatch } from 'react-redux';
-// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -51,7 +51,7 @@ export const SettingModal = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [errPass, setErrPass] = useState(null);
+  const [errStyle, setErrStyle] = useState(false);
 
   const getValue = (objValue) => {
     setUpdateData((prev) => ({
@@ -63,45 +63,81 @@ export const SettingModal = () => {
   const handleChangePass = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    setUpdatePass((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
-    setUpdatePass((prev) => ({ ...prev, [name]: value }));
+  const HandleRepeatPass = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setUpdatePass((prev) => {
+      return { ...prev, [name]: value };
+    });
+
+    if (updatePass.newPass !== e.target.value) {
+      setErrStyle(true);
+    } else {
+      setErrStyle(false);
+    }
   };
 
   const togglePasswordVisibility = (setState) => {
     setState((prevState) => !prevState);
   };
 
-  const handlCloseModal = (e) => {
+  const handlCloseModalBack = (e) => {
     if (e.target === e.currentTarget) {
       dispatch(modalClose());
     }
   };
 
-  const handleSubmit = (e) => {
+  const handlCloseModal = (e) => {
+    dispatch(modalClose());
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (updateData.name.length > 0) {
+    if (updateData.name !== user.name || updateData.gender !== user.gender) {
       dispatch(updateNameGenderThunk(updateData));
+      handlCloseModal();
     }
+    if (updatePass.oldPass.length > 0) {
+      if (updatePass.oldPass && !updatePass.newPass) {
+        toast.error('Please enter new password');
+        return;
+      } else if (!updatePass.oldPass && updatePass.newPass) {
+        toast.error('Please enter old password');
+        return;
+      } else if (updatePass.newPass !== updatePass.repeatNewPass) {
+        toast.error("Passwords don't match");
+        return;
+      } else if (
+        updatePass.oldPass.length < 8 ||
+        updatePass.newPass.length < 8 ||
+        updatePass.repeatNewPass.length < 8
+      ) {
+        toast.error('Passwords must be length > 8');
+      } else if (
+        updatePass.oldPass &&
+        updatePass.newPass &&
+        updatePass.repeatNewPass
+      ) {
+        dispatch(
+          updatePassworsThunk({
+            password: updatePass.oldPass,
+            newPassword: updatePass.newPass,
+          })
+        );
 
-    const oldP = updatePass.oldPass.length >= 8;
-    const newP = updatePass.newPass.length >= 8;
-    const repP = updatePass.repeatNewPass === updatePass.newPass;
-
-    if (oldP && newP) {
-      if (!repP) {
-        setErrPass({ message: 'Error password' });
+        toast.success("User's data updated successfully");
+        handlCloseModal();
       }
-
-      dispatch(
-        updatePassworsThunk({
-          password: updatePass.oldPass,
-          newPassword: updatePass.newPass,
-        })
-      );
     }
 
-    handlCloseModal(e);
+    toast.info('Please make changes');
   };
 
   useEffect(() => {
@@ -116,9 +152,10 @@ export const SettingModal = () => {
       document.removeEventListener('keydown', handleEscPress);
     };
   }, [dispatch]);
+
   return (
     <>
-      <Backdrop onClick={(e) => handlCloseModal(e)} />
+      <Backdrop onClick={(e) => handlCloseModalBack(e)} />
       <Scrollbar>
         <WrapperSetting onSubmit={handleSubmit}>
           <SettingAndIcon>
@@ -128,7 +165,7 @@ export const SettingModal = () => {
                 border: 'none',
                 background: '#ffffff',
               }}
-              onClick={(e) => handlCloseModal(e)}
+              onClick={handlCloseModal}
             >
               <CloseSvg />
             </button>
@@ -147,6 +184,7 @@ export const SettingModal = () => {
                 </PasswordLabel>
                 <div style={{ position: 'relative' }}>
                   <Input
+                    minLength={'8'}
                     type={showOldPassword ? 'text' : 'password'}
                     name="oldPass"
                     value={updatePass.oldPass}
@@ -173,6 +211,7 @@ export const SettingModal = () => {
                 <PasswordLabel htmlFor="name">New password:</PasswordLabel>
                 <div style={{ position: 'relative' }}>
                   <Input
+                    minLength={'8'}
                     type={showNewPassword ? 'text' : 'password'}
                     name="newPass"
                     value={updatePass.newPass}
@@ -201,11 +240,13 @@ export const SettingModal = () => {
                 </PasswordLabel>
                 <div style={{ position: 'relative' }}>
                   <Input
+                    errStyle={errStyle}
+                    minLength={'8'}
                     type={showRepeatPassword ? 'text' : 'password'}
                     name="repeatNewPass"
                     value={updatePass.repeatNewPass}
                     placeholder="Password"
-                    onChange={handleChangePass}
+                    onChange={HandleRepeatPass}
                     style={{ color: '#407bff' }}
                   />
                   {showRepeatPassword ? (
@@ -227,7 +268,7 @@ export const SettingModal = () => {
           </GeneralBlock>
           <Button>
             <SaveButton type="submit">Save</SaveButton>
-            {/* <ToastContainer /> */}
+            <ToastContainer />
           </Button>
         </WrapperSetting>
       </Scrollbar>
