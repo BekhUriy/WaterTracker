@@ -185,10 +185,15 @@ export const Input = styled.input`
   width: 100%;
   height: 44px;
   padding: 12px 10px;
-  border: 1px solid #d7e3ff;
+  border: ${(props) =>
+    props?.errStyle ? '1px solid #ef5050' : '1px solid #d7e3ff'};
   border-radius: 6px;
   transition: border-color 0.3s;
   box-sizing: border-box;
+
+  &:invalid {
+    border: 1px solid #ef5050;
+  }
 
   &::placeholder {
     color: #d7e3ff;
@@ -196,10 +201,11 @@ export const Input = styled.input`
     font-size: 16px;
     line-height: 20px;
   }
-  &:hover,
+
   &:focus,
   &:active {
-    border: 2px solid #407bff;
+    border: ${(props) =>
+      props?.errStyle ? '1px solid #ef5050' : '1px solid #d7e3ff'};
     outline: none;
   }
 `;

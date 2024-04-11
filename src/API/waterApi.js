@@ -1,8 +1,9 @@
 import { apiServices } from './apiServices.js';
 import { urls } from '../constants/urls.js';
+import { format } from 'date-fns';
 
 export const getWaterPortionsList = async () => {
-  const date = new Date();
+  const date = format(new Date(), 'yyyy-MM-dd');
   const { data } = await apiServices.get(urls.waters.today(date));
   return data;
 };
